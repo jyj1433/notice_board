@@ -24,3 +24,4 @@ if __name__=="__main__":
     # app.run(debug=True)
     # host 등을 직접 지정하고 싶다면
     app.run(host="0.0.0.0", port="5000", debug=True)
+    #ㄷㄷㄷㄷ
