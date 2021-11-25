@@ -1,0 +1,20 @@
+#1
+11월 20일
+
+파이참 다운로드, mysql다운 및 커넥션 성공
+
+차후 계획 : 일단은 소스랑 기타 계획들 저장할 우리들의 웹 만들기
+
+mysql root계정 root/1q2w3e4r!
+
+#2
+11월 22일
+
+flask 다운로드
+
+
+#3
+11월 25일
+
+mysql safe update mode 걸려있으면
+update나 delete 할 때 where절이 없거나 where절 조건문에 key column외의 비교문이 있을 때 막음
