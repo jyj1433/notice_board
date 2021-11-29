@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>DB 데이터 가져오기</title>
-
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
 <a href="/">DB 페이지</a>
 <H1>DB 데이터 가져오기</H1>
 
@@ -16,6 +10,4 @@
         {% endfor %}
     </tr>
 </table>
-
-</body>
-</html>
+{% endblock %}

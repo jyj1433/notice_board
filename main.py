@@ -9,16 +9,16 @@ app = Flask(__name__)
 
 @app.route('/') # 접속하는 url
 def index():
-    return render_template('index.html')
+    return render_template('index.html', title="index")
 
 @app.route('/db') # db 가져와서 보여주기
 def db():
-    sql = 'delete from board where b_num=2;'
-    dbc.delete(sql)
+    #sql = 'delete from board where b_num=2;'
+    #dbc.delete(sql)
 
     sql = 'select * from board;'
     re = dbc.select(sql)
-    return render_template('db.html', result=re)
+    return render_template('db.html', result=re, title="DB불러오기")
 
 if __name__=="__main__":
     # app.run(debug=True)
