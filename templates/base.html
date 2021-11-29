@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
+    <!-- Required meta tags -->
     <meta charset="UTF-8">
-    <title>Title</title>
+
+    <!-- Bootstrap CSS 적용-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+
+    {% if title %}
+      <title>{{ title }}</title>
+    {% else %}
+      <title>base</title>
+    {% endif %}
+
 </head>
 <body>
-
+<!-- 기본 템플릿 안에 삽입될 내용 Start -->
+{% block content %}
+{% endblock %}
+<!-- 기본 템플릿 안에 삽입될 내용 End -->
 </body>
 </html>
