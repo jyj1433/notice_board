@@ -1,10 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
-<table border="2">
-    <tr>
-        {% for r in result %}
-            <td>{{r[0]}}</td><td>{{r[1]}}</td><td>{{r[2]}}</td><td>{{r[3]}}</td>
-        {% endfor %}
-    </tr>
-</table>
+<div class="container my-3">
+    <h2 class="border-bottom py-2">{{result[0][1]}}</h2>
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;">
+                {{result[0][3]}}
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-primary">수정</button>
+    <button class="btn btn-primary">삭제</button>
+</div>
+
 {% endblock %}
+

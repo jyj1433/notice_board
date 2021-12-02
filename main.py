@@ -1,4 +1,3 @@
-import pymysql
 from flask import Flask, render_template , request
 import board.db_connection as dbc
 
@@ -25,9 +24,9 @@ def get():
     board_code = request.args.get('idx')
     sql = 'select * from board where b_num = ' + board_code + ";"
     re = dbc.select(sql)
-    return render_template('board_result.html', result=re);
+    return render_template('board_result.html', result=re, title="게시판");
 
-@app.route('/board') # db 가져와서 보여주기
+@app.route('/board') # 게시판 목록
 def board():
     #sql = 'delete from board where b_num=2;'
     #dbc.delete(sql)
@@ -36,6 +35,9 @@ def board():
     re = dbc.select(sql)
     return render_template('board.html', result=re, title="게시판")
 
+@app.route('/board_write') # 글쓰기 페이지
+def board_write():
+    return render_template('board_write.html', title="글쓰기")
 
 @app.route('/join') # 회원가입 페이지
 def join():
