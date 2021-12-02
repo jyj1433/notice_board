@@ -1,7 +1,5 @@
-# main.py
-# 2021. 12. 02 # request를 import에 추가
-
-from flask import Flask, render_template, request
+import pymysql
+from flask import Flask, render_template , request
 import board.db_connection as dbc
 
 dbc = dbc.db_conn()
@@ -21,6 +19,23 @@ def db():
     sql = 'select * from board;'
     re = dbc.select(sql)
     return render_template('db.html', result=re, title="DB불러오기")
+
+@app.route("/get", methods=['GET'])
+def get():
+    board_code = request.args.get('idx')
+    sql = 'select * from board where b_num = ' + board_code + ";"
+    re = dbc.select(sql)
+    return render_template('board_result.html', result=re);
+
+@app.route('/board') # db 가져와서 보여주기
+def board():
+    #sql = 'delete from board where b_num=2;'
+    #dbc.delete(sql)
+
+    sql = 'select * from board;'
+    re = dbc.select(sql)
+    return render_template('board.html', result=re, title="게시판")
+
 
 @app.route('/join') # 회원가입 페이지
 def join():
