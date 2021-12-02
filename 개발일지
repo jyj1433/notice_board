@@ -20,6 +20,11 @@ mysql safe update mode 걸려있으면
 update나 delete 할 때 where절이 없거나 where절 조건문에 key column외의 비교문이 있을 때 막음
 github 레파지토리 생성, 커밋/푸쉬
 
+
 #4
 11월 29일
 
+계획서 작성
+
+#5
+12월 2일
