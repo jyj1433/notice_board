@@ -37,6 +37,10 @@ def board():
     return render_template('board.html', result=re, title="게시판")
 
 
+@app.route('/join') # 회원가입 페이지
+def join():
+    return render_template('join.html', title="회원가입")
+
 if __name__=="__main__":
     # app.run(debug=True)
     # host 등을 직접 지정하고 싶다면
