@@ -12,14 +12,6 @@ app = Flask(__name__)
 def index():
     return render_template('index.html', title="index")
 
-@app.route('/db') # db 가져와서 보여주기
-def db():
-    #sql = 'delete from board where b_num=2;'
-    #dbc.delete(sql)
-
-    sql = 'select * from board;'
-    re = dbc.select(sql)
-    return render_template('db.html', result=re, title="DB불러오기")
 
 @app.route("/get", methods=['GET'])
 def get():
