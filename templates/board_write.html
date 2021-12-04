@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container my-3">
+    <form method="POST">
+        제목<br>
+        <input type="text" name="b_title"><br>
+        내용<br>
+        <textarea rows="20" cols="60" name="b_content"></textarea><br>
+        <input type="file" name="file"><br><br>
+        <button type="submit" class="btn btn-primary">글쓰기</button>
+    </form>
+</div>
+{% endblock %}
