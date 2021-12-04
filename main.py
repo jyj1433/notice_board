@@ -60,6 +60,11 @@ def board_write():
 def join():
     return render_template('login/join.html', title="회원가입")
 
+@app.route('/join',methods=['POST']) # 회원가입 페이지
+def join_post():
+    id=request.form("usr_id")
+    return render_template('login/join.html', title="회원가입")
+
 if __name__=="__main__":
     # app.run(debug=True)
     # host 등을 직접 지정하고 싶다면
