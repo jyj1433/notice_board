@@ -9,8 +9,23 @@
             </div>
         </div>
     </div>
-    <button class="btn btn-primary">수정</button>
-    <button class="btn btn-primary">삭제</button>
+
+<!--    {% for answer in question.answer_set.all %}-->
+<!--    <div class="card my-3">-->
+<!--        <div class="card-body">-->
+<!--            <div class="card-text" style="white-space: pre-line;">-->
+<!--                {{ answer.content }}-->
+<!--            </div>-->
+<!--            <div class="d-flex justify-content-end">-->
+<!--                <div class="badge badge-light p-2">-->
+<!--                    {{ answer.create_date }}-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+    <button class="btn btn-success">수정</button>
+    <button class="btn btn-danger">삭제</button>
 </div>
 
 {% endblock %}
