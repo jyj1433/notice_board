@@ -4,7 +4,7 @@ import sys
 
 class db_conn:
 
-    host = "172.30.1.43"
+    host = "172.30.1.55"
     port = 3306
     database = "dev_board"
     username = "test"
