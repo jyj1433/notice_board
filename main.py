@@ -60,19 +60,27 @@ def board_write():
 @app.route('/join',methods=['GET','POST']) # 회원가입 페이지
 def join_post():
     error = None
+    error_id = None
     if request.method == 'POST':
         id = request.form['usr_id']
         pw = request.form['usr_pw']
         pw_com = request.form['usr_pw_com']
         email = request.form['usr_email']
-        nickname= request.form['usr_nick']
-        if pw != pw_com:
+        nickname = request.form['usr_nick']
+        if pw == '':
+            error = "비밀번호를 입력하세요"
+        elif pw != pw_com:
             error = "비밀번호가 다릅니다."
+        if id == '':
+            error_id = "아이디를 입력하세요"
         else:
-            msg = "%s 확인이요" %id
-            return msg
+            sql = 'select usr_id from users;'
+            usr_id = dbc.select(sql)
+            for idx in usr_id:
+                if idx[0] == id:
+                    error_id = "아이디가 중복되었습니다."
 
-    return render_template('login/join.html', title="회원가입", error=error)
+    return render_template('login/join.html', title="회원가입", error=error, error_id=error_id)
 if __name__=="__main__":
     # app.run(debug=True)
     # host 등을 직접 지정하고 싶다면
