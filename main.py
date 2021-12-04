@@ -19,7 +19,7 @@ def get():
     board_code = request.args.get('idx')
     sql = 'select * from board where b_num = ' + board_code + ";"
     re = dbc.select(sql)
-    return render_template('board/board_result.html', result=re, title="게시판");
+    return render_template('board/board_result.html', result=re, title="게시판")
 
 @app.route('/board') # 게시판 목록
 def board():
