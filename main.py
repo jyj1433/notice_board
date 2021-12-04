@@ -1,12 +1,13 @@
 import math
 
-from flask import Flask, render_template , request
+from flask import Flask, render_template ,request, flash
 import board.db_connection as dbc
 
 dbc = dbc.db_conn()
 
 #Flask 객체 인스턴스 생성
 app = Flask(__name__)
+app.secret_key = '플레쉬'
 
 @app.route('/') # 접속하는 url
 def index():
@@ -56,10 +57,22 @@ def board():
 def board_write():
     return render_template('board/board_write.html', title="글쓰기")
 
-@app.route('/join') # 회원가입 페이지
-def join():
-    return render_template('login/join.html', title="회원가입")
+@app.route('/join',methods=['GET','POST']) # 회원가입 페이지
+def join_post():
+    error = None
+    if request.method == 'POST':
+        id = request.form['usr_id']
+        pw = request.form['usr_pw']
+        pw_com = request.form['usr_pw_com']
+        email = request.form['usr_email']
+        nickname= request.form['usr_nick']
+        if pw != pw_com:
+            error = "비밀번호가 다릅니다."
+        else:
+            msg = "%s 확인이요" %id
+            return msg
 
+    return render_template('login/join.html', title="회원가입", error=error)
 if __name__=="__main__":
     # app.run(debug=True)
     # host 등을 직접 지정하고 싶다면
