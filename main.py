@@ -56,9 +56,9 @@ def board():
 def board_write():
     return render_template('board_write.html', title="글쓰기")
 
-@app.route('/join') # 회원가입 페이지
+@app.route('/login') # 회원가입 페이지
 def join():
-    return render_template('join.html', title="회원가입")
+    return render_template('login.html', title="회원가입")
 
 if __name__=="__main__":
     # app.run(debug=True)
