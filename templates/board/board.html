@@ -21,10 +21,10 @@
     {% endfor %}
     </tbody>
 </table>
-
+    <a  class="btn btn-warning float-right" href="{{url_for('board_write')}}" >글쓰기</a>
     <!-- 페이지네이션을 위한 코드 시작 -->
-    <div align="right; width:100px; height:100px">
-        <ul class="pagination" >
+    <div class="text-center">
+        <ul class="pagination" style="justify-content: center">
         {% if block_start - 1 > 0 %}
             <li class="page-item"><a class="page-link" href="{{url_for('board', page=block_start - 1)}}">Previous</a></li>
         {% endif %}
@@ -45,7 +45,6 @@
         {% if block_end < last_page_num %}
             <li class="page-item"><a class="page-link" href="{{url_for('board', page=block_end + 1)}}">Next</a></li>
         {% endif %}
-        <a style="margin-left:auto"  class="btn btn-warning" href="{{url_for('board_write')}}" >글쓰기</a>
         </ul>
     </div>
 <!-- 페이지네이션을 위한 코드 끝 -->
