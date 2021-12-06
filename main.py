@@ -1,6 +1,7 @@
 import math
 
-from flask import Flask, render_template ,request, flash
+from flask import Flask, render_template , request, flash, redirect
+
 import board.db_connection as dbc
 
 dbc = dbc.db_conn()
@@ -53,9 +54,28 @@ def board():
         block_end=block_end,
         last_page_num=last_page_num)
 
-@app.route('/board_write') # 글쓰기 페이지
+@app.route('/board_write', methods=['GET','POST']) # 글쓰기 페이지
 def board_write():
+    error = None
+    error_content = None
+    if request.method == 'POST':
+        title = request.form['b_title']
+        content = request.form['b_content']
+        author = request.form['b_author']
+        if title == '':
+            error = "제목을 입력해주세요"
+        elif content == '':
+            error_content = "내용을 입력해주세요"
+        else:
+            sql = 'insert into board values (NULL,"' + title +'", date_format(now(),"%Y-%m-%d") ,"'+ content + '","'+ author  + '");'
+            dbc.execute(sql)
+            return redirect('/')
     return render_template('board/board_write.html', title="글쓰기")
+
+
+
+
+
 
 @app.route('/join',methods=['GET','POST']) # 회원가입 페이지
 def join_post():

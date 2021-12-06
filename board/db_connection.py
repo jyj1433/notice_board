@@ -12,7 +12,7 @@ import sys
 
 class db_conn:
 
-    host = "192.168.43.137"    # WIFI 바뀌면 ip주소 확인하고 변경할 것
+    host = "172.30.1.45"    # WIFI 바뀌면 ip주소 확인하고 변경할 것
     port = 3306
     database = "dev_board"
     username = "test"
