@@ -1,3 +1,11 @@
+{%with messages = get_flashed_messages()%}
+    {%if messages %}
+        <script type="text/javascript">
+            alert("{{messages[-1]}}");
+        </script>
+    {%endif%}
+{%endwith%}
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -5,7 +13,10 @@
     <meta charset="UTF-8">
 
     <!-- Bootstrap CSS 적용-->
-    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+
+    <!-- CSS -->
+    <!--<link rel="stylesheet" href="{{ url_for('static', filename='pagination.css') }}">-->
 
     {% if title %}
       <title>{{ title }}</title>
@@ -24,9 +35,9 @@
 <!-- 기본 템플릿 안에 삽입될 내용 End -->
 
 <!-- jQuery JS -->
-<script src="{{ url_for('static', filename='jquery-3.5.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery-3.5.1.min.js') }}"></script>
 <!-- Bootstrap JS -->
-<script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 
 </body>
 </html>

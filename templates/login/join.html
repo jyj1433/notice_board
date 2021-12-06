@@ -1,13 +1,5 @@
-{%with messages = get_flashed_messages()%}
-  {%if messages %}
-    <script type="text/javascript">
-      alert("{{messages[-1]}}");
-    </script>
-    {%endif%}
-  {%endwith%}
 {% extends 'base.html' %}
 {% block content %}
-
 
 <div class="container my-3">
     <form action="/join" method="post">
