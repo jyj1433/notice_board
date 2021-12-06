@@ -1,5 +1,5 @@
 from flask import Flask, Blueprint, render_template, request, redirect, flash
-
+import webapp.board.board_controller as cont
 import math
 import db_connection as dbc
 
@@ -9,14 +9,11 @@ dbc = dbc.db_conn()
 @bp.route("/get", methods=['GET'])
 def get():
     board_code = request.args.get('idx')
-    sql = 'select * from board where b_num = ' + board_code + ";"
-    re = dbc.select(sql)
+    re=cont.board_get(board_code)
     return render_template('board/board_result.html', result=re, title="게시판")
 
 @bp.route('/board') # 게시판 목록
 def board():
-    #sql = 'delete from board where b_num=2;'
-    #dbc.delete(sql)
     page = request.args.get('page', type=int, default=1)  # 페이지
     limit = 10
     sql = 'select * from board LIMIT ' + str((page-1)*limit) +','+ str(limit) +';'
@@ -53,12 +50,7 @@ def board_write():
         title = request.form['b_title']
         content = request.form['b_content']
         author = request.form['b_author']
-        if title == '':
-            error = "제목을 입력해주세요"
-        elif content == '':
-            error_content = "내용을 입력해주세요"
-        else:
-            sql = 'insert into board values (NULL,"' + title +'", date_format(now(),"%Y-%m-%d") ,"'+ content + '","'+ author  + '");'
-            dbc.execute(sql)
-            return redirect('/')
+        resurt=cont.board_write_post(title,content,author)
+        if resurt==True:
+            return redirect ('/')
     return render_template('board/board_write.html', title="글쓰기")
