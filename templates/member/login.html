@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container my-3">
+    <form action="/login" method="post">
+        <div class="form-group">
+            <label>아이디</label><br>
+            <input type="text" id="usr_id" name="usr_id" value="{{request.form.usr_id}}">
+            {% if error_id %}
+            &nbsp {{ error_id }}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label>비밀번호</label><br>
+            <input type="password" id="usr_pw" name="usr_pw">
+            {% if error %}
+            &nbsp {{ error }}
+            {% endif %}
+        </div>
+
+        <button type="submit" class="btn btn-primary">로그인</button>
+    </form>
+</div>
+
+{% endblock %}
