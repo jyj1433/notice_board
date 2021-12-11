@@ -1,0 +1,27 @@
+.bottomMenu{
+    background-color:#393939;
+    text-align: center;
+    height:40px;
+}
+
+.dot{
+    background-color:#393939;
+    color:white;
+    font-size:15pt;
+    cursor:pointer;
+    margin-left:10px;
+    margin-right:10px;
+}
+
+.indicator{
+    background-color:#393939;
+    color:white;
+    font-size:15pt;
+    cursor:pointer;
+    margin-left:10px;
+    margin-right:10px;
+}
+
+ul li{
+    list-style-type: none;
+}

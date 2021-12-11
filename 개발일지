@@ -57,3 +57,11 @@ controller삭제 -> view로 옮김
 view에 있던 sql코드 전부 DAO로 이동
 디렉터리 정리
  - login이름 member로 변경
+
+
+#9
+12월 11일
+
+글 수정, 삭제
+댓글
+회원정보 수정

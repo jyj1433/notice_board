@@ -1,11 +1,35 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<img src="{{ url_for('static', filename='image/flask_img.jpg') }}">
+<div class="slides-content" style="max-width:100%; position:relative;">
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <div class="display-container mySlides">
+    <img src="{{ url_for('static', filename='image/randscape5120.jpg') }}" style="width:100%">
+  </div>
 
-<div class="floating"> 광고코드붙혀넣는곳 </div>:
+  <div class="display-container mySlides">
+    <img src="{{ url_for('static', filename='image/cyberpunk.jpeg') }}" style="width:100%">
+  </div>
 
+  <div class="display-container mySlides">
+    <img src="{{ url_for('static', filename='image/cyberRamen.jpeg') }}" style="width:100%">
+  </div>
+
+  <div class="bottomMenu">
+    <ul>
+      <li>
+        <a class="indicator" onclick="plusDivs(-1)">❮</a>
+        <a class="dot" onclick="currentDiv(1)">1</a>
+        <a class="dot" onclick="currentDiv(2)">2</a>
+        <a class="dot" onclick="currentDiv(3)">3</a>
+        <a class="indicator" onclick="plusDivs(1)">❯</a>
+      </li>
+    </ul>
+  </div>
+
+</div>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 {% endblock %}
