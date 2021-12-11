@@ -13,7 +13,7 @@
     <tbody>
     {% for r in datas %}
     <tr>
-        <td onClick="location.href='{{url_for('.get', idx=r[0])}}'">{{r[0]}}</td>
+        <td onClick="location.href='{{url_for('.get', idx=r[0])}}'">{{loop.index + (page - 1) * limit}}</td>
         <td onClick="location.href='{{url_for('.get', idx=r[0])}}'">{{r[1]}}</td>
         <td onClick="location.href='{{url_for('.get', idx=r[0])}}'">{{r[4]}}</td>
         <td onClick="location.href='{{url_for('.get', idx=r[0])}}'">{{r[2]}}</td>
