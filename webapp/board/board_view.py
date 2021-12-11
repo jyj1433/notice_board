@@ -59,3 +59,35 @@ def board_write():
             return redirect('/board')
         return error
     return render_template('board/board_write.html', title="글쓰기")
+
+# 게시글 삭제하기
+@bp.route("/delete", methods=['GET'])
+def delete():
+
+    board_code = request.args.get('idx')
+    re = dao.deleteBoard(board_code)
+    flash("글이 삭제되었습니다")
+    return redirect('/board')
+
+# 게시글 삭제하기
+@bp.route("/modify", methods=['GET','POST'])
+def modify():
+    board_code = request.args.get('idx')
+    re = dao.selectBoardDetail(board_code)
+    if request.method == 'POST':
+        title = request.form['b_title']
+        content = request.form['b_content']
+        author = request.form['b_author']
+        if title == '':
+            error = "제목을 입력해주세요"
+        elif author == '' :
+            error = "작성자를 입력해주세여"
+        elif content == '':
+            error = "내용을 입력해주세요"
+        else:
+            dao.updateBoard(board_code,title, content)
+            flash("글이 수정되었습니다.")
+            return redirect('/board')
+        return error
+    return render_template('board/board_modify.html', title="글쓰기", result = re)
+

@@ -23,3 +23,14 @@ class BoardDAO:
     def insertBoard(cls, title, content, author) -> 'BoardDAO':
         sql = 'insert into board values (NULL,"' + title + '", date_format(now(),"%Y-%m-%d") ,"' + content + '","' + author + '");'
         dbc.execute(sql)
+
+    @classmethod
+    def deleteBoard(cls, board_code) -> 'BoardDAO':
+        sql = 'delete from board where b_num = ' + board_code + ";"
+        dbc.execute(sql)
+
+
+    @classmethod
+    def updateBoard (cls, board_code,title,content) -> 'BoardDAO':
+        sql = 'update board set b_title = "' + title + '", b_content = "' + content + '" where b_num = ' + board_code + ';'
+        dbc.execute(sql)

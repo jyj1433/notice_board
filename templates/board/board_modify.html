@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container my-3">
+    <form method="POST" action="/modify?idx={{result[0][0]}}">
+        제목<br>
+        <input type="text" value={{result[0][1]}} name="b_title"><br>
+        작성자<br>
+        <input type="text" value={{result[0][4]}} name="b_author" readonly><br>
+        내용<br>
+        <textarea rows="20" cols="60" name="b_content">{{result[0][3]}}</textarea><br>
+        <!-- <input type="file" name="file"><br><br> -->
+        <button type="submit" class="btn btn-primary">수정하기</button>
+    </form>
+</div>
+{% endblock %}

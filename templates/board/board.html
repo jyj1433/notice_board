@@ -19,6 +19,8 @@
         <td onClick="location.href='{{url_for('.get', idx=r[0])}}'">{{r[2]}}</td>
     </tr>
     {% endfor %}
+
+
     </tbody>
 </table>
     <a  class="btn btn-warning float-right" href="{{url_for('.board_write')}}" >글쓰기</a>
