@@ -45,7 +45,13 @@ def login_post():
             flash("아이디 또는 비밀번호가 틀렸습니다.")
             return redirect('/login')
         else:
+            session['check'] = True
             session['id'] = id
             return redirect('/')
     print("2")
     return render_template('member/login.html', title="로그인")
+
+@bp.route('/logout',methods=['GET','POST'])
+def logout():
+    session.clear()
+    return redirect('/')
