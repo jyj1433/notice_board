@@ -19,23 +19,23 @@
             <li class="nav-item ">
                 <a class="nav-link" href="/board">게시판</a>
             </li>
-            <li class="nav-item ">
-                <a class="nav-link" href="/board">게시판2</a>
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link" href="/board">게시판3</a>
-            </li>
         </ul>
     </div>
 
     <div class="navbar-collapse collapse" id="navbarNav2">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item ">
-                <a class="nav-link" href="/join">회원가입</a>
+            {% if session['check'] == True %}
+            <li class="nav-item " >
+                <a class="nav-link" href="/logout" >로그아웃</a>
             </li>
+            {% else %}
             <li class="nav-item ">
                 <a class="nav-link" href="/login">로그인</a>
             </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="/join">회원가입</a>
+            </li>
+            {% endif %}
         </ul>
     </div>
 </nav>
