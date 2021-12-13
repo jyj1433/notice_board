@@ -54,4 +54,5 @@ def login_post():
 @bp.route('/logout',methods=['GET','POST'])
 def logout():
     session.clear()
+    flash("로그아웃 되었습니다.")
     return redirect('/')
