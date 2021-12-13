@@ -9,8 +9,9 @@ dao = boardDAO.BoardDAO
 @bp.route("/get", methods=['GET'])
 def get():
     board_code = request.args.get('idx')
+    page = request.args.get('page')
     re = dao.selectBoardDetail(board_code)
-    return render_template('board/board_result.html', result=re, title="게시판")
+    return render_template('board/board_result.html', result=re, title="게시판",page=page)
 
 # 게시판 목록
 @bp.route('/board')
@@ -43,6 +44,7 @@ def board():
 @bp.route('/board_write', methods=['GET', 'POST'])
 def board_write():
     error = None
+
     if session.get('check') != True:
         flash("로그인 해주세요")
         return redirect("/board")
@@ -67,9 +69,10 @@ def delete():
 
     board_code = request.args.get('idx')
     re = dao.selectBoardDetail(board_code)
+    page = request.args.get('page')
     if session.get('id') != re[0][4]:
         flash("글 작성자 만이 삭제가능합니다.")
-        return redirect('/get?idx='+board_code)
+        return redirect('/get?idx='+board_code +'&page=' + page)
     dao.deleteBoard(board_code)
     flash("글이 삭제되었습니다")
     return redirect('/board')
@@ -79,9 +82,10 @@ def delete():
 def modify():
     board_code = request.args.get('idx')
     re = dao.selectBoardDetail(board_code)
+    page = request.args.get('page')
     if session.get('id') != re[0][4]:
         flash("글 작성자 만이 수정가능합니다.")
-        return redirect('/get?idx='+board_code)
+        return redirect('/get?idx='+board_code +'&page=' + page)
     if request.method == 'POST':
         title = request.form['b_title']
         content = request.form['b_content']
