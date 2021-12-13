@@ -37,11 +37,15 @@ def join_post():
 # 로그인 페이지
 @bp.route('/login',methods=['GET','POST'])
 def login_post():
-    error = None
-    error_id = None
     if request.method == 'POST':
         id = request.form['usr_id']
         pw = request.form['usr_pw']
-
-    # session['id'] = id
+        login_check = dao.selectLogin(id, pw)
+        if not login_check:
+            flash("아이디 또는 비밀번호가 틀렸습니다.")
+            return redirect('/login')
+        else:
+            session['id'] = id
+            return redirect('/')
+    print("2")
     return render_template('member/login.html', title="로그인")
