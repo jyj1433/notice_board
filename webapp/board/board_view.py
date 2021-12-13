@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, render_template, request, redirect, flash
+from flask import Flask, Blueprint, render_template, request, redirect, flash,session
 import math
 import webapp.board.boardDAO as boardDAO
 
@@ -43,22 +43,22 @@ def board():
 @bp.route('/board_write', methods=['GET', 'POST'])
 def board_write():
     error = None
-
+    if session.get('check') != True:
+        flash("로그인 해주세요")
+        return redirect("/board")
     if request.method == 'POST':
         title = request.form['b_title']
         content = request.form['b_content']
-        author = request.form['b_author']
+        author = session.get('id')
         if title == '':
             error = "제목을 입력해주세요"
-        elif author == '' :
-            error = "작성자를 입력해주세여"
         elif content == '':
             error = "내용을 입력해주세요"
         else:
             dao.insertBoard(title, content, author)
             flash("글이 작성되었습니다.")
             return redirect('/board')
-        return error
+        flash(error)
     return render_template('board/board_write.html', title="글쓰기")
 
 # 게시글 삭제하기
@@ -66,15 +66,22 @@ def board_write():
 def delete():
 
     board_code = request.args.get('idx')
-    re = dao.deleteBoard(board_code)
+    re = dao.selectBoardDetail(board_code)
+    if session.get('id') != re[0][4]:
+        flash("글 작성자 만이 삭제가능합니다.")
+        return redirect('/get?idx='+board_code)
+    dao.deleteBoard(board_code)
     flash("글이 삭제되었습니다")
     return redirect('/board')
 
-# 게시글 삭제하기
+# 게시글 수정하기
 @bp.route("/modify", methods=['GET','POST'])
 def modify():
     board_code = request.args.get('idx')
     re = dao.selectBoardDetail(board_code)
+    if session.get('id') != re[0][4]:
+        flash("글 작성자 만이 수정가능합니다.")
+        return redirect('/get?idx='+board_code)
     if request.method == 'POST':
         title = request.form['b_title']
         content = request.form['b_content']
