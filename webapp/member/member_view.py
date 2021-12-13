@@ -56,19 +56,27 @@ def logout():
     flash("로그아웃 되었습니다.")
     return redirect('/')
 
-#마이페이지(미완성->비밀번호 확인 유효성 검사)
+#마이페이지(미완성)
 @bp.route('/member_modify',methods=['GET','POST'])
 def member_modify():
+    error = None
     id = '%s' % escape(session['id'])
     result = dao.selectMember(id)
 
     if request.method == 'POST':
         pw = request.form['usr_pw']
+        pw_com = request.form['usr_pw_com']
         name = request.form['usr_name']
         email = request.form['usr_email']
-        dao.updateMember(id, pw, email, name)
-        flash("회원정보가 수정되었습니다.")
-        return redirect('/')
-    else:
-        return render_template('member/member_modify.html', title="마이페이지", result=result)
-    return render_template('member/member_modify.html', title="마이페이지", result=result)
+
+        if pw == '':
+            error = "비밀번호를 입력하세요"
+        elif pw != pw_com:
+            error = "비밀번호가 다릅니다."
+
+        if error == None :
+            dao.updateMember(id, pw, email, name)
+            flash("회원정보가 수정되었습니다.")
+            return redirect('/')
+
+    return render_template('member/member_modify.html', title="마이페이지", result=result, error=error)
