@@ -26,9 +26,6 @@
       </li>
     </ul>
   </div>
-
-  <h4>세션테스트id : {{session['id']}}</h4>
-
 </div>
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -37,12 +34,4 @@
 {% endblock %}
 
 {% block script %}
-<script type='text/javascript'>
-  $(document).ready(function(){
-    if("{{session['id']}}" == "")) {
-      alert("올바른 경로가 아닙니다.!!");
-      location.href = "/login";
-    }
-  });
-</script>
 {% endblock %}

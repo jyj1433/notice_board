@@ -1,27 +1,41 @@
-<!-- 네비게이션바 -->
+<!-- 네비게이션 바 -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-
-    <!-- 메인 화면으로 돌아가는 로고 버튼 -->
-    <a class="navbar-brand" href="/"><h1>P2R</h1></a>
-    <h5> - Python Research Raboratory</h5>
-
-    <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav"
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse flex-grow-0" id="navbarNav">
-        <ul class="navbar-nav">
+
+    <!-- 메인 화면으로 돌아가는 로고 버튼 -->
+    <a class="navbar-brand" href="/"><h1>P2R</h1></a>
+    <h5> - Python Research RAB</h5>
+
+    <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav2"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
             <li class="nav-item ">
                 <a class="nav-link" href="/board">게시판</a>
             </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="/board">게시판2</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="/board">게시판3</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="navbar-collapse collapse" id="navbarNav2">
+        <ul class="navbar-nav ml-auto">
             <li class="nav-item ">
                 <a class="nav-link" href="/join">회원가입</a>
             </li>
             <li class="nav-item ">
                 <a class="nav-link" href="/login">로그인</a>
             </li>
-
-            <!-- href속성 값에 /db가 아니라 그냥 db라고 써도 동작함 -->
         </ul>
     </div>
 </nav>

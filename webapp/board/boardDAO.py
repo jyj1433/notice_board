@@ -6,7 +6,7 @@ class BoardDAO:
 
     @classmethod
     def selectBoardList(cls) -> 'BoardDAO':
-        sql = "select * from board order by b_num desc"
+        sql = "select * from board"
         return dbc.select(sql)
 
     @classmethod
