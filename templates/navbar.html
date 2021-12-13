@@ -1,7 +1,7 @@
 <!-- 네비게이션 바 -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="border:0; outline:0;">
         <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -11,7 +11,7 @@
 
     <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav2"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="border:0; outline:0;">
-        <img src="{{ url_for('static', filename='image/icon_test.png') }}"></img>
+        <img src="{{ url_for('static', filename='image/icon_test.png') }}">
     </button>
 
     <div class="navbar-collapse collapse" id="navbarNav">
@@ -27,6 +27,9 @@
             {% if session['check'] == True %}
             <li class="nav-item " >
                 <a class="nav-link" href="/logout" >로그아웃</a>
+            </li>
+            <li class="nav-item " >
+                <a class="nav-link" href="/member_modify" >마이페이지</a>
             </li>
             {% else %}
             <li class="nav-item ">

@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, render_template, request, redirect, flash, session
+from flask import Flask, Blueprint, render_template, request, redirect, flash, session, escape
 import webapp.member.memberDAO as memberDAO
 
 bp = Blueprint("member", __name__, url_prefix='/')
@@ -48,7 +48,6 @@ def login_post():
             session['check'] = True
             session['id'] = id
             return redirect('/')
-    print("2")
     return render_template('member/login.html', title="로그인")
 
 @bp.route('/logout',methods=['GET','POST'])
@@ -56,3 +55,20 @@ def logout():
     session.clear()
     flash("로그아웃 되었습니다.")
     return redirect('/')
+
+#마이페이지(미완성->비밀번호 확인 유효성 검사)
+@bp.route('/member_modify',methods=['GET','POST'])
+def member_modify():
+    id = '%s' % escape(session['id'])
+    result = dao.selectMember(id)
+
+    if request.method == 'POST':
+        pw = request.form['usr_pw']
+        name = request.form['usr_name']
+        email = request.form['usr_email']
+        dao.updateMember(id, pw, email, name)
+        flash("회원정보가 수정되었습니다.")
+        return redirect('/')
+    else:
+        return render_template('member/member_modify.html', title="마이페이지", result=result)
+    return render_template('member/member_modify.html', title="마이페이지", result=result)

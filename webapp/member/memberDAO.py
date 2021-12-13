@@ -18,3 +18,13 @@ class MemberDAO:
     def selectLogin(cls, id, pw) -> 'MemberDAO':
         sql = 'select usr_id from users where usr_id = "' + id + '" and usr_pw = "' + pw + '" ;'
         return dbc.select(sql)
+
+    @classmethod
+    def selectMember(cls, id) -> 'MemberDAO':
+        sql = 'select * from users where usr_id = "' + id + '" ;'
+        return dbc.select(sql)
+
+    @classmethod
+    def updateMember(cls, id, pw, email, name) -> 'MemberDAO':
+        sql = 'update users set usr_pw = "' + pw + '", usr_email = "' + email + '", usr_name = "' + name + '" where usr_id = "' + id + '";'
+        return dbc.execute(sql)
