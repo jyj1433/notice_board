@@ -11,7 +11,7 @@ class BoardDAO:
 
     @classmethod
     def selectBoardPage(cls, page, limit) -> 'BoardDAO':
-        sql = 'select * from board LIMIT ' + str((page - 1) * limit) + ',' + str(limit) + ';'
+        sql = 'select * from board order by b_num desc LIMIT ' + str((page - 1) * limit) + ',' + str(limit) + ';'
         return dbc.select(sql)
 
     @classmethod

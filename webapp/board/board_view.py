@@ -16,7 +16,7 @@ def get():
 @bp.route('/board')
 def board():
     page = request.args.get('page', type=int, default=1)    # 페이지
-    limit = 10  #보여지는 게시글 갯수
+    limit = 5  #보여지는 게시글 갯수
     re = dao.selectBoardPage(page, limit)
 
 
@@ -36,7 +36,8 @@ def board():
         page=page,
         block_start=block_start,
         block_end=block_end,
-        last_page_num=last_page_num)
+        last_page_num=last_page_num,
+        tot_count=tot_count)
 
 # 글쓰기 페이지
 @bp.route('/board_write', methods=['GET', 'POST'])
