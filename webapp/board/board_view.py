@@ -1,5 +1,10 @@
-from flask import Flask, Blueprint, render_template, request, redirect, flash,session
+import os
+
+from flask import Flask, Blueprint, render_template, request, redirect, flash, session, jsonify, send_file
 import math
+
+from werkzeug.utils import secure_filename
+
 import webapp.board.boardDAO as boardDAO
 
 bp = Blueprint("board", __name__, url_prefix='/')
@@ -99,7 +104,20 @@ def modify():
         else:
             dao.updateBoard(board_code,title, content)
             flash("글이 수정되었습니다.")
-            return redirect('/board')
+            return redirect('/get?idx='+ board_code +'&page=' + page)
         return error
     return render_template('board/board_modify.html', title="글쓰기", result = re)
 
+
+@bp.route("/addImgSummer", methods=["POST"])
+def addImgSummer():
+    #Grabbing file:
+    img = request.files["file"]    #<------ THIS LINE RIGHT HERE! Is #literally all I needed lol.
+    down_file(img)
+    # Below is me replacing the img "src" with my S3 bucket link attached, with the said filename that was added.
+    imgURL = 'upload/' + img.filename
+
+    return jsonify(url = imgURL)
+
+def down_file(f):
+    f.save(f'upload/{secure_filename(f.url)}')

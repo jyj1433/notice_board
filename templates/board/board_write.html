@@ -1,14 +1,32 @@
 {% extends 'base.html' %}
 {% block content %}
 
+
 <div class="container my-3">
     <form method="POST" >
         제목<br>
         <input type="text" name="b_title"><br>
         내용<br>
-        <textarea rows="20" cols="60" name="b_content"></textarea><br>
+        <textarea id="summernote" name="b_content"></textarea>
         <!-- <input type="file" name="file"><br><br> -->
         <button type="submit" class="btn btn-primary">글쓰기</button>
     </form>
 </div>
+{% endblock %}
+
+{% block script %}
+<script>
+$(document).ready(function() {
+	//여기 아래 부분
+	$('#summernote').summernote({
+		  height: 300,                 // 에디터 높이
+		  minHeight: null,             // 최소 높이
+		  maxHeight: null,             // 최대 높이
+		  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+		  lang: "ko-KR",					// 한글 설정
+		  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
+
+	});
+});
+</script>
 {% endblock %}

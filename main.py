@@ -7,7 +7,7 @@
 ###################################
 import os
 
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request, send_file, jsonify
 
 #Flask 객체 인스턴스 생성
 from werkzeug.utils import secure_filename

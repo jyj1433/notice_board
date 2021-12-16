@@ -37,18 +37,20 @@ def join_post():
 # 로그인 페이지
 @bp.route('/login',methods=['GET','POST'])
 def login_post():
+    error = None
     if request.method == 'POST':
         id = request.form['usr_id']
         pw = request.form['usr_pw']
         login_check = dao.selectLogin(id, pw)
-        if not login_check:
-            flash("아이디 또는 비밀번호가 틀렸습니다.")
-            return redirect('/login')
+        if id == '' :
+            error = '아이디는 필수 입력 사항입니다.'
+        elif not login_check:
+            error = '아이디 또는 비밀번호가 틀렸습니다.'
         else:
             session['check'] = True
             session['id'] = id
             return redirect('/')
-    return render_template('member/login.html', title="로그인")
+    return render_template('member/login.html', title="로그인", error = error)
 
 @bp.route('/logout',methods=['GET','POST'])
 def logout():
