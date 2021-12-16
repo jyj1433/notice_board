@@ -80,3 +80,11 @@ def member_modify():
             return redirect('/')
 
     return render_template('member/member_modify.html', title="마이페이지", result=result, error=error)
+
+@bp.route('/member_delete',methods=['GET','POST'])
+def member_delete():
+    id = '%s' % escape(session['id'])
+    dao.deleteMember(id)
+    session.clear()
+    flash("회원탈퇴가 완료되었습니다.")
+    return render_template('index.html', title="index")
