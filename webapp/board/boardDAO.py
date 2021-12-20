@@ -40,16 +40,11 @@ class BoardDAO:
         dbc.execute(sql)
 
     @classmethod
-    def selectBoardSearchCount(cls, keyword) -> 'BoardDAO':
-        sql = "select count(*) from board where b_title || b_author like '%" + str(keyword) + "%';"
+    def selectBoardSearchCount(cls, keyword, option) -> 'BoardDAO':
+        sql = "select count(*) from board where " + option + " like '%" + keyword + "%';"
         return dbc.select(sql)
 
     @classmethod
-    def selectBoardSearch(cls, keyword) -> 'BoardDAO':
-        sql = "select * from board where b_title || b_author like '%" + str(keyword) + "%';"
-        return dbc.select(sql)
-
-    @classmethod
-    def selectBoardSearchPage(cls, page, limit, keyword) -> 'BoardDAO':
-        sql = "select * from board where b_title || b_author like '%" + str(keyword) + "%' order by b_num desc LIMIT " + str((page - 1) * limit) + ',' + str(limit) + ';'
+    def selectBoardSearchPage(cls, page, limit, keyword, option) -> 'BoardDAO':
+        sql = "select * from board where " + option + " like '%" + keyword + "%' order by b_num desc LIMIT " + str((page - 1) * limit) + ',' + str(limit) + ';'
         return dbc.select(sql)
