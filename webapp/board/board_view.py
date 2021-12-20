@@ -53,7 +53,7 @@ def board():
 
     title = "게시판 " + str(page) + "p"
 
-    return render_template('board/board.html', result=re, title=title, search=search_keyword,
+    return render_template('board/board.html', result=re, title=title, search=search_keyword, opt=search_option,
         datas=re,
         limit=limit,
         page=page,

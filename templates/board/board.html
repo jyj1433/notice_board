@@ -6,11 +6,15 @@
         <form action="/board" method="get">
 
         <select name="search_select">
-            <option value="opt_all">제목+작성자</option>
-            <option value="opt_title">제목</option>
-            <option value="opt_author">작성자</option>
+            <option value="opt_all"
+                {% if opt =='opt_all' %} selected {% endif %}>제목+작성자</option>
+            <option value="opt_title"
+                {% if opt =='opt_title' %} selected {% endif %}>제목</option>
+            <option value="opt_author"
+                {% if opt =='opt_author' %} selected {% endif %}>작성자</option>
         </select>
-        <input type="text" placeholder="Search..." id="search" name="search" value="{{request.args.get['search']}}">
+        <input type="text" value="{{opt}}">
+        <input type="text" placeholder="Search..." id="search" name="search" value="{{search}}">
         <button class="btn btn-primary" type="submit" href="{{url_for('.board', page=page, search=search)}}">검색</button>
 
         </form>
@@ -60,7 +64,7 @@
                 {% if i == page %}
                     <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
                 {% elif search != "" %}
-                    <li class="page-item"><a class="page-link" href="{{url_for('.board', page=i, search=search)}}">{{ i }}</a></li>
+                    <li class="page-item"><a class="page-link" href="{{url_for('.board', page=i, search=search, search_select=opt)}}">{{ i }}</a></li>
                 {% else %}
                     <li class="page-item"><a class="page-link" href="{{url_for('.board', page=i)}}">{{ i }}</a></li>
                 {% endif %}
