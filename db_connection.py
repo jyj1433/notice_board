@@ -13,8 +13,8 @@ import sys
 class db_conn:
 
     # host = "192.168.43.137"    # 정연이꺼 핫스팟 ㅇㅅㅇ
-    #host = "172.30.1.45"    # 카페베네꺼 와이파이
-    host = "172.30.1.10"
+    host = "172.30.1.3"    # 카페베네꺼 와이파이
+
     port = 3306
     database = "dev_board"
     username = "test"
