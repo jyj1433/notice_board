@@ -31,25 +31,25 @@ def index():
 def filetest():
     if request.method == 'POST':
         f = request.files['file']
-        f.save(f'upload/{secure_filename(f.filename)}')
+        print(secure_filename(f.filename))
+        f.save('upload/'+ secure_filename(f.filename))
 
         return render_template('index.html', title="index")
-
     return render_template('fileTest.html', title="파일테스트")
 
 @app.route('/fileDown', methods = ['GET', 'POST'])
 def down_file():
-	if request.method == 'POST':
-		sw=0
-		files = os.listdir("./upload")
-		for x in files:
-			if(x==request.form['file']):
-				sw=1
+    if request.method == 'POST':
+        sw=0
+        files = os.listdir("./upload")
+        for x in files:
+            if(x==request.form['file']):
+                sw=1
 
-		path = "./upload/"
-		return send_file(path + request.form['file'],
-				attachment_filename = request.form['file'],
-				as_attachment=True)
+        path = "./upload/"
+        return send_file(path + request.form['file'],
+                attachment_filename = request.form['file'],
+                as_attachment=True)
 
 
 

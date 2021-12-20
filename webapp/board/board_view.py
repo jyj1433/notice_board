@@ -2,6 +2,7 @@ import os
 
 from flask import Flask, Blueprint, render_template, request, redirect, flash, session, jsonify, send_file
 import math
+import config
 
 from werkzeug.utils import secure_filename
 
@@ -141,11 +142,14 @@ def board_search():
 def addImgSummer():
     #Grabbing file:
     img = request.files["file"]    #<------ THIS LINE RIGHT HERE! Is #literally all I needed lol.
+
     down_file(img)
     # Below is me replacing the img "src" with my S3 bucket link attached, with the said filename that was added.
-    imgURL = 'upload/' + img.filename
+    imgURL = 'http://'+config.host+':5000/static/image/upload/' + img.filename
+    print(imgURL)
 
     return jsonify(url = imgURL)
 
 def down_file(f):
-    f.save(f'upload/{secure_filename(f.url)}')
+    print(f.filename)
+    f.save(f'static/image/upload/{secure_filename(f.filename)}')
