@@ -27,4 +27,9 @@ class MemberDAO:
     @classmethod
     def updateMember(cls, id, pw, email, name) -> 'MemberDAO':
         sql = 'update users set usr_pw = "' + pw + '", usr_email = "' + email + '", usr_name = "' + name + '" where usr_id = "' + id + '";'
-        return dbc.execute(sql)
+        dbc.execute(sql)
+
+    @classmethod
+    def deleteMember(cls, id) -> 'MemberDAO':
+        sql = 'delete from users where usr_id= "' + id + '";'
+        dbc.execute(sql)

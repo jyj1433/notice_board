@@ -1,5 +1,10 @@
-from flask import Flask, Blueprint, render_template, request, redirect, flash,session
+import os
+
+from flask import Flask, Blueprint, render_template, request, redirect, flash, session, jsonify, send_file
 import math
+
+from werkzeug.utils import secure_filename
+
 import webapp.board.boardDAO as boardDAO
 
 bp = Blueprint("board", __name__, url_prefix='/')
@@ -100,7 +105,7 @@ def modify():
         else:
             dao.updateBoard(board_code,title, content)
             flash("글이 수정되었습니다.")
-            return redirect('/board')
+            return redirect('/get?idx='+ board_code +'&page=' + page)
         return error
     return render_template('board/board_modify.html', title="글쓰기", result=re)
 
@@ -117,17 +122,30 @@ def board_search():
     tot_count = full[0][0]
 
     last_page_num = math.ceil(tot_count / limit)    # 반드시 올림을 해줘야함
-
     block_size = 5  # 페이지 블럭을 5개씩 표기
-    block_num = int((page - 1) / block_size)    # 현재 블럭의 위치 (첫 번째 블럭이라면, block_num = 0)
-    block_start = (block_size * block_num) + 1  # 현재 블럭의 맨 처음 페이지 넘버 (첫 번째 블럭이라면, block_start = 1, 두 번째 블럭이라면, block_start = 6)
+    block_num = int((page - 1) / block_size)  # 현재 블럭의 위치 (첫 번째 블럭이라면, block_num = 0)
+    block_start = (
+                              block_size * block_num) + 1  # 현재 블럭의 맨 처음 페이지 넘버 (첫 번째 블럭이라면, block_start = 1, 두 번째 블럭이라면, block_start = 6)
     block_end = block_start + (block_size - 1)  # 현재 블럭의 맨 끝 페이지 넘버 (첫 번째 블럭이라면, block_end = 5)
 
     return render_template('board/board.html', result=re, title="게시판", search=search,
-        datas=re,
-        limit=limit,
-        page=page,
-        block_start=block_start,
-        block_end=block_end,
-        last_page_num=last_page_num,
-        tot_count=tot_count)
+                           datas=re,
+                           limit=limit,
+                           page=page,
+                           block_start=block_start,
+                           block_end=block_end,
+                           last_page_num=last_page_num,
+                           tot_count=tot_count)
+
+@bp.route("/addImgSummer", methods=["POST"])
+def addImgSummer():
+    #Grabbing file:
+    img = request.files["file"]    #<------ THIS LINE RIGHT HERE! Is #literally all I needed lol.
+    down_file(img)
+    # Below is me replacing the img "src" with my S3 bucket link attached, with the said filename that was added.
+    imgURL = 'upload/' + img.filename
+
+    return jsonify(url = imgURL)
+
+def down_file(f):
+    f.save(f'upload/{secure_filename(f.url)}')

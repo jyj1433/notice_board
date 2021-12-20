@@ -9,7 +9,7 @@
     <div class="card my-3">
         <div class="card-body">
             <div class="card-text" style="white-space: pre-line;">
-                {{result[0][3]}}
+                {% autoescape false %} {{result[0][3]}} {% endautoescape %}
             </div>
         </div>
     </div>

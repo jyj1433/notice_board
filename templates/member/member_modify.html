@@ -10,13 +10,13 @@
         <div class="form-group">
             <label>새로운 비밀번호</label><br>
             <input type="password" id="usr_pw" name="usr_pw">
+            {% if error %}
+            &nbsp {{ error }}
+            {% endif %}
         </div>
         <div class="form-group">
             <label>비밀번호 확인</label><br>
             <input type="password" id="usr_pw_com" name="usr_pw_com">
-            {% if error %}
-            &nbsp {{ error }}
-            {% endif %}
         </div>
         <div class="form-group">
             <label>닉네임</label><br>
@@ -27,8 +27,21 @@
             <input type="text" id="usr_email" name="usr_email" value="{{result[0][2]}}">
         </div>
         <button type="submit" class="btn btn-primary">수정</button>
+        <button class="btn btn-danger" onclick="member_delete(this.form)">탈퇴</button>
     </form>
 </div>
 
+{% endblock %}
+
+{% block script %}
+<script type='text/javascript'>
+function member_delete(frm) {
+    if(confirm("정말로 탈퇴하시겠습니까?")) {
+        frm.action='/member_delete';
+        frm.submit();
+        return true;
+    }
+}
+</script>
 {% endblock %}
 

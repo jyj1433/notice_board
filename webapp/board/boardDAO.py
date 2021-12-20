@@ -26,7 +26,7 @@ class BoardDAO:
 
     @classmethod
     def insertBoard(cls, title, content, author) -> 'BoardDAO':
-        sql = 'insert into board values (NULL,"' + title + '", date_format(now(),"%Y-%m-%d") ,"' + content + '","' + author + '");'
+        sql = "insert into board values (NULL,'" + title + "', date_format(now(),'%Y-%m-%d') ,'" + content + "','" + author + "');"
         dbc.execute(sql)
 
     @classmethod
