@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, Blueprint, render_template, request, redirect, flash, session, jsonify, send_file
+from flask import Flask, Blueprint, render_template, request, redirect, flash, session, jsonify, send_file, url_for
 import math
 import config
 
@@ -80,7 +80,7 @@ def board_write():
             flash("글이 작성되었습니다.")
             return redirect('/board')
         flash(error)
-    return render_template('board/board_write.html', title="글쓰기")
+    return render_template('board/board_write.html', title="글쓰기" , config = config.host)
 
 # 게시글 삭제하기
 @bp.route("/delete", methods=['GET'])
@@ -127,14 +127,9 @@ def modify():
 def addImgSummer():
     #Grabbing file:
     img = request.files["file"]    #<------ THIS LINE RIGHT HERE! Is #literally all I needed lol.
-
-    down_file(img)
     # Below is me replacing the img "src" with my S3 bucket link attached, with the said filename that was added.
     imgURL = 'http://'+config.host+':5000/static/image/upload/' + img.filename
     print(imgURL)
 
     return jsonify(url = imgURL)
 
-def down_file(f):
-    print(f.filename)
-    f.save(f'static/image/upload/{secure_filename(f.filename)}')
