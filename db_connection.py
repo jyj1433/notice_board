@@ -1,7 +1,11 @@
 # db_connection.py
 #
 # 작성일 : 2021. 11. 25
-# 최종 수정 : 2021. 12. 04
+#
+# 12. 04 - dml을 excute함수 하나로 통합
+# 12. 20 - config.py 추가, host변수 config에서 받아오게 변경
+#
+# 최종 수정 : 2021. 12. 20
 #
 # mysql DB연결과 DML을 다루기 위한 클래스 정의
 #
@@ -10,11 +14,12 @@ import pymysql
 import logging
 import sys
 import config
+
 class db_conn:
 
     # host = "192.168.43.137"    # 정연이꺼 핫스팟 ㅇㅅㅇ
-    #host = "172.30.1.45"    # 카페베네꺼 와이파이
     host = config.host
+
     port = 3306
     database = "dev_board"
     username = "test"

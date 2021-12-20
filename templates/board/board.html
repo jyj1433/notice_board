@@ -27,15 +27,20 @@
     </tr>
     </thead>
     <tbody>
-    {% for r in datas %}
-    <tr>
-        <td onClick="location.href='{{url_for('.get', idx=r[0], page=page)}}'">{{1+tot_count - (loop.index + (page-1) * limit)}}</td>
-        <td onClick="location.href='{{url_for('.get', idx=r[0], page=page)}}'">{{r[1]}}</td>
-        <td onClick="location.href='{{url_for('.get', idx=r[0], page=page)}}'">{{r[4]}}</td>
-        <td onClick="location.href='{{url_for('.get', idx=r[0], page=page)}}'">{{r[2]}}</td>
-    </tr>
-    {% endfor %}
-
+    {% if tot_count == 0 %}
+        <tr>
+            <td colspan="4" height="300" style="text-align:center; vertical-align:middle;"><h1>게시글이 없습니다.</h1></td>
+        </tr>
+    {% else %}
+        {% for r in datas %}
+        <tr>
+            <td onClick="location.href='{{url_for('.get', idx=r[0], page=page)}}'">{{1+tot_count - (loop.index + (page-1) * limit)}}</td>
+            <td onClick="location.href='{{url_for('.get', idx=r[0], page=page)}}'">{{r[1]}}</td>
+            <td onClick="location.href='{{url_for('.get', idx=r[0], page=page)}}'">{{r[4]}}</td>
+            <td onClick="location.href='{{url_for('.get', idx=r[0], page=page)}}'">{{r[2]}}</td>
+        </tr>
+        {% endfor %}
+    {% endif %}
 
     </tbody>
 </table>

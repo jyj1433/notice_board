@@ -23,21 +23,24 @@ def get():
 @bp.route('/board')
 def board():
 
-    search = request.args.get('search', type=str, default="") # 검색어
-
+    search_keyword = request.args.get('search', type=str, default="") # 검색어
+    search_option = request.args.get('search_select', type=str, default="opt_all")    # 검색옵션
     page = request.args.get('page', type=int, default=1)    # 페이지
     limit = 5  #보여지는 게시글 갯수
 
-    print(search)
-
-    if search == "":
+    if search_keyword == "":
         re = dao.selectBoardPage(page, limit)
         full = dao.selectBoardCount()  # 게시물의 총 개수 세기, 마지막 페이지의 수 구하기
     else:
-        re = dao.selectBoardSearchPage(page, limit, search)
-        full = dao.selectBoardSearchCount(search)  # 게시물의 총 개수 세기, 마지막 페이지의 수 구하기
-        print(search + " 2 ")
+        if search_option == "opt_title":
+            option = "b_title"
+        elif search_option == "opt_author":
+            option = "b_author"
+        else:
+            option = "concat(b_title, b_author)"
 
+        re = dao.selectBoardSearchPage(page, limit, search_keyword, option)
+        full = dao.selectBoardSearchCount(search_keyword, option)  # 게시물의 총 개수 세기, 마지막 페이지의 수 구하기
 
     tot_count = full[0][0]
 
@@ -48,9 +51,9 @@ def board():
     block_start = (block_size * block_num) + 1  # 현재 블럭의 맨 처음 페이지 넘버 (첫 번째 블럭이라면, block_start = 1, 두 번째 블럭이라면, block_start = 6)
     block_end = block_start + (block_size - 1)  # 현재 블럭의 맨 끝 페이지 넘버 (첫 번째 블럭이라면, block_end = 5)
 
-    title = "게시판 " + str(page) + " " + search
+    title = "게시판 " + str(page) + "p"
 
-    return render_template('board/board.html', result=re, title=title, search=search,
+    return render_template('board/board.html', result=re, title=title, search=search_keyword,
         datas=re,
         limit=limit,
         page=page,
