@@ -22,7 +22,7 @@ $(document).ready(function() {
             focus: true,
             callbacks: {
                 onImageUpload(files) {
-                  sendFile('http://{{config}}:5000/addImgSummer',files[0],sendFile('/addImgSummer',files[0], data => {
+                  sendFile('http://{{config}}:5000/imageDown',files[0],sendFile('/addImgSummer',files[0], data => {
                     let imgNode = document.createElement("img");
                     imgNode.setAttribute('src', data.url)
                     $(this).summernote('insertNode', imgNode);

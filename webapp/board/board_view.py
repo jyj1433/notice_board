@@ -105,9 +105,10 @@ def modify():
     board_code = request.args.get('idx')
     re = dao.selectBoardDetail(board_code)
     page = request.args.get('page')
+
     if session.get('id') != re[0][4]:
         flash("글 작성자 만이 수정가능합니다.")
-        return redirect('/get?idx='+board_code +'&page=' + page)
+        return redirect('/get?idx='+board_code+'&page=' + page)
     if request.method == 'POST':
         title = request.form['b_title']
         content = request.form['b_content']
@@ -121,9 +122,9 @@ def modify():
         else:
             dao.updateBoard(board_code,title, content)
             flash("글이 수정되었습니다.")
-            return redirect('/get?idx='+ board_code +'&page=' + page)
+            return redirect('/get?idx='+board_code+'&page='+page)
         return error
-    return render_template('board/board_modify.html', title="글쓰기", result=re)
+    return render_template('board/board_modify.html', title="글쓰기", result=re,page=page)
 
 
 @bp.route("/addImgSummer", methods=["POST"])
@@ -134,5 +135,12 @@ def addImgSummer():
     imgURL = 'http://'+config.host+':5000/static/image/upload/' + img.filename
     print(imgURL)
 
+    return jsonify(url = imgURL)
+
+@bp.route("/imageDown", metodes=["POST"])
+def imageDown():
+    img = request.files["file"]
+    img.save('static/image/upload/'+img.filename)
+    imgURL = 'http://' + config.host + ':5000/static/image/upload/' + img.filename
     return jsonify(url = imgURL)
 
