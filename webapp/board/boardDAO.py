@@ -36,7 +36,7 @@ class BoardDAO:
 
     @classmethod
     def updateBoard (cls, board_code, title, content) -> 'BoardDAO':
-        sql = 'update board set b_title = "' + title + '", b_content = "' + content + '" where b_num = ' + board_code + ';'
+        sql = "update board set b_title = '" + title + "', b_content = '" + content + "' where b_num = " + board_code + ";"
         dbc.execute(sql)
 
     @classmethod

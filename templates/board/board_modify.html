@@ -2,15 +2,52 @@
 {% block content %}
 
 <div class="container my-3">
-    <form method="POST" action="/modify?idx={{result[0][0]}}">
+    <form method="POST" action="/modify?idx={{result[0][0]}}&page={{page}}">
         제목<br>
         <input type="text" value={{result[0][1]}} name="b_title"><br>
         작성자<br>
         <input type="text" value={{result[0][4]}} name="b_author" readonly><br>
         내용<br>
-        <textarea rows="20" cols="60" name="b_content">{{result[0][3]}}</textarea><br>
+        <textarea id="summernote" name="b_content">{{result[0][3]}}</textarea><br>
         <!-- <input type="file" name="file"><br><br> -->
         <button type="submit" class="btn btn-primary">수정하기</button>
     </form>
 </div>
+{% endblock %}
+
+
+{% block script %}
+<script>
+$(document).ready(function() {
+        $('#summernote').summernote({
+            height: 300,
+            focus: true,
+            callbacks: {
+                onImageUpload(files) {
+                  sendFile('http://{{config}}:5000/imageDown',files[0],sendFile('/addImgSummer',files[0], data => {
+                    let imgNode = document.createElement("img");
+                    imgNode.setAttribute('src', data.url)
+                    $(this).summernote('insertNode', imgNode);
+                  }))
+                }
+              }
+            });
+        });
+                   var sendFile = function(url,file, callback) {
+                    var data;
+                    data = new FormData();
+                    data.append("file", file);
+                    return $.ajax({
+                      url: url,
+                      data: data,
+                      cache: false,
+                      contentType: false,
+                      processData: false,
+                      type: 'POST',
+                      success: function(data) {
+                        return callback(data);
+                      }
+                    });
+                  };
+</script>
 {% endblock %}
