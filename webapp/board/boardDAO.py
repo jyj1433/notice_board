@@ -10,6 +10,11 @@ class BoardDAO:
         return dbc.select(sql)
 
     @classmethod
+    def selectBoardCount(cls) -> 'BoardDAO':
+        sql = "select count(*) from board"
+        return dbc.select(sql)
+
+    @classmethod
     def selectBoardPage(cls, page, limit) -> 'BoardDAO':
         sql = 'select * from board order by b_num desc LIMIT ' + str((page - 1) * limit) + ',' + str(limit) + ';'
         return dbc.select(sql)
@@ -29,8 +34,22 @@ class BoardDAO:
         sql = 'delete from board where b_num = ' + board_code + ";"
         dbc.execute(sql)
 
-
     @classmethod
-    def updateBoard (cls, board_code,title,content) -> 'BoardDAO':
+    def updateBoard (cls, board_code, title, content) -> 'BoardDAO':
         sql = 'update board set b_title = "' + title + '", b_content = "' + content + '" where b_num = ' + board_code + ';'
         dbc.execute(sql)
+
+    @classmethod
+    def selectBoardSearchCount(cls, keyword) -> 'BoardDAO':
+        sql = "select count(*) from board where b_title || b_author like '%" + str(keyword) + "%';"
+        return dbc.select(sql)
+
+    @classmethod
+    def selectBoardSearch(cls, keyword) -> 'BoardDAO':
+        sql = "select * from board where b_title || b_author like '%" + str(keyword) + "%';"
+        return dbc.select(sql)
+
+    @classmethod
+    def selectBoardSearchPage(cls, page, limit, keyword) -> 'BoardDAO':
+        sql = "select * from board where b_title || b_author like '%" + str(keyword) + "%' order by b_num desc LIMIT " + str((page - 1) * limit) + ',' + str(limit) + ';'
+        return dbc.select(sql)
