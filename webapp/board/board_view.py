@@ -10,6 +10,7 @@ import webapp.board.boardDAO as boardDAO
 
 bp = Blueprint("board", __name__, url_prefix='/')
 dao = boardDAO.BoardDAO
+config= config.host
 
 # 게시글 상세보기
 @bp.route("/get", methods=['GET'])
@@ -17,7 +18,7 @@ def get():
     board_code = request.args.get('idx')
     page = request.args.get('page')
     re = dao.selectBoardDetail(board_code)
-    return render_template('board/board_result.html', result=re, title="게시판",page=page)
+    return render_template('board/board_result.html', result=re, title="게시판",page=page,config=config)
 
 # 게시판 목록
 @bp.route('/board')
@@ -70,21 +71,34 @@ def board_write():
     if session.get('check') != True:
         flash("로그인 해주세요")
         return redirect("/board")
+        flash(error)
+    return render_template('board/board_write.html', title="글쓰기" , config = config)
+
+# 글쓰기 완료
+@bp.route('/board_write_result', methods=['POST'])
+def write_result():
     if request.method == 'POST':
         title = request.form['b_title']
         content = request.form['b_content']
         author = session.get('id')
+        print(request.url)
         if title == '':
             error = "제목을 입력해주세요"
         elif content == '':
             error = "내용을 입력해주세요"
+        elif request.files['b_file'] != None:
+            file = request.files['b_file']
+            file.save('upload/' + file.filename)
+            file_name = 'upload/' + file.filename
+            dao.insertBoardfile(title, content, author, file_name)
+            flash("글이 작성되었습니다.")
+            return redirect('/board')
         else:
             dao.insertBoard(title, content, author)
             flash("글이 작성되었습니다.")
             return redirect('/board')
-        flash(error)
-    return render_template('board/board_write.html', title="글쓰기" , config = config.host)
-
+    flash(error)
+    return redirect(request.url.replace('_result',''))
 # 게시글 삭제하기
 @bp.route("/delete", methods=['GET'])
 def delete():
@@ -137,7 +151,7 @@ def addImgSummer():
 
     return jsonify(url = imgURL)
 
-@bp.route("/imageDown", metodes=["POST"])
+@bp.route("/imageDown", methods=["POST"])
 def imageDown():
     img = request.files["file"]
     img.save('static/image/upload/'+img.filename)

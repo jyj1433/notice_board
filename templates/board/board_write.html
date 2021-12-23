@@ -3,12 +3,19 @@
 
 
 <div class="container my-3">
-    <form method="POST" >
+    <form method="POST"
+    enctype = "multipart/form-data"
+    action = "http://{{config}}:5000/board_write_result">
         제목<br>
-        <input type="text" name="b_title"><br>
+        <input type="text" name="b_title"><br><br>
         내용<br>
         <textarea id="summernote" name="b_content"></textarea>
         <!-- <input type="file" name="file"><br><br> -->
+        <div class="filebox">
+            <input typr="text" class="upload-name" value="파일선택" readonly="readonly">
+            <label for="ex_filename">업로드</label>
+            <input type="file" name="b_file" id="ex_filename" class="upload">
+        </div>
         <button type="submit" class="btn btn-primary">글쓰기</button>
     </form>
 </div>
@@ -47,5 +54,18 @@ $(document).ready(function() {
                       }
                     });
                   };
+
+
 </script>
+
+<script>
+    $(document).ready(function(){
+    var fileTarget = $('.filebox .upload');
+    fileTarget.on('change', function(){ // 값이 변경되면
+    var filename = $(this)[0].files[0].name;
+      $(this).siblings('.upload-name').val(filename);
+       });
+     });
+</script>
+
 {% endblock %}

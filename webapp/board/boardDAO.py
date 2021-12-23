@@ -30,6 +30,14 @@ class BoardDAO:
         dbc.execute(sql)
 
     @classmethod
+    def insertBoardfile(cls, title, content, author, file_name) -> 'BoardDAO':
+        sql = "insert into board values (NULL,'" + title + "', date_format(now(),'%Y-%m-%d') ,'" + content + "','" + author + "','" + file_name + "');"
+        dbc.execute(sql)
+
+
+
+
+    @classmethod
     def deleteBoard(cls, board_code) -> 'BoardDAO':
         sql = 'delete from board where b_num = ' + board_code + ";"
         dbc.execute(sql)

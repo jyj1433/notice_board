@@ -33,7 +33,6 @@ def filetest():
         f = request.files['file']
         print(secure_filename(f.filename))
         f.save('upload/'+ secure_filename(f.filename))
-
         return render_template('index.html', title="index")
     return render_template('fileTest.html', title="파일테스트")
 
