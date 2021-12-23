@@ -18,14 +18,19 @@ app.secret_key = 'secretkey'
 # 블루프린트 코드
 from webapp.board import board_view
 from webapp.member import member_view
+from webapp.board_dev import board_dev_view
+from webapp.board_free import board_free_view
+from webapp.main import main_view
 
 app.register_blueprint(board_view.bp)
 app.register_blueprint(member_view.bp)
+app.register_blueprint(board_dev_view.bp)
+app.register_blueprint(board_free_view.bp)
+app.register_blueprint(main_view.bp)
 
 @app.route('/') # 초기화면 render
 def index():
     return render_template('index.html', title="index")
-
 
 @app.route('/filetest',methods=['GET','POST']) # 파일업로드 테스트 페이지
 def filetest():

@@ -6,23 +6,23 @@ import config
 
 from werkzeug.utils import secure_filename
 
-import webapp.board.boardDAO as boardDAO
+import webapp.board_free.board_freeDAO as board_freeDAO
 
-bp = Blueprint("board", __name__, url_prefix='/')
-dao = boardDAO.BoardDAO
-config= config.host
+bp = Blueprint("board_free", __name__, url_prefix='/')
+dao = board_freeDAO.Board_freeDAO
+
 
 # 게시글 상세보기
-@bp.route("/get", methods=['GET'])
-def get():
+@bp.route("/board_free_get", methods=['GET'])
+def board_free_get():
     board_code = request.args.get('idx')
     page = request.args.get('page')
     re = dao.selectBoardDetail(board_code)
-    return render_template('board/board_result.html', result=re, title="게시판",page=page,config=config)
+    return render_template('board_free/board_free_result.html', result=re, title="게시판",page=page)
 
 # 게시판 목록
-@bp.route('/board')
-def board():
+@bp.route('/board_free')
+def board_free():
 
     search_keyword = request.args.get('search', type=str, default="") # 검색어
     search_option = request.args.get('search_select', type=str, default="opt_all")    # 검색옵션
@@ -34,11 +34,11 @@ def board():
         full = dao.selectBoardCount()  # 게시물의 총 개수 세기, 마지막 페이지의 수 구하기
     else:
         if search_option == "opt_title":
-            option = "b_title"
+            option = "bf_title"
         elif search_option == "opt_author":
-            option = "b_author"
+            option = "bf_author"
         else:
-            option = "concat(b_title, b_author)"
+            option = "concat(bf_title, bf_author)"
 
         re = dao.selectBoardSearchPage(page, limit, search_keyword, option)
         full = dao.selectBoardSearchCount(search_keyword, option)  # 게시물의 총 개수 세기, 마지막 페이지의 수 구하기
@@ -54,7 +54,7 @@ def board():
 
     title = "게시판 " + str(page) + "p"
 
-    return render_template('board/board.html', result=re, title=title, search=search_keyword, opt=search_option,
+    return render_template('board_free/board_free.html', result=re, title=title, search=search_keyword, opt=search_option,
         datas=re,
         limit=limit,
         page=page,
@@ -64,44 +64,30 @@ def board():
         tot_count=tot_count)
 
 # 글쓰기 페이지
-@bp.route('/board_write', methods=['GET', 'POST'])
-def board_write():
+@bp.route('/board_free_write', methods=['GET', 'POST'])
+def board_free_write():
     error = None
-
     if session.get('check') != True:
         flash("로그인 해주세요")
-        return redirect("/board")
-        flash(error)
-    return render_template('board/board_write.html', title="글쓰기" , config = config)
-
-# 글쓰기 완료
-@bp.route('/board_write_result', methods=['POST'])
-def write_result():
+        return redirect("/board_free")
     if request.method == 'POST':
-        title = request.form['b_title']
-        content = request.form['b_content']
+        title = request.form['bf_title']
+        content = request.form['bf_content']
         author = session.get('id')
-        print(request.url)
         if title == '':
             error = "제목을 입력해주세요"
         elif content == '':
             error = "내용을 입력해주세요"
-        elif request.files['b_file'] != None:
-            file = request.files['b_file']
-            file.save('upload/' + file.filename)
-            file_name = 'upload/' + file.filename
-            dao.insertBoardfile(title, content, author, file_name)
-            flash("글이 작성되었습니다.")
-            return redirect('/board')
         else:
             dao.insertBoard(title, content, author)
             flash("글이 작성되었습니다.")
-            return redirect('/board')
-    flash(error)
-    return redirect(request.url.replace('_result',''))
+            return redirect('/board_free')
+        flash(error)
+    return render_template('board_free/board_free_write.html', title="글쓰기" , config = config.host)
+
 # 게시글 삭제하기
-@bp.route("/delete", methods=['GET'])
-def delete():
+@bp.route("/board_free_delete", methods=['GET'])
+def board_free_delete():
 
     board_code = request.args.get('idx')
     re = dao.selectBoardDetail(board_code)
@@ -111,11 +97,11 @@ def delete():
         return redirect('/get?idx='+board_code +'&page=' + page)
     dao.deleteBoard(board_code)
     flash("글이 삭제되었습니다")
-    return redirect('/board')
+    return redirect('/board_free')
 
 # 게시글 수정하기
-@bp.route("/modify", methods=['GET','POST'])
-def modify():
+@bp.route("/board_free_modify", methods=['GET','POST'])
+def board_free_modify():
     board_code = request.args.get('idx')
     re = dao.selectBoardDetail(board_code)
     page = request.args.get('page')
@@ -124,9 +110,9 @@ def modify():
         flash("글 작성자 만이 수정가능합니다.")
         return redirect('/get?idx='+board_code+'&page=' + page)
     if request.method == 'POST':
-        title = request.form['b_title']
-        content = request.form['b_content']
-        author = request.form['b_author']
+        title = request.form['bf_title']
+        content = request.form['bf_content']
+        author = request.form['bf_author']
         if title == '':
             error = "제목을 입력해주세요"
         elif author == '' :
@@ -136,25 +122,6 @@ def modify():
         else:
             dao.updateBoard(board_code,title, content)
             flash("글이 수정되었습니다.")
-            return redirect('/get?idx='+board_code+'&page='+page)
+            return redirect('/board_free_get?idx='+board_code+'&page='+page)
         return error
-    return render_template('board/board_modify.html', title="글쓰기", result=re,page=page)
-
-
-@bp.route("/addImgSummer", methods=["POST"])
-def addImgSummer():
-    #Grabbing file:
-    img = request.files["file"]    #<------ THIS LINE RIGHT HERE! Is #literally all I needed lol.
-    # Below is me replacing the img "src" with my S3 bucket link attached, with the said filename that was added.
-    imgURL = 'http://'+config.host+':5000/static/image/upload/' + img.filename
-    print(imgURL)
-
-    return jsonify(url = imgURL)
-
-@bp.route("/imageDown", methods=["POST"])
-def imageDown():
-    img = request.files["file"]
-    img.save('static/image/upload/'+img.filename)
-    imgURL = 'http://' + config.host + ':5000/static/image/upload/' + img.filename
-    return jsonify(url = imgURL)
-
+    return render_template('board_free/board_free_modify.html', title="글쓰기", result=re,page=page)
