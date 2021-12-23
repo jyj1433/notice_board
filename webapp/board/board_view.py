@@ -81,12 +81,11 @@ def write_result():
         title = request.form['b_title']
         content = request.form['b_content']
         author = request.form['id']
-        print(request.url)
         if title == '':
             error = "제목을 입력해주세요"
         elif content == '':
             error = "내용을 입력해주세요"
-        elif request.files['b_file'] != None:
+        elif request.files['b_file'].filename != '':
             file = request.files['b_file']
             file.save('upload/' + file.filename)
             file_name = 'upload/' + file.filename
