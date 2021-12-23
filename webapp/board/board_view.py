@@ -71,12 +71,7 @@ def board_write():
     if session.get('check') != True:
         flash("로그인 해주세요")
         return redirect("/board")
-        flash(error)
-    return render_template('board/board_write.html', title="글쓰기" , config = config, id=id)
 
-# 글쓰기 완료
-@bp.route('/board_write_result', methods=['POST'])
-def write_result():
     if request.method == 'POST':
         title = request.form['b_title']
         content = request.form['b_content']
@@ -87,7 +82,6 @@ def write_result():
             error = "내용을 입력해주세요"
         elif request.files['b_file'].filename != '':
             file = request.files['b_file']
-            file.save('upload/' + file.filename)
             file_name = 'upload/' + file.filename
             dao.insertBoardfile(title, content, author, file_name)
             flash("글이 작성되었습니다.")
@@ -96,8 +90,9 @@ def write_result():
             dao.insertBoard(title, content, author)
             flash("글이 작성되었습니다.")
             return redirect('/board')
-    flash(error)
-    return redirect(request.url.replace('_result',''))
+        flash(error)
+    return render_template('board/board_write.html', title="글쓰기" , config = config, id=id)
+
 # 게시글 삭제하기
 @bp.route("/delete", methods=['GET'])
 def delete():

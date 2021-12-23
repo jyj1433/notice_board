@@ -4,8 +4,7 @@
 
 <div class="container my-3">
     <form method="POST"
-    enctype = "multipart/form-data"
-    action = "http://{{config}}:5000/board_write_result">
+    enctype = "multipart/form-data">
         제목<br>
         <input type="text" name="b_title"><br><br>
         내용<br>
@@ -17,7 +16,7 @@
             <input type="file" name="b_file" id="ex_filename" class="upload">
         </div>
         <input type="hidden" name="id" value={{id}}>
-        <button type="submit" class="btn btn-primary">글쓰기</button>
+        <button type="submit" class="btn btn-primary" id="fileSubmitBtn" >글쓰기</button>
     </form>
 </div>
 {% endblock %}
@@ -67,6 +66,31 @@ $(document).ready(function() {
       $(this).siblings('.upload-name').val(filename);
        });
      });
+</script>
+
+<script>
+    $(()=>{
+	$('#fileSubmitBtn').on("click",function(){
+		var form = $('#ex_filename')[0].files[0];
+		var formData = new FormData();
+
+		formData.append('file', form);
+		 $.ajax({
+		        type: "POST",
+		        enctype: 'multipart/form-data',
+		        url: "http://{{config}}:5000/filetest",
+		        data: formData,
+		        processData: false,
+		        contentType: false,
+		        cache: false,
+		        timeout: 600000,
+		        success: function (data) {
+		            alert("성공");
+		        },
+		    });
+	});
+})
+
 </script>
 
 {% endblock %}
