@@ -13,7 +13,7 @@
             <option value="opt_author"
                 {% if opt =='opt_author' %} selected {% endif %}>작성자</option>
         </select>
-        <input type="text" value="{{opt}}">
+
         <input type="text" placeholder="Search..." id="search" name="search" value="{{search}}">
         <button class="btn btn-primary" type="submit" href="{{url_for('.board', page=page, search=search)}}">검색</button>
 

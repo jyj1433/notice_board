@@ -137,7 +137,7 @@ def addImgSummer():
 
     return jsonify(url = imgURL)
 
-@bp.route("/imageDown", metodes=["POST"])
+@bp.route("/imageDown", methods=["POST"])
 def imageDown():
     img = request.files["file"]
     img.save('static/image/upload/'+img.filename)

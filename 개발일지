@@ -90,3 +90,4 @@ font awesome 라이브러리 추가 (css, js)
 검색기능 구현 완료
 config.py 추가
 게시판에 이미지 넣기
+이미지는 static/image/upload에 저장됨 - 글을 삭제해도 이미지 파일은 남아있음
