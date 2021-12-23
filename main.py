@@ -32,7 +32,6 @@ app.register_blueprint(main_view.bp)
 def index():
     return render_template('index.html', title="index")
 
-
 @app.route('/filetest',methods=['GET','POST']) # 파일업로드 테스트 페이지
 def filetest():
     if request.method == 'POST':
