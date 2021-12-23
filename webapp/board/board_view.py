@@ -67,12 +67,12 @@ def board():
 @bp.route('/board_write', methods=['GET', 'POST'])
 def board_write():
     error = None
-
+    id = session.get('id')
     if session.get('check') != True:
         flash("로그인 해주세요")
         return redirect("/board")
         flash(error)
-    return render_template('board/board_write.html', title="글쓰기" , config = config)
+    return render_template('board/board_write.html', title="글쓰기" , config = config, id=id)
 
 # 글쓰기 완료
 @bp.route('/board_write_result', methods=['POST'])
@@ -80,7 +80,7 @@ def write_result():
     if request.method == 'POST':
         title = request.form['b_title']
         content = request.form['b_content']
-        author = session.get('id')
+        author = request.form['id']
         print(request.url)
         if title == '':
             error = "제목을 입력해주세요"
