@@ -1,0 +1,30 @@
+.remote {
+    display: block;
+    position: fixed;
+    top: 50%;
+    right: 100px;
+    width: 70px;
+/*    cursor: move; */
+    text-align: center;
+}
+
+.remote .h_area {
+    padding: 3px 0;
+    background-color: #E6E6E6;
+}
+.remote .cont {
+/*  overflow: hidden; */
+    padding: 12px 0 0;
+    border-left: 1px solid #cbcbcb;
+    border-right: 1px solid #cbcbcb;
+    background: #fff;
+    text-align: center;
+}
+
+.pg_area{
+    padding: 7px 0 6px;
+    border: 1px solid #fcfcfc;
+    border-bottom: 0;
+    background: #f8f8f8;
+    font-size: 10pt;
+}
