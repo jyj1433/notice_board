@@ -80,6 +80,9 @@ boardDAO에서 select문 수정 (최신글이 위로 오게 보임 - 내림차�
 #11
 12월 16일
 
+게시판이 기존에는 textarea에 글만 쓴거였는데
+에디터를 추가 (summernote) - 이미지도 삽입 가능
+
 로고 폰트사이즈 불편한거 수정
 font awesome 라이브러리 추가 (css, js)
 검색기능 추가 board_search
@@ -89,5 +92,36 @@ font awesome 라이브러리 추가 (css, js)
 
 검색기능 구현 완료
 config.py 추가
-게시판에 이미지 넣기
+게시판에 이미지 넣기 구현
 이미지는 static/image/upload에 저장됨 - 글을 삭제해도 이미지 파일은 남아있음
+footer 추가
+
+#13
+12월 23일
+
+게시글에 파일 업로드, 다운로드 구현
+board_dev (개발일지 게시판), board_free(자유게시판) 추가
+footer 프레임 구축
+
+
+#14
+12월 27일
+
+boardDAO의 selectBoardPage, selectBoardDetail, selectBoardSearchPage 수정
+where절에 조건 추가해서 글 작성자에 usr_id가 아니라 usr_name(닉네임)을 뜨게 함
+
+b_num auto_increment (넘버링) 지정방법
+alter table 테이블명 auto_increment=바꿀숫자;
+
+input 태그에 value속성 값에 ""안씌워놓으면 값 받아올 때 띄어쓰기 이후로 문자 짤림
+
+#15
+12월 30일
+
+로아 돌깎게임 추가 (놀이터)
+네비바 강조표시 추가
+슬라이드쇼 바텀메뉴 강조표시 추가
+base.css 추가, 리모컨 추가
+
+네비바 li랑 a 즉, nav-item에 배경색 주고싶은데 여백 전부 못잡을 때
+height 주고, 글자가 가운데로 안오면 line-height까지 줄 것.

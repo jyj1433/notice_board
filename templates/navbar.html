@@ -1,18 +1,13 @@
 <!-- 네비게이션 바 -->
-<style>
-   .navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link {
-    color: red;
-}
-</style>
-<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom" id="nav" style="padding-top:0px; padding-bottom:0px;">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="border:0; outline:0;">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <!-- 메인 화면으로 돌아가는 로고 버튼 -->
-    <a class="navbar-brand" href="/" style="font-size:30pt; font-weight:500">P2R</a>
-    <a style="font-size:13pt"> - Python Research RAB</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+    <a class="navbar-brand" href="/" style="font-size:32pt; font-weight:500">P2R</a>
+    <a style="font-size:15pt"> - Python Research RAB</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 
     <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav2"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="border:0; outline:0;">
@@ -21,11 +16,8 @@
 
     <div class="navbar-collapse collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item ">
-                <a class="nav-link {% if request.path == '/board' %}active{% endif %}" href="/board">게시판</a>
-            </li>
-            <li class="nav-item {% if request.path == '/filetest' %}active{% endif %}">
-                <a class="nav-link" href="/filetest">파일테스트</a>
+            <li class="nav-item {% if request.path == '/board' %}active{% endif %}">
+                <a class="nav-link" href="/board">게시판</a>
             </li>
             <li class="nav-item {% if request.path == '/rockcut' %}active{% endif %}">
                 <a class="nav-link" href="/rockcut">놀이터</a>
@@ -42,18 +34,18 @@
     <div class="navbar-collapse collapse" id="navbarNav2">
         <ul class="navbar-nav ml-auto">
             {% if session['check'] == True %}
-            <li class="nav-item " >
-                <a class="nav-link" href="/logout" >로그아웃</a>
+            <li class="nav-item" >
+                <a class="nav-link log" href="/logout" >로그아웃</a>
             </li>
-            <li class="nav-item " >
-                <a class="nav-link" href="/member_modify" >마이페이지</a>
+            <li class="nav-item" >
+                <a class="nav-link log" href="/member_modify" >마이페이지</a>
             </li>
             {% else %}
-            <li class="nav-item ">
-                <a class="nav-link" href="/login">로그인</a>
+            <li class="nav-item">
+                <a class="nav-link log" href="/login">로그인</a>
             </li>
-            <li class="nav-item ">
-                <a class="nav-link" href="/join">회원가입</a>
+            <li class="nav-item">
+                <a class="nav-link log" href="/join">회원가입</a>
             </li>
             {% endif %}
         </ul>

@@ -111,6 +111,7 @@ def board_dev_modify():
     board_code = request.args.get('idx')
     re = dao.selectBoardDetail(board_code)
     page = request.args.get('page')
+    print(re)
 
     if session.get('id') != re[0][4]:
         flash("글 작성자 만이 수정가능합니다.")

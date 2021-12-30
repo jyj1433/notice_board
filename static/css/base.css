@@ -1,0 +1,22 @@
+.navbar-nav .nav-item.active .nav-link{
+        font-weight:bold;
+        background-color:#eeeeee;
+    }
+
+/* 네비게이션 바의 li */
+.navbar-nav .nav-item{
+        height:75px;
+        line-height:60px;
+    }
+
+/* 네비게이션 바의 li 밑의 a */
+.navbar-nav .nav-item .nav-link{
+        font-size:14pt;
+    }
+
+.navbar-nav .nav-item .nav-link.log{
+        font-size:12pt;
+    }
+
+
+

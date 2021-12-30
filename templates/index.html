@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="slides-content" style="max-width:100%; position:relative;">
+<div class="slides-content" style="max-width:100%; position:relative; min-width:1000px;">
 
   <div class="display-container mySlides">
     <img src="{{ url_for('static', filename='image/randscape5120.jpg') }}" style="width:100%">
@@ -15,13 +15,15 @@
     <img src="{{ url_for('static', filename='image/cyberRamen.jpeg') }}" style="width:100%">
   </div>
 
-  <div class="bottomMenu">
+  <div class="bottomMenu" style="width:100%;">
     <ul>
       <li>
         <a class="indicator" onclick="plusDivs(-1)">❮</a>
-        <a class="dot" onclick="currentDiv(1)">1</a>
-        <a class="dot" onclick="currentDiv(2)">2</a>
-        <a class="dot" onclick="currentDiv(3)">3</a>
+        <a class="dot" onclick="currentDiv(1)">첫번째배너</a>
+        <span class="separator">|</span>
+        <a class="dot" onclick="currentDiv(2)">두번째배너</a>
+        <span class="separator">|</span>
+        <a class="dot" onclick="currentDiv(3)">세번째배너</a>
         <a class="indicator" onclick="plusDivs(1)">❯</a>
       </li>
     </ul>

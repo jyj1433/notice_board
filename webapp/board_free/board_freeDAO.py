@@ -16,17 +16,17 @@ class Board_freeDAO:
 
     @classmethod
     def selectBoardPage(cls, page, limit) -> 'Board_freeDAO':
-        sql = 'select * from board_free order by bf_num desc LIMIT ' + str((page - 1) * limit) + ',' + str(limit) + ';'
+        sql = 'select board_free.*, users.usr_name as nickname from board_free, users where board_free.bf_author = users.usr_id order by bf_num desc LIMIT ' + str((page - 1) * limit) + ',' + str(limit) + ';'
         return dbc.select(sql)
 
     @classmethod
     def selectBoardDetail(cls, board_code) -> 'Board_freeDAO':
-        sql = 'select * from board_free where bf_num = ' + board_code + ";"
+        sql = 'select board_free.*, users.usr_name as nickname from board_free, users where board_free.bf_author = users.usr_id and board_free.bf_num = ' + board_code + ';'
         return dbc.select(sql)
 
     @classmethod
     def insertBoard(cls, title, content, author) -> 'Board_freeDAO':
-        sql = "insert into board_free values (NULL,'" + title + "', date_format(now(),'%Y-%m-%d') ,'" + content + "','" + author + "',now());"
+        sql = "insert into board_free values (NULL,'" + title + "', date_format(now(),'%Y-%m-%d') ,'" + content + "','" + author + "', NULL,now());"
         dbc.execute(sql)
 
     @classmethod
@@ -46,6 +46,5 @@ class Board_freeDAO:
 
     @classmethod
     def selectBoardSearchPage(cls, page, limit, keyword, option) -> 'Board_freeDAO':
-        sql = "select * from board_free where " + option + " like '%" + keyword + "%' order by bf_num desc LIMIT " + str(
-            (page - 1) * limit) + ',' + str(limit) + ';'
+        sql = "select board_free.*, users.usr_name as nickname from board_free, users where board_free.bf_author = users.usr_id and " + option + " like '%" + keyword + "%' order by bf_num desc LIMIT " + str((page - 1) * limit) + ',' + str(limit) + ';'
         return dbc.select(sql)

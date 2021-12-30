@@ -1,25 +1,39 @@
 .bottomMenu{
-    background-color:#393939;
+    background-color:#434343;
     text-align: center;
     height:40px;
 }
 
+/* bottomMenu hover 설정. 밑줄 없앰 - 정연 */
+.bottomMenu a:hover{
+    color:#ffffff;
+    text-decoration:none;
+}
+
 .dot{
-    background-color:#393939;
-    color:white;
-    font-size:15pt;
+    background-color:#434343;
+    color:#cccccc;
+    font-size:18pt;
     cursor:pointer;
     margin-left:10px;
     margin-right:10px;
 }
 
 .indicator{
-    background-color:#393939;
-    color:white;
-    font-size:15pt;
+    background-color:#434343;
+    color:#cccccc;
+    font-size:18pt;
     cursor:pointer;
-    margin-left:10px;
-    margin-right:10px;
+    margin-left:30px;
+    margin-right:30px;
+}
+
+.separator{
+    background-color:#434343;
+    color:#cccccc;
+    font-size:18pt;
+    margin-left:1px;
+    margin-right:1px;
 }
 
 ul li{

@@ -4,9 +4,9 @@
 <div class="container my-3">
     <form method="POST" action="/modify?idx={{result[0][0]}}&page={{page}}">
         제목<br>
-        <input type="text" value={{result[0][1]}} name="b_title"><br>
+        <input type="text" value="{{result[0][1]}}" name="b_title"><br>
         작성자<br>
-        <input type="text" value={{result[0][4]}} name="b_author" readonly><br>
+        <input type="text" value="{{result[0][4]}}" name="b_author" readonly><br>
         내용<br>
         <textarea id="summernote" name="b_content">{{result[0][3]}}</textarea><br>
         <!-- <input type="file" name="file"><br><br> -->

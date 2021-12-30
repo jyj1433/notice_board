@@ -1,4 +1,4 @@
-var slideIndex = 1;
+var slideIndex = 0;
 showDivs(slideIndex);
 carousel()
 
@@ -7,6 +7,12 @@ function plusDivs(n) {
 }
 
 function currentDiv(n) {
+    var x = document.getElementsByClassName("display-container mySlides");
+    var d = document.getElementsByClassName("dot");
+    for (i = 0; i < x.length; i++) {
+       d[i].style.fontWeight = "400";
+    }
+    d[n-1].style.fontWeight = "bold";
     showDivs(slideIndex = n);
 }
 
@@ -14,12 +20,17 @@ function currentDiv(n) {
 function carousel() {
     var i;
     var x = document.getElementsByClassName("display-container mySlides");
+    var d = document.getElementsByClassName("dot");
+
     for (i = 0; i < x.length; i++) {
        x[i].style.display = "none";
     }
     slideIndex++;
-    if (slideIndex > x.length) {slideIndex = 1}
+
+    if (slideIndex > x.length) {slideIndex = 1; d[x.length-1].style.fontWeight = "400";}
+    if (slideIndex > 1) {d[slideIndex-2].style.fontWeight = "400";}
     x[slideIndex-1].style.display = "block";
+    d[slideIndex-1].style.fontWeight = "bold";
     setTimeout(carousel, 5000); // Change image every 2 seconds
 }
 
