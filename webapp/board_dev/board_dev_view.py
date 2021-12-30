@@ -74,8 +74,16 @@ def board_dev_write():
         author = session.get('id')
         if title == '':
             error = "제목을 입력해주세요"
+
         elif content == '':
             error = "내용을 입력해주세요"
+
+        elif request.files['bd_file'].filename != '':
+            file = request.files['bd_file']
+            file_name = 'upload/' + file.filename
+            dao.insertBoardfile(title, content, author, file_name)
+            flash("글이 작성되었습니다.")
+            return redirect('/board')
         else:
             dao.insertBoard(title, content, author)
             flash("글이 작성되었습니다.")

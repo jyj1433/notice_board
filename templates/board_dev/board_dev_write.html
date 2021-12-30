@@ -3,12 +3,19 @@
 
 
 <div class="container my-3">
-    <form method="POST" >
+    <form method="POST"
+    enctype = "multipart/form-data">
         제목<br>
         <input type="text" name="bd_title"><br>
         내용<br>
         <textarea id="summernote" name="bd_content"></textarea>
         <!-- <input type="file" name="file"><br><br> -->
+        <div class="filebox">
+            <input typr="text" class="upload-name" value="파일선택" readonly="readonly">
+            <label for="ex_filename">업로드</label>
+            <input type="file" name="bd_file" id="ex_filename" class="upload">
+        </div>
+        <input type="hidden" name="id" value={{id}}>
         <button type="submit" class="btn btn-primary">글쓰기</button>
     </form>
 </div>
@@ -47,5 +54,40 @@ $(document).ready(function() {
                       }
                     });
                   };
+</script>
+
+<script>
+    $(document).ready(function(){
+    var fileTarget = $('.filebox .upload');
+    fileTarget.on('change', function(){ // 값이 변경되면
+    var filename = $(this)[0].files[0].name;
+      $(this).siblings('.upload-name').val(filename);
+       });
+     });
+</script>
+
+<script>
+    $(()=>{
+	$('#fileSubmitBtn').on("click",function(){
+		var form = $('#ex_filename')[0].files[0];
+		var formData = new FormData();
+
+		formData.append('file', form);
+		 $.ajax({
+		        type: "POST",
+		        enctype: 'multipart/form-data',
+		        url: "http://{{config}}:5000/filetest",
+		        data: formData,
+		        processData: false,
+		        contentType: false,
+		        cache: false,
+		        timeout: 600000,
+		        success: function (data) {
+		            alert("성공");
+		        },
+		    });
+	});
+})
+
 </script>
 {% endblock %}

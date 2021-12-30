@@ -1,4 +1,7 @@
 <!-- 네비게이션 바 -->
+<style>
+    .navbar-light .navbar-nav .nav-link .active {color:red;}
+</style>
 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="border:0; outline:0;">
@@ -17,18 +20,18 @@
     <div class="navbar-collapse collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item ">
-                <a class="nav-link" href="/board">게시판</a>
+                <a class="nav-link {% if request.path == '/board' %}bbb{% endif %}" href="/board">게시판</a>
             </li>
-            <li class="nav-item ">
+            <li class="nav-item {% if request.path == '/filetest' %}active{% endif %}">
                 <a class="nav-link" href="/filetest">파일테스트</a>
             </li>
-            <li class="nav-item ">
-                <a class="nav-link" href="/">놀이터</a>
+            <li class="nav-item {% if request.path == '/rockcut' %}active{% endif %}">
+                <a class="nav-link" href="/rockcut">놀이터</a>
             </li>
-            <li class="nav-item ">
+            <li class="nav-item {% if request.path == '/board_free' %}active{% endif %}">
                 <a class="nav-link" href="/board_free">자유게시판</a>
             </li>
-            <li class="nav-item ">
+            <li class="nav-item {% if request.path == '/board_dev' %}active{% endif %}">
                 <a class="nav-link" href="/board_dev">개발일지</a>
             </li>
         </ul>
