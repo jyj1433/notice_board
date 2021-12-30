@@ -7,10 +7,14 @@ html, body {
     min-height: 100vh;
     position: relative;
     width:100%;
+    height:auto;
+    overflow:auto;
 }
 
 #body-content {
     padding-bottom:100px; /* footer의 높이만큼 늘려주기 -> 그래야 body의 다른 요소가 먹히지않음 */
+    height:auto;
+    overflow:auto;
 }
 
 footer {

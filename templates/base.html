@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/all.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/summernote/summernote-lite.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/remote.css') }}">
 
     {% if title %}
       <title>{{ title }}</title>
@@ -52,19 +53,21 @@
 <!-- 슬라이드쇼 JS -->
 <script src="{{ url_for('static', filename='js/slides.js') }}"></script>
 
+<!-- 썸머노트 -->
 <script src="{{ url_for('static', filename='js/summernote/summernote-lite.js') }}"></script>
 <script src="{{ url_for('static', filename='js/summernote/lang/summernote-ko-KR.js') }}"></script>
-
 
 <!-- FontAwesome JS -->
 <script src="{{ url_for('static', filename='js/all.min.js') }}"></script>
 
-
+<!-- 리모컨 JS -->
+<script src="{{ url_for('static', filename='js/remote.js') }}"></script>
 
     </div>
     <!-- footer include -->
     {% include "footer.html" %}
 </div>
+{% include "remote.html" %}
 </body>
 {% block script %}
 {% endblock %}
