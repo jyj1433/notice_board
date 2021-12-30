@@ -1,6 +1,8 @@
 <!-- 네비게이션 바 -->
 <style>
-    .navbar-light .navbar-nav .nav-link .active {color:red;}
+   .navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link {
+    color: red;
+}
 </style>
 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -20,7 +22,7 @@
     <div class="navbar-collapse collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item ">
-                <a class="nav-link {% if request.path == '/board' %}bbb{% endif %}" href="/board">게시판</a>
+                <a class="nav-link {% if request.path == '/board' %}active{% endif %}" href="/board">게시판</a>
             </li>
             <li class="nav-item {% if request.path == '/filetest' %}active{% endif %}">
                 <a class="nav-link" href="/filetest">파일테스트</a>
