@@ -10,7 +10,7 @@ import webapp.board.boardDAO as boardDAO
 
 bp = Blueprint("board", __name__, url_prefix='/')
 dao = boardDAO.BoardDAO
-config= config.host
+config = config.host
 
 # 게시글 상세보기
 @bp.route("/get", methods=['GET'])
@@ -18,7 +18,7 @@ def get():
     board_code = request.args.get('idx')
     page = request.args.get('page')
     re = dao.selectBoardDetail(board_code)
-    return render_template('board/board_result.html', result=re, title="게시판",page=page,config=config)
+    return render_template('board/board_result.html', result=re, title="게시판", page=page, config=config)
 
 # 게시판 목록
 @bp.route('/board')

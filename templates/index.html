@@ -28,25 +28,35 @@
       </li>
     </ul>
   </div>
+</div>
 
-  <div style="margin-top:10px;">
+<div style="margin-top:10px;">
     <div style="width: 40%; float: left; padding:5px; cursor:move;">
       <table class="table table-hover">
         <thead>
-        <tr class="thead-dark"> <!-- thead에 색 입히는 코드 수정 - 정연 -->
-            <th>넘버</th>
+        <tr class="thead-dark">
             <th>게시판</th>
             <th>제목</th>
             <th>작성자</th>
         </tr>
         </thead>
+        <tbody>
+        {% for r in result %}
+        <tr>
+            <td onClick="location.href='{{url_for('.main_get', idx=r[0],page=page)}}'">자유게시판</td>
+            <td onClick="location.href='{{url_for('.main_get', idx=r[0],page=page)}}'">{{r[1]}}</td>
+            <td onClick="location.href='{{url_for('.main_get', idx=r[0],page=page)}}'">{{r[2]}}</td>
+        </tr>
+        {% endfor %}
+
+        </tbody>
       </table>
+
     </div>
 
-    <div style="border: 1px solid blue; width: 60%; float: left;">
-      <br><br><br><br><br><br>
+    <div style="border: 1px solid blue; width: 60%; float: left; height: 200px">
+      <h5>빈 칸</h5>
     </div>
-  </div>
 
 </div>
 

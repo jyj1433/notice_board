@@ -28,9 +28,9 @@ app.register_blueprint(board_dev_view.bp)
 app.register_blueprint(board_free_view.bp)
 app.register_blueprint(main_view.bp)
 
-@app.route('/') # 초기화면 render
-def index():
-    return render_template('index.html', title="index")
+# @app.route('/') # 초기화면 render
+# def index():
+#     return render_template('index.html', title="index")
 
 @app.route('/rockcut')
 def rockcut():
