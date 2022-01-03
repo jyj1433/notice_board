@@ -22,9 +22,9 @@
     </form>
     {% endif %}
     <br>
-    <button class="btn btn-success" onClick="location.href='{{url_for('.modify', idx= result[0][0], page=page)}}'">수정</button>
-    <a class="delete btn btn-danger" data-uri="{{ url_for('.delete', idx= result[0][0], page=page) }}">삭제</a>
-    <button class="btn btn-warning float-right" onClick="location.href='{{url_for('.board', page= page)}}'"> 목록 </button>
+    <button class="btn btn-success" onClick="location.href='/modify?idx='+{{result[0][0]}} +'&page='+ {{page}}">수정</button>
+    <a class="delete btn btn-danger" data-uri="/delete?idx='+{{result[0][0]}} +'&page='+ {{page}}">삭제</a>
+    <button class="btn btn-warning float-right" onClick="location.href='/board?page='+ {{page}}"> 목록 </button>
 </div>
 
 {% endblock %}
