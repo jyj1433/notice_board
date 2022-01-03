@@ -46,5 +46,5 @@ class Board_freeDAO:
 
     @classmethod
     def selectBoardSearchPage(cls, page, limit, keyword, option) -> 'Board_freeDAO':
-        sql = "select board_free.*, users.usr_name as nickname from board_free, users where board_free.bf_author = users.usr_id and " + option + " like '%" + keyword + "%' order by bf_num desc LIMIT " + str((page - 1) * limit) + ',' + str(limit) + ';'
+        sql = "select users.usr_name as nickname, board_free.* from board_free, users where board_free.bf_author = users.usr_id and " + option + " like '%" + keyword + "%' order by bf_num desc LIMIT " + str((page - 1) * limit) + ',' + str(limit) + ';'
         return dbc.select(sql)
