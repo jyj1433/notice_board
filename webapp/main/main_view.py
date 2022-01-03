@@ -23,8 +23,8 @@ def main_get():
 
     if caption == "자유게시판":
         re = dao.selectBoardDetailFree(board_code)
-        return render_template('board_free/board_free_result.html', result=re, title="게시판")
+        return render_template('board_free/board_free_result.html', result=re, title="게시판", page=1)
 
     elif caption == "개발일지":
         re = dao.selectBoardDetailDev(board_code)
-        return render_template('board_dev/board_dev_result.html', result=re, title="게시판")
+        return render_template('board_dev/board_dev_result.html', result=re, title="게시판" , page=1)
