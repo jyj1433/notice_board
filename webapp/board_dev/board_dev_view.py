@@ -83,7 +83,7 @@ def board_dev_write():
             file_name = 'upload/' + file.filename
             dao.insertBoardfile(title, content, author, file_name)
             flash("글이 작성되었습니다.")
-            return redirect('/board')
+            return redirect('/board_dev')
         else:
             dao.insertBoard(title, content, author)
             flash("글이 작성되었습니다.")

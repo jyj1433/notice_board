@@ -94,7 +94,7 @@ def board_free_delete():
     page = request.args.get('page')
     if session.get('id') != re[0][4]:
         flash("글 작성자 만이 삭제가능합니다.")
-        return redirect('/get?idx='+board_code +'&page=' + page)
+        return redirect('/board_free_get?idx='+board_code +'&page=' + page)
     dao.deleteBoard(board_code)
     flash("글이 삭제되었습니다")
     return redirect('/board_free')
@@ -108,7 +108,7 @@ def board_free_modify():
 
     if session.get('id') != re[0][4]:
         flash("글 작성자 만이 수정가능합니다.")
-        return redirect('/get?idx='+board_code+'&page=' + page)
+        return redirect('/board_free_get?idx='+board_code+'&page=' + page)
     if request.method == 'POST':
         title = request.form['bf_title']
         content = request.form['bf_content']

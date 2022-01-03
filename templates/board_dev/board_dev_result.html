@@ -4,7 +4,7 @@
 <div class="container my-3">
     <h2 class="border-bottom py-2">{{result[0][1]}}</h2>
     <div class="card my-3">
-        <div class="card-body">
+        <div class="card-body" >
             <div class="card-text" style="white-space: pre-line;">
                 {% autoescape false %} {{result[0][3]}} {% endautoescape %}
             </div>
@@ -30,4 +30,5 @@ $(document).ready(function(){
 });
 </script>
 {% endblock %}
+
 

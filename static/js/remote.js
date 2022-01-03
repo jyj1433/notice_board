@@ -5,3 +5,4 @@ function pageUp() {
 function pageDown() {
     window.scrollTo(0, document.body.scrollHeight);
 }
+
