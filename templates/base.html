@@ -1,3 +1,9 @@
+<!--
+- base.html
+- 웹상에서 보여지는 페이지들은 기본적으로 이 파일을 상속받음
+- html 파일의 기본 형식를 정의하고 프로그램 전체에서 공통으로 사용하는 css, js 파일을 포함
+-->
+
 {%with messages = get_flashed_messages()%}
     {%if messages %}
         <script type="text/javascript">
@@ -12,17 +18,22 @@
     <!-- Required meta tags -->
     <meta charset="UTF-8">
 
-    <!-- Bootstrap CSS 적용-->
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/slides.css') }}">
+    <!-- FontAwesome CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/all.min.css') }}">
+
+    <!-- summernote CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/summernote/summernote-lite.css') }}">
+
+    <!-- custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/slides.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/remote.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
 
+    <!-- 페이지마다 타이틀 적용 (render_template 함수에 인자로 title 줄 것) -->
     {% if title %}
       <title>{{ title }}</title>
     {% else %}
@@ -37,7 +48,6 @@
 
 <div id="body-wrapper">
     <div id="body-content">
-
 
 <!-- 기본 템플릿 안에 삽입될 내용 Start -->
 {% block content %}
@@ -58,7 +68,6 @@
 <script src="{{ url_for('static', filename='js/summernote/summernote-lite.js') }}"></script>
 <script src="{{ url_for('static', filename='js/summernote/lang/summernote-ko-KR.js') }}"></script>
 
-
 <!-- FontAwesome JS -->
 <script src="{{ url_for('static', filename='js/all.min.js') }}"></script>
 
@@ -70,6 +79,7 @@
     {% include "footer.html" %}
 </div>
 {% include "remote.html" %}
+
 </body>
 {% block script %}
 {% endblock %}

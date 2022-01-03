@@ -41,10 +41,12 @@ display: flex;
 justify-content: space-between; /* 양끝 정렬 */
 align-items: center;
 border-bottom: 1px solid #f1f3f6;
+color: #cccccc;
 }
 .notice_box a {
+font-size:11pt;
 font-weight: bold;
-color: white;
+cursor: pointer;
 }
 .aside_box {
 flex: 2;

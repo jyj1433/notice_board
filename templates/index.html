@@ -4,26 +4,26 @@
 <div class="slides-content" style="max-width:100%; position:relative; min-width:1000px;">
 
   <div class="display-container mySlides">
-    <img src="{{ url_for('static', filename='image/randscape5120.jpg') }}" style="width:100%">
+    <img src="{{ url_for('static', filename='image/lostark_banner_1.png') }}">
   </div>
 
   <div class="display-container mySlides">
-    <img src="{{ url_for('static', filename='image/cyberpunk.jpeg') }}" style="width:100%">
+    <img src="{{ url_for('static', filename='image/lostark_banner_2.png') }}">
   </div>
 
   <div class="display-container mySlides">
-    <img src="{{ url_for('static', filename='image/cyberRamen.jpeg') }}" style="width:100%">
+    <img src="{{ url_for('static', filename='image/lostark_banner_3.png') }}">
   </div>
 
   <div class="bottomMenu" style="width:100%;">
     <ul>
       <li>
         <a class="indicator" onclick="plusDivs(-1)">❮</a>
-        <a class="dot" onclick="currentDiv(1)">첫번째배너</a>
+        <a class="dot" onclick="currentDiv(1)">신규대륙 : 로웬</a>
         <span class="separator">|</span>
-        <a class="dot" onclick="currentDiv(2)">두번째배너</a>
+        <a class="dot" onclick="currentDiv(2)">하이퍼 익스프레스 & 점핑권</a>
         <span class="separator">|</span>
-        <a class="dot" onclick="currentDiv(3)">세번째배너</a>
+        <a class="dot" onclick="currentDiv(3)">헬로 2022 출석 이벤트</a>
         <a class="indicator" onclick="plusDivs(1)">❯</a>
       </li>
     </ul>
@@ -31,21 +31,19 @@
 </div>
 
 <div style="margin-top:10px;">
-    <div style="width: 40%; float: left; padding:5px; cursor:move;">
+    <div style="width: 40%; float: left; padding:5px;">
       <table class="table table-hover">
         <thead>
         <tr class="thead-dark">
             <th>게시판</th>
             <th>제목</th>
-            <th>작성자</th>
         </tr>
         </thead>
         <tbody>
         {% for r in result %}
         <tr>
-            <td onClick="location.href='{{url_for('.main_get', idx=r[0],page=page)}}'">자유게시판</td>
-            <td onClick="location.href='{{url_for('.main_get', idx=r[0],page=page)}}'">{{r[1]}}</td>
-            <td onClick="location.href='{{url_for('.main_get', idx=r[0],page=page)}}'">{{r[2]}}</td>
+            <td onClick="location.href='{{url_for('.main_get', idx=r[0], caption=r[3])}}'">{{r[3]}}</td>
+            <td onClick="location.href='{{url_for('.main_get', idx=r[0], caption=r[3])}}'">{{r[1]}}</td>
         </tr>
         {% endfor %}
 

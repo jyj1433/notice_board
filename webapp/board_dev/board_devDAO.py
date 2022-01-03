@@ -26,12 +26,12 @@ class Board_devDAO:
 
     @classmethod
     def insertBoard(cls, title, content, author) -> 'Board_devDAO':
-        sql = "insert into board_dev values (NULL,'" + title + "', date_format(now(),'%Y-%m-%d') ,'" + content + "','" + author + "', NULL,now());"
+        sql = "insert into board_dev values (NULL,'" + title + "', date_format(now(),'%Y-%m-%d') ,'" + content + "','" + author + "', NULL, now(), 'b03');"
         dbc.execute(sql)
 
     @classmethod
     def insertBoardfile(cls, title, content, author, file_name) -> 'Board_davDAO':
-        sql = "insert into board_dev values (NULL,'" + title + "', date_format(now(),'%Y-%m-%d') ,'" + content + "','" + author + "','" + file_name + "',now());"
+        sql = "insert into board_dev values (NULL,'" + title + "', date_format(now(),'%Y-%m-%d') ,'" + content + "','" + author + "','" + file_name + "', now(), 'b03');"
         dbc.execute(sql)
 
     @classmethod

@@ -1,3 +1,8 @@
+.mySlides img{
+    width:100%;
+    height:450px;
+}
+
 .bottomMenu{
     background-color:#434343;
     text-align: center;
@@ -13,7 +18,7 @@
 .dot{
     background-color:#434343;
     color:#cccccc;
-    font-size:18pt;
+    font-size:15pt;
     cursor:pointer;
     margin-left:10px;
     margin-right:10px;
@@ -31,7 +36,8 @@
 .separator{
     background-color:#434343;
     color:#cccccc;
-    font-size:18pt;
+    font-size:15pt;
+    font-weight:bold;
     margin-left:1px;
     margin-right:1px;
 }

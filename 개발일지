@@ -125,3 +125,11 @@ base.css 추가, 리모컨 추가
 
 네비바 li랑 a 즉, nav-item에 배경색 주고싶은데 여백 전부 못잡을 때
 height 주고, 글자가 가운데로 안오면 line-height까지 줄 것.
+
+
+#16
+2022년 1월1일
+
+index의 게시판에 자유게시판 띄워보려는 실험
+자잘한 오류 수정 - board_free의 get들을 board_free_get으로 수정
+pygame 예제 돌려봄
