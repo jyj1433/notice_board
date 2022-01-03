@@ -38,10 +38,10 @@
     {% else %}
         {% for r in datas %}
         <tr>
-            <td onClick="location.href='{{url_for('.board_free_get', idx=r[0], page=page)}}'">{{1+tot_count - (loop.index + (page-1) * limit)}}</td>
-            <td onClick="location.href='{{url_for('.board_free_get', idx=r[0], page=page)}}'">{{r[1]}}</td>
-            <td onClick="location.href='{{url_for('.board_free_get', idx=r[0], page=page)}}'">{{r[6]}}</td>
-            <td onClick="location.href='{{url_for('.board_free_get', idx=r[0], page=page)}}'">{{r[2]}}</td>
+            <td onClick="location.href='{{url_for('.board_free_get', idx=r[1], page=page)}}'">{{1+tot_count - (loop.index + (page-1) * limit)}}</td>
+            <td onClick="location.href='{{url_for('.board_free_get', idx=r[1], page=page)}}'">{{r[2]}}</td>
+            <td onClick="location.href='{{url_for('.board_free_get', idx=r[1], page=page)}}'">{{r[0]}}</td>
+            <td onClick="location.href='{{url_for('.board_free_get', idx=r[1], page=page)}}'">{{r[3]}}</td>
         </tr>
         {% endfor %}
     {% endif %}

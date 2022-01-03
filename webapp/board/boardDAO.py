@@ -21,7 +21,7 @@ class BoardDAO:
 
     @classmethod
     def selectBoardDetail(cls, board_code) -> 'BoardDAO':
-        sql = 'select board.*, users.usr_name as nickname from board, users where board.b_author = users.usr_id and board.b_num = ' + board_code + ';'
+        sql = 'select users.usr_name as nickname , board.*from board, users where board.b_author = users.usr_id and board.b_num = ' + board_code + ';'
         return dbc.select(sql)
 
     @classmethod

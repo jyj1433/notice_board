@@ -21,7 +21,7 @@ class Board_freeDAO:
 
     @classmethod
     def selectBoardDetail(cls, board_code) -> 'Board_freeDAO':
-        sql = 'select board_free.*, users.usr_name as nickname from board_free, users where board_free.bf_author = users.usr_id and board_free.bf_num = ' + board_code + ';'
+        sql = 'select users.usr_name as nickname, board_free.* from board_free, users where board_free.bf_author = users.usr_id and board_free.bf_num = ' + board_code + ';'
         return dbc.select(sql)
 
     @classmethod
