@@ -91,7 +91,7 @@ def board_dev_delete():
     board_code = request.args.get('idx')
     re = dao.selectBoardDetail(board_code)
     page = request.args.get('page')
-    if session.get('id') != re[0][4]:
+    if session.get('id') != re[0][5]:
         flash("글 작성자 만이 삭제가능합니다.")
         return redirect('/board_dev_get?idx='+board_code +'&page=' + page)
     dao.deleteBoard(board_code)
@@ -105,7 +105,7 @@ def board_dev_modify():
     re = dao.selectBoardDetail(board_code)
     page = request.args.get('page')
 
-    if session.get('id') != re[0][4]:
+    if session.get('id') != re[0][5]:
         flash("글 작성자 만이 수정가능합니다.")
         return redirect('/board_dev_get?idx='+board_code+'&page=' + page)
     if request.method == 'POST':
