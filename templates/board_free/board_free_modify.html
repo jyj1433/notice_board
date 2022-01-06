@@ -2,13 +2,13 @@
 {% block content %}
 
 <div class="container my-3">
-    <form method="POST" action="/board_free_modify?idx={{result[0][0]}}&page={{page}}">
+    <form method="POST" action="/board_free_modify?idx={{result[0][1]}}&page={{page}}">
         제목<br>
-        <input type="text" value="{{result[0][1]}}" name="bf_title"><br>
+        <input type="text" value="{{result[0][2]}}" name="bf_title"><br>
         작성자<br>
-        <input type="text" value="{{result[0][4]}}" name="bf_author" readonly><br>
+        <input type="text" value="{{result[0][5]}}" name="bf_author" readonly><br>
         내용<br>
-        <textarea id="summernote" name="bf_content">{{result[0][3]}}</textarea><br>
+        <textarea id="summernote" name="bf_content">{{result[0][4]}}</textarea><br>
         <!-- <input type="file" name="file"><br><br> -->
         <button type="submit" class="btn btn-primary">수정하기</button>
     </form>
