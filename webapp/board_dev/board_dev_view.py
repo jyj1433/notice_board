@@ -122,7 +122,7 @@ def board_dev_modify():
         author = request.form['bd_author']
         if title == '':
             error = "제목을 입력해주세요"
-        elif author == '' :
+        elif author == '':
             error = "작성자를 입력해주세여"
         elif content == '':
             error = "내용을 입력해주세요"
