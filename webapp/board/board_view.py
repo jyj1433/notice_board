@@ -140,8 +140,7 @@ def addImgSummer():
     #Grabbing file:
     img = request.files["file"]    #<------ THIS LINE RIGHT HERE! Is #literally all I needed lol.
     # Below is me replacing the img "src" with my S3 bucket link attached, with the said filename that was added.
-    imgURL = 'http://'+config.host+':5000/static/image/upload/' + img.filename
-    print(imgURL)
+    imgURL = 'http://' + config + ':5000/static/image/upload/' + img.filename
 
     return jsonify(url = imgURL)
 
@@ -149,6 +148,8 @@ def addImgSummer():
 def imageDown():
     img = request.files["file"]
     img.save('static/image/upload/'+img.filename)
-    imgURL = 'http://' + config.host + ':5000/static/image/upload/' + img.filename
+    imgURL = 'http://' + config + ':5000/static/image/upload/' + img.filename
+
+
     return jsonify(url = imgURL)
 
