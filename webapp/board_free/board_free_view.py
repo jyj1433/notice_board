@@ -116,3 +116,27 @@ def board_free_modify():
             return redirect('/board_free_get?idx='+board_code+'&page='+page)
         return error
     return render_template('board_free/board_free_modify.html', title="글쓰기", result=re,page=page)
+
+
+# 댓글 쓰기
+@bp.route("/board_free_review_write", methods=['GET', 'POST'])
+def board_free_review_write():
+    # get으로 가져온 값들
+    board_code = request.args.get('idx') # 게시글의 기본키
+    page = request.args.get('page') # 현재 페이지
+    id = session.get('id')
+
+    if session.get('check') != True:
+        flash("로그인 해주세요")
+        return redirect('/board_free_get?idx='+board_code+'&page=' + page)
+
+    # post로 가져온 값들
+    kind = request.form.get('kind') # 게시판 종류
+    review_content = request.form.get('review_content') # 댓글 내용
+
+    dao.insertReview(board_code, review_content, kind, id)
+
+    return redirect('/board_free_get?idx='+board_code+'&page='+page)
+
+
+

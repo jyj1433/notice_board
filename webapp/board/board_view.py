@@ -92,11 +92,9 @@ def delete():
     board_code = request.args.get('idx')
     re = dao.selectBoardDetail(board_code)
     page = request.args.get('page')
-
     if session.get('id') != re[0][4]:
         flash("글 작성자 만이 삭제가능합니다.")
         return redirect('/get?idx='+board_code +'&page=' + page)
-
     dao.deleteBoard(board_code)
     flash("글이 삭제되었습니다")
     return redirect('/board')
@@ -134,13 +132,13 @@ def addImgSummer():
     #Grabbing file:
     img = request.files["file"]    #<------ THIS LINE RIGHT HERE! Is #literally all I needed lol.
     # Below is me replacing the img "src" with my S3 bucket link attached, with the said filename that was added.
-    imgURL = 'http://'+ config.host +':5000/static/image/upload/' + img.filename
+    imgURL = 'http://'+ config +':5000/static/image/upload/' + img.filename
     return jsonify(url=imgURL)
 
 @bp.route("/imageDown", methods=["POST"])
 def imageDown():
     img = request.files["file"]
     img.save('static/image/upload/'+img.filename)
-    imgURL = 'http://' + config.host + ':5000/static/image/upload/' + img.filename
+    imgURL = 'http://' + config + ':5000/static/image/upload/' + img.filename
     return jsonify(url=imgURL)
 

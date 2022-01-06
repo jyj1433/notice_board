@@ -16,14 +16,14 @@ class Board_devDAO:
 
     @classmethod
     def selectBoardPage(cls, page, limit) -> 'Board_devDAO':
-        sql = 'select  users.usr_name as nickname ,board_dev.* ' \
+        sql = 'select users.usr_name as nickname, board_dev.* ' \
               'from board_dev, users ' \
               'where board_dev.bd_author = users.usr_id order by bd_num desc LIMIT ' + str((page - 1) * limit) + ',' + str(limit) + ';'
         return dbc.select(sql)
 
     @classmethod
     def selectBoardDetail(cls, board_code) -> 'Board_devDAO':
-        sql = 'select board_dev.*, users.usr_name as nickname ' \
+        sql = 'select users.usr_name as nickname, board_dev.*  ' \
               'from board_dev, users ' \
               'where board_dev.bd_author = users.usr_id and board_dev.bd_num = ' + board_code + ';'
         return dbc.select(sql)

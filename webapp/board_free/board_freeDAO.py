@@ -16,22 +16,17 @@ class Board_freeDAO:
 
     @classmethod
     def selectBoardPage(cls, page, limit) -> 'Board_freeDAO':
-        sql = 'select users.usr_name as nickname, board_free.* ' \
-              'from board_free, users ' \
-              'where board_free.bf_author = users.usr_id order by bf_num desc LIMIT ' + str((page - 1) * limit) + ',' + str(limit) + ';'
+        sql = 'select users.usr_name as nickname, board_free.* from board_free, users where board_free.bf_author = users.usr_id order by bf_num desc LIMIT ' + str((page - 1) * limit) + ',' + str(limit) + ';'
         return dbc.select(sql)
 
     @classmethod
     def selectBoardDetail(cls, board_code) -> 'Board_freeDAO':
-        sql = 'select board_free.*, users.usr_name as nickname ' \
-              'from board_free, users ' \
-              'where board_free.bf_author = users.usr_id and board_free.bf_num = ' + board_code + ';'
+        sql = 'select users.usr_name as nickname, board_free.* from board_free, users where board_free.bf_author = users.usr_id and board_free.bf_num = ' + board_code + ';'
         return dbc.select(sql)
 
     @classmethod
     def insertBoard(cls, title, content, author) -> 'Board_freeDAO':
-        sql = "insert into board_free " \
-              "values (NULL,'" + title + "', date_format(now(),'%Y-%m-%d') ,'" + content + "','" + author + "', now(), 'b02');"
+        sql = "insert into board_free values (NULL,'" + title + "', date_format(now(),'%Y-%m-%d') ,'" + content + "','" + author + "', now(), 'b02');"
         dbc.execute(sql)
 
     @classmethod
@@ -58,3 +53,8 @@ class Board_freeDAO:
               "from board_free, users " \
               "where board_free.bf_author = users.usr_id and " + option + " like '%" + keyword + "%' order by bf_num desc LIMIT " + str((page - 1) * limit) + ',' + str(limit) + ';'
         return dbc.select(sql)
+
+    @classmethod
+    def insertReview(cls, board_code, content, kind, id) -> 'Board_freeDAO':
+        sql = "insert into review values (NULL, '" + id + "', '" + content + "', now()," + board_code + ", '" + kind + "');"
+        return dbc.execute(sql)
