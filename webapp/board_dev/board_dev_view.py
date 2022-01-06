@@ -1,9 +1,6 @@
-import os
-
-from flask import Flask, Blueprint, render_template, request, redirect, flash, session, jsonify, send_file, url_for
+from flask import Blueprint, render_template, request, redirect, flash, session
 import math
 import config
-
 import webapp.board_dev.board_devDAO as board_devDAO
 
 bp = Blueprint("board_dev", __name__, url_prefix='/')
@@ -20,7 +17,6 @@ def board_dev_get():
 # 게시판 목록
 @bp.route('/board_dev')
 def board_dev():
-
     search_keyword = request.args.get('search', type=str, default="") # 검색어
     search_option = request.args.get('search_select', type=str, default="opt_all")    # 검색옵션
     page = request.args.get('page', type=int, default=1)    # 페이지
@@ -41,14 +37,12 @@ def board_dev():
         full = dao.selectBoardSearchCount(search_keyword, option)  # 게시물의 총 개수 세기, 마지막 페이지의 수 구하기
 
     tot_count = full[0][0]
-
     last_page_num = math.ceil(tot_count / limit)    # 반드시 올림을 해줘야함
 
     block_size = 5  # 페이지 블럭을 5개씩 표기
     block_num = int((page - 1) / block_size)    # 현재 블럭의 위치 (첫 번째 블럭이라면, block_num = 0)
     block_start = (block_size * block_num) + 1  # 현재 블럭의 맨 처음 페이지 넘버 (첫 번째 블럭이라면, block_start = 1, 두 번째 블럭이라면, block_start = 6)
     block_end = block_start + (block_size - 1)  # 현재 블럭의 맨 끝 페이지 넘버 (첫 번째 블럭이라면, block_end = 5)
-
     title = "게시판 " + str(page) + "p"
 
     return render_template('board_dev/board_dev.html', result=re, title=title, search=search_keyword, opt=search_option,
@@ -94,7 +88,6 @@ def board_dev_write():
 # 게시글 삭제하기
 @bp.route("/board_dev_delete", methods=['GET'])
 def board_dev_delete():
-
     board_code = request.args.get('idx')
     re = dao.selectBoardDetail(board_code)
     page = request.args.get('page')
@@ -111,7 +104,6 @@ def board_dev_modify():
     board_code = request.args.get('idx')
     re = dao.selectBoardDetail(board_code)
     page = request.args.get('page')
-    print(re)
 
     if session.get('id') != re[0][4]:
         flash("글 작성자 만이 수정가능합니다.")
@@ -122,7 +114,7 @@ def board_dev_modify():
         author = request.form['bd_author']
         if title == '':
             error = "제목을 입력해주세요"
-        elif author == '' :
+        elif author == '':
             error = "작성자를 입력해주세여"
         elif content == '':
             error = "내용을 입력해주세요"

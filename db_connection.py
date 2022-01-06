@@ -17,9 +17,7 @@ import config
 
 class db_conn:
 
-    # host = "192.168.43.137"    # 정연이꺼 핫스팟 ㅇㅅㅇ
     host = config.host
-
     port = 3306
     database = "dev_board"
     username = "test"
@@ -61,7 +59,6 @@ class db_conn:
 
     ##############################################
     # 밑의 3개의 insert, update, delete 함수를 execute 하나로 통합.
-    # 어차피 코드 완전히 같음
     def execute(self, sql):
 
         conn = self.db_connect()

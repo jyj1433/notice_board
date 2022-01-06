@@ -1,16 +1,10 @@
-import os
-
-from flask import Flask, Blueprint, render_template, request, redirect, flash, session, jsonify, send_file, url_for
+from flask import Blueprint, render_template, request, redirect, flash, session
 import math
 import config
-
-from werkzeug.utils import secure_filename
-
 import webapp.board_free.board_freeDAO as board_freeDAO
 
 bp = Blueprint("board_free", __name__, url_prefix='/')
 dao = board_freeDAO.Board_freeDAO
-
 
 # 게시글 상세보기
 @bp.route("/board_free_get", methods=['GET'])
@@ -23,7 +17,6 @@ def board_free_get():
 # 게시판 목록
 @bp.route('/board_free')
 def board_free():
-
     search_keyword = request.args.get('search', type=str, default="") # 검색어
     search_option = request.args.get('search_select', type=str, default="opt_all")    # 검색옵션
     page = request.args.get('page', type=int, default=1)    # 페이지
@@ -44,7 +37,6 @@ def board_free():
         full = dao.selectBoardSearchCount(search_keyword, option)  # 게시물의 총 개수 세기, 마지막 페이지의 수 구하기
 
     tot_count = full[0][0]
-
     last_page_num = math.ceil(tot_count / limit)    # 반드시 올림을 해줘야함
 
     block_size = 5  # 페이지 블럭을 5개씩 표기
@@ -88,7 +80,6 @@ def board_free_write():
 # 게시글 삭제하기
 @bp.route("/board_free_delete", methods=['GET'])
 def board_free_delete():
-
     board_code = request.args.get('idx')
     re = dao.selectBoardDetail(board_code)
     page = request.args.get('page')
@@ -115,7 +106,7 @@ def board_free_modify():
         author = request.form['bf_author']
         if title == '':
             error = "제목을 입력해주세요"
-        elif author == '' :
+        elif author == '':
             error = "작성자를 입력해주세여"
         elif content == '':
             error = "내용을 입력해주세요"
@@ -125,3 +116,27 @@ def board_free_modify():
             return redirect('/board_free_get?idx='+board_code+'&page='+page)
         return error
     return render_template('board_free/board_free_modify.html', title="글쓰기", result=re,page=page)
+
+
+# 댓글 쓰기
+@bp.route("/board_free_review_write", methods=['GET', 'POST'])
+def board_free_review_write():
+    # get으로 가져온 값들
+    board_code = request.args.get('idx') # 게시글의 기본키
+    page = request.args.get('page') # 현재 페이지
+    id = session.get('id')
+
+    if session.get('check') != True:
+        flash("로그인 해주세요")
+        return redirect('/board_free_get?idx='+board_code+'&page=' + page)
+
+    # post로 가져온 값들
+    kind = request.form.get('kind') # 게시판 종류
+    review_content = request.form.get('review_content') # 댓글 내용
+
+    dao.insertReview(board_code, review_content, kind, id)
+
+    return redirect('/board_free_get?idx='+board_code+'&page='+page)
+
+
+

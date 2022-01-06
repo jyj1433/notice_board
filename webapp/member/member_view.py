@@ -1,10 +1,10 @@
-from flask import Flask, Blueprint, render_template, request, redirect, flash, session, escape
+from flask import Blueprint, render_template, request, redirect, flash, session, escape
 import webapp.member.memberDAO as memberDAO
 
 bp = Blueprint("member", __name__, url_prefix='/')
 dao = memberDAO.MemberDAO
 
-# 회원가입 페이지
+# 회원가입
 @bp.route('/join',methods=['GET','POST'])
 def join_post():
     error = None
@@ -34,7 +34,7 @@ def join_post():
             return redirect('/')
     return render_template('member/join.html', title="회원가입", error=error, error_id=error_id)
 
-# 로그인 페이지
+# 로그인
 @bp.route('/login',methods=['GET','POST'])
 def login_post():
     error = None
@@ -52,13 +52,14 @@ def login_post():
             return redirect('/')
     return render_template('member/login.html', title="로그인", error = error)
 
+#로그아웃
 @bp.route('/logout',methods=['GET','POST'])
 def logout():
     session.clear()
     flash("로그아웃 되었습니다.")
     return redirect('/')
 
-#마이페이지(미완성)
+#마이페이지
 @bp.route('/member_modify',methods=['GET','POST'])
 def member_modify():
     error = None
@@ -83,6 +84,7 @@ def member_modify():
 
     return render_template('member/member_modify.html', title="마이페이지", result=result, error=error)
 
+#회원탈퇴
 @bp.route('/member_delete',methods=['GET','POST'])
 def member_delete():
     id = '%s' % escape(session['id'])

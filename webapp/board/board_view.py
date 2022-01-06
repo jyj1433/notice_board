@@ -1,11 +1,6 @@
-import os
-
-from flask import Flask, Blueprint, render_template, request, redirect, flash, session, jsonify, send_file, url_for
+from flask import Blueprint, render_template, request, redirect, flash, session, jsonify
 import math
 import config
-
-from werkzeug.utils import secure_filename
-
 import webapp.board.boardDAO as boardDAO
 
 bp = Blueprint("board", __name__, url_prefix='/')
@@ -23,7 +18,6 @@ def get():
 # 게시판 목록
 @bp.route('/board')
 def board():
-
     search_keyword = request.args.get('search', type=str, default="") # 검색어
     search_option = request.args.get('search_select', type=str, default="opt_all")    # 검색옵션
     page = request.args.get('page', type=int, default=1)    # 페이지
@@ -44,7 +38,6 @@ def board():
         full = dao.selectBoardSearchCount(search_keyword, option)  # 게시물의 총 개수 세기, 마지막 페이지의 수 구하기
 
     tot_count = full[0][0]
-
     last_page_num = math.ceil(tot_count / limit)    # 반드시 올림을 해줘야함
 
     block_size = 5  # 페이지 블럭을 5개씩 표기
@@ -91,12 +84,11 @@ def board_write():
             flash("글이 작성되었습니다.")
             return redirect('/board')
         flash(error)
-    return render_template('board/board_write.html', title="글쓰기" , config = config, id=id)
+    return render_template('board/board_write.html', title="글쓰기", config=config, id=id)
 
 # 게시글 삭제하기
 @bp.route("/delete", methods=['GET'])
 def delete():
-
     board_code = request.args.get('idx')
     re = dao.selectBoardDetail(board_code)
     page = request.args.get('page')
@@ -132,7 +124,7 @@ def modify():
             flash("글이 수정되었습니다.")
             return redirect('/get?idx='+board_code+'&page='+page)
         return error
-    return render_template('board/board_modify.html', title="글쓰기", result=re,page=page)
+    return render_template('board/board_modify.html', title="글쓰기", result=re, page=page)
 
 
 @bp.route("/addImgSummer", methods=["POST"])
@@ -140,16 +132,13 @@ def addImgSummer():
     #Grabbing file:
     img = request.files["file"]    #<------ THIS LINE RIGHT HERE! Is #literally all I needed lol.
     # Below is me replacing the img "src" with my S3 bucket link attached, with the said filename that was added.
-    imgURL = 'http://' + config + ':5000/static/image/upload/' + img.filename
-
-    return jsonify(url = imgURL)
+    imgURL = 'http://'+ config +':5000/static/image/upload/' + img.filename
+    return jsonify(url=imgURL)
 
 @bp.route("/imageDown", methods=["POST"])
 def imageDown():
     img = request.files["file"]
     img.save('static/image/upload/'+img.filename)
     imgURL = 'http://' + config + ':5000/static/image/upload/' + img.filename
-
-
-    return jsonify(url = imgURL)
+    return jsonify(url=imgURL)
 

@@ -8,10 +8,9 @@
         <a id="text"></a>
     </div>
 </div>
+
 <script>
-
 var remote = document.getElementById("remote2");
-
 var {width:boxWidth,height:boxHeight} = remote.getBoundingClientRect();
 var isDragging = null;
 var originLeft = null;
@@ -20,46 +19,45 @@ var originX = null;
 var originY = null;
 
 remote.addEventListener("mousedown",(e) => {
-isDragging = true;
-originX = e.clientX;
-originY = e.clientY;
-originLeft = remote.offsetLeft;
-originTop = remote.offsetTop;
+    isDragging = true;
+    originX = e.clientX;
+    originY = e.clientY;
+    originLeft = remote.offsetLeft;
+    originTop = remote.offsetTop;
 })
 
 document.addEventListener("mousemove",(e)=>{
-if(isDragging){
-var diffX = e.clientX - originX;
-var diffY = e.clientY - originY;
-var endOfXPoint = window.outerWidth - 100
-var endOfYPoint = window.outerHeight - 190
-var X = originLeft + diffX
-var Y = originTop + diffY
+    if(isDragging){
+        var diffX = e.clientX - originX;
+        var diffY = e.clientY - originY;
+        var endOfXPoint = window.outerWidth - 100
+        var endOfYPoint = window.outerHeight - 190
+        var X = originLeft + diffX
+        var Y = originTop + diffY
 
-if(X < 0){
-remote.style.left = 0 + 'px';
-}
-else if(X > endOfXPoint){
-remote.style.left = endOfXPoint + 'px';
-}
-else{
-remote.style.left = originLeft + diffX + 'px';
-}
+        if(X < 0){
+            remote.style.left = 0 + 'px';
+        }
+        else if(X > endOfXPoint){
+            remote.style.left = endOfXPoint + 'px';
+        }
+        else{
+            remote.style.left = originLeft + diffX + 'px';
+        }
 
-if(Y < 0){
-remote.style.top = 0 + 'px';
-}
-else if(Y > endOfYPoint){
-remote.style.top = endOfYPoint + 'px';
-}
-else{
-remote.style.top = originTop + diffY + 'px';
-}
-}
-
+        if(Y < 0){
+            remote.style.top = 0 + 'px';
+        }
+        else if(Y > endOfYPoint){
+            remote.style.top = endOfYPoint + 'px';
+        }
+        else{
+            remote.style.top = originTop + diffY + 'px';
+        }
+    }
 })
 
 document.addEventListener("mouseup",(e)=>{
-isDragging = false;
+    isDragging = false;
 })
 </script>
