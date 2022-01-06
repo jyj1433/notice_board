@@ -5,12 +5,7 @@
 #
 #
 ###################################
-import os
-
-from flask import Flask, render_template, request, send_file, jsonify
-
-#Flask 객체 인스턴스 생성
-from werkzeug.utils import secure_filename
+from flask import Flask, render_template
 
 app = Flask(__name__)
 app.secret_key = 'secretkey'
@@ -27,10 +22,6 @@ app.register_blueprint(member_view.bp)
 app.register_blueprint(board_dev_view.bp)
 app.register_blueprint(board_free_view.bp)
 app.register_blueprint(main_view.bp)
-
-# @app.route('/') # 초기화면 render
-# def index():
-#     return render_template('index.html', title="index")
 
 @app.route('/rockcut')
 def rockcut():
