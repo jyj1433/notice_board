@@ -18,12 +18,14 @@ from webapp.member import member_view
 from webapp.board_dev import board_dev_view
 from webapp.board_free import board_free_view
 from webapp.main import main_view
+from modules.review import review_view
 
 app.register_blueprint(board_view.bp)
 app.register_blueprint(member_view.bp)
 app.register_blueprint(board_dev_view.bp)
 app.register_blueprint(board_free_view.bp)
 app.register_blueprint(main_view.bp)
+app.register_blueprint(review_view.bp)
 
 @app.route('/rockcut')
 def rockcut():
