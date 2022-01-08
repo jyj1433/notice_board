@@ -18,14 +18,14 @@ class MainDAO:
 
     @classmethod
     def selectBoardDetailDev(cls, board_code) -> 'MainDAO':
-        sql = 'select board_dev.*, users.usr_name as nickname ' \
+        sql = 'select users.usr_name as nickname ,board_dev.* ' \
               'from board_dev, users ' \
               'where board_dev.bd_author = users.usr_id and board_dev.bd_num = ' + board_code + ';'
         return dbc.select(sql)
 
     @classmethod
     def selectBoardDetailFree(cls, board_code) -> 'MainDAO':
-        sql = 'select board_free.*, users.usr_name as nickname ' \
+        sql = 'select users.usr_name as nickname, board_free.* ' \
               'from board_free, users ' \
               'where board_free.bf_author = users.usr_id and board_free.bf_num = ' + board_code + ';'
         return dbc.select(sql)
