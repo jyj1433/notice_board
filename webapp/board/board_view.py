@@ -126,7 +126,7 @@ def modify():
             flash("글이 수정되었습니다.")
             return redirect('/get?idx='+board_code+'&page='+page)
         return error
-    return render_template('board/board_modify.html', title="글쓰기", result=re, page=page)
+    return render_template('board/board_modify.html', title="글쓰기", result=re, page=page,config=config)
 
 
 @bp.route("/addImgSummer", methods=["POST"])
