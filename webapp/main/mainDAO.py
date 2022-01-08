@@ -1,8 +1,9 @@
 import db_connection as dbc
+import modules.review.reviewDAO as reviewDAO
 
 dbc = dbc.db_conn()
 
-class MainDAO:
+class MainDAO(reviewDAO.ReviewDAO):
 
     @classmethod
     def selectBoardAll(cls) -> 'MainDAO':

@@ -29,3 +29,13 @@ class ReviewDAO:
               "and r.rv_board_kind = '" + kind + "' " \
               "and u.usr_id = r.rv_author;"
         return dbc.select(sql)
+
+    @classmethod
+    def deleteReviewCascade(cls, board_code,kind) -> 'ReviewDAO':
+        sql = "delete from review where rv_board_num = " + board_code + " and rv_board_kind = '" + kind + "';"
+        return dbc.execute(sql)
+
+    @classmethod
+    def deleteReview(cls, rv_num) -> 'ReviewDAO':
+        sql = "delete from review where rv_num = " + rv_num + ";"
+        return dbc.execute(sql)

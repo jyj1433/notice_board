@@ -89,6 +89,7 @@ def board_free_delete():
         flash("글 작성자 만이 삭제가능합니다.")
         return redirect('/board_free_get?idx='+board_code +'&page=' + page)
     dao.deleteBoard(board_code)
+    dao.deleteReviewCascade(board_code, 'b02')
     flash("글이 삭제되었습니다")
     return redirect('/board_free')
 

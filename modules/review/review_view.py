@@ -35,3 +35,13 @@ def review_write():
     elif kind == 'b03':
         return redirect('/board_dev_get?idx=' + board_code + '&page=' + page)
 
+# 댓글 삭제
+@bp.route("/review_delete", methods=['GET', 'POST'])
+def review_delete():
+    rv_num = request.args.get('rv_num')
+    current_url = request.args.get('cur_url')
+    page = request.args.get('page')
+    current_url = current_url+'&page='+page
+
+    dao.deleteReview(rv_num)
+    return redirect(current_url)
