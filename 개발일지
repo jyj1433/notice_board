@@ -155,3 +155,14 @@ base.css body에 드래그 제한
 메인 디자인 일부 변경
 board 테이블에 게시판 식별 코드 추가, kind_boards 테이블 추가
 review 테이블에 kind 추가
+
+
+#18
+2022년 1월 6일
+
+댓글 쓰기 추가, summernote 이미지 삽입 오류 수정
+코드 정리 (코드 정렬, 불필요한 import제거, sql문 작성법 변경)
+디렉터리 내 불필요한 이미지 파일 정리
+footer 반응형으로 수정 - height단위를 vh로 수정
+selectBoardDetail sql문 수정 - column 위치 변경 -> board 관련된 html 코드들의
+index 전부 한 칸 뒤로 수정

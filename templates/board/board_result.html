@@ -25,10 +25,12 @@
     <button class="btn btn-success" onClick="location.href='/modify?idx='+{{result[0][1]}} +'&page='+ {{page}}">수정</button>
     <a class="delete btn btn-danger" data-uri="/delete?idx='+{{result[0][1]}} +'&page='+ {{page}}">삭제</a>
     <button class="btn btn-warning float-right" onClick="location.href='/board?page='+ {{page}}"> 목록 </button>
+    <br><br><br>
+    {% include "review.html" %}
+
 </div>
 
 {% endblock %}
-
 
 {% block script %}
 <script type='text/javascript'>

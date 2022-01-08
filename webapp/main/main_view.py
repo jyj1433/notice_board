@@ -1,6 +1,7 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, send_file
 import config
 import webapp.main.mainDAO as mainDAO
+import os
 
 bp = Blueprint("main", __name__, url_prefix='/')
 dao = mainDAO.MainDAO
@@ -27,7 +28,7 @@ def main_get():
         return render_template('board_dev/board_dev_result.html', result=re, title="게시판", page=1)
 
 
-@bp.route('/filetest',methods=['GET','POST']) # 파일업로드 테스트 페이지
+@bp.route('/filetest',methods=['GET', 'POST']) # 파일업로드 테스트 페이지
 def filetest():
     if request.method == 'POST':
         f = request.files['file']

@@ -1,8 +1,9 @@
 import db_connection as dbc
+import modules.review.reviewDAO as reviewDAO
 
 dbc = dbc.db_conn()
 
-class Board_freeDAO:
+class Board_freeDAO(reviewDAO.ReviewDAO):
 
     @classmethod
     def selectBoardList(cls) -> 'Board_freeDAO':
@@ -26,7 +27,7 @@ class Board_freeDAO:
 
     @classmethod
     def insertBoard(cls, title, content, author) -> 'Board_freeDAO':
-        sql = "insert into board_free values (NULL,'" + title + "', date_format(now(),'%Y-%m-%d') ,'" + content + "','" + author + "', now(), 'b02');"
+        sql = "insert into board_free values (NULL,'" + title + "', date_format(now(),'%Y-%m-%d') ,'" + content + "','" + author + "', NULL, now(), 'b02');"
         dbc.execute(sql)
 
     @classmethod
@@ -53,8 +54,3 @@ class Board_freeDAO:
               "from board_free, users " \
               "where board_free.bf_author = users.usr_id and " + option + " like '%" + keyword + "%' order by bf_num desc LIMIT " + str((page - 1) * limit) + ',' + str(limit) + ';'
         return dbc.select(sql)
-
-    @classmethod
-    def insertReview(cls, board_code, content, kind, id) -> 'Board_freeDAO':
-        sql = "insert into review values (NULL, '" + id + "', '" + content + "', now()," + board_code + ", '" + kind + "');"
-        return dbc.execute(sql)

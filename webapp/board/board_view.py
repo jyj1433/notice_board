@@ -13,7 +13,9 @@ def get():
     board_code = request.args.get('idx')
     page = request.args.get('page')
     re = dao.selectBoardDetail(board_code)
-    return render_template('board/board_result.html', result=re, title="게시판", page=page, config=config)
+    review = dao.selectReview(board_code, 'b01')
+
+    return render_template('board/board_result.html', result=re, title="게시판", page=page, review=review, config=config)
 
 # 게시판 목록
 @bp.route('/board')

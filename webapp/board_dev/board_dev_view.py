@@ -12,7 +12,9 @@ def board_dev_get():
     board_code = request.args.get('idx')
     page = request.args.get('page')
     re = dao.selectBoardDetail(board_code)
-    return render_template('board_dev/board_dev_result.html', result=re, title="게시판", page=page, config=config.host)
+    review = dao.selectReview(board_code, 'b03')
+
+    return render_template('board_dev/board_dev_result.html', result=re, title="게시판", page=page, review=review, config=config.host)
 
 # 게시판 목록
 @bp.route('/board_dev')
@@ -83,7 +85,7 @@ def board_dev_write():
             flash("글이 작성되었습니다.")
             return redirect('/board_dev')
         flash(error)
-    return render_template('board_dev/board_dev_write.html', title="글쓰기" , config = config.host)
+    return render_template('board_dev/board_dev_write.html', title="글쓰기", config=config.host)
 
 # 게시글 삭제하기
 @bp.route("/board_dev_delete", methods=['GET'])

@@ -12,7 +12,9 @@ def board_free_get():
     board_code = request.args.get('idx')
     page = request.args.get('page')
     re = dao.selectBoardDetail(board_code)
-    return render_template('board_free/board_free_result.html', result=re, title="게시판",page=page)
+    review = dao.selectReview(board_code, 'b02')
+
+    return render_template('board_free/board_free_result.html', result=re, title="게시판", page=page, review=review)
 
 # 게시판 목록
 @bp.route('/board_free')

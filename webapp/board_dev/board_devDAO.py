@@ -1,8 +1,9 @@
 import db_connection as dbc
+import modules.review.reviewDAO as reviewDAO
 
 dbc = dbc.db_conn()
 
-class Board_devDAO:
+class Board_devDAO(reviewDAO.ReviewDAO):
 
     @classmethod
     def selectBoardList(cls) -> 'Board_devDAO':
@@ -63,4 +64,14 @@ class Board_devDAO:
         sql = "select users.usr_name as nickname, board_dev.* " \
               "from board_dev, users " \
               "where board_dev.bd_author = users.usr_id and " + option + " like '%" + keyword + "%' order by bd_num desc LIMIT " + str((page - 1) * limit) + ',' + str(limit) + ';'
+        return dbc.select(sql)
+
+    @classmethod
+    def insertReview(cls, board_code, content, kind, id) -> 'Board_devDAO':
+        sql = "insert into review values (NULL, '" + id + "', '" + content + "', now()," + board_code + ", '" + kind + "');"
+        return dbc.execute(sql)
+
+    @classmethod
+    def selectReview(cls, board_code, kind) -> 'Board_devDAO':
+        sql = "select u.usr_name, r.* from review r, users u where r.rv_board_num = " + board_code + " and r.rv_board_kind = '" + kind + "' and u.usr_id = r.rv_author;"
         return dbc.select(sql)

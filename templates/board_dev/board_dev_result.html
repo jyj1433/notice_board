@@ -24,10 +24,12 @@
     <button class="btn btn-success" onClick="location.href='/board_dev_modify?idx='+{{result[0][1]}} +'&page='+ {{page}}">수정</button>
     <a class="delete btn btn-danger" data-uri="/board_dev_delete?idx='+{{result[0][1]}} +'&page='+ {{page}}">삭제</a>
     <button class="btn btn-warning float-right" onClick="location.href='/board_dev?page='+ {{page}}"> 목록 </button>
+    <br><br><br>
+    {% include "review.html" %}
+
 </div>
 
 {% endblock %}
-
 
 {% block script %}
 <script type='text/javascript'>
@@ -38,7 +40,6 @@ $(document).ready(function(){
         }
     });
 });
-
 
 $(document).ready(function() {
 var name = '{{result[0][6]}}';
