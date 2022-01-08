@@ -12,7 +12,7 @@ def board_dev_get():
     board_code = request.args.get('idx')
     page = request.args.get('page')
     re = dao.selectBoardDetail(board_code)
-    return render_template('board_dev/board_dev_result.html', result=re, title="게시판",page=page)
+    return render_template('board_dev/board_dev_result.html', result=re, title="게시판", page=page, config=config.host)
 
 # 게시판 목록
 @bp.route('/board_dev')
