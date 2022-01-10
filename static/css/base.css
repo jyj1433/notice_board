@@ -4,6 +4,25 @@
     background-color:#eeeeee;
 }
 
+/* 댓글 페이지네이션 css */
+.my .page-item.active .page-link{
+    background-color:#ffffff;
+    border:1.5px solid gray;
+    border-color:#e0e0e0;
+    color: #00c73c;
+    font-weight: bold;
+    border-radius: 0px / 0px;
+}
+
+.my .page-item .page-link{
+    border:1.5px solid gray;
+    border-color:#ffffff;
+    color:#999;
+}
+
+
+
+
 /* 드래그 설정 */
 body {
     -webkit-user-select:none;

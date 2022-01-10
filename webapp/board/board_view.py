@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect, flash, session,
 import math
 import config
 import webapp.board.boardDAO as boardDAO
+import modules.review.review_view as review_view
 
 bp = Blueprint("board", __name__, url_prefix='/')
 dao = boardDAO.BoardDAO
@@ -13,9 +14,10 @@ def get():
     board_code = request.args.get('idx')
     page = request.args.get('page')
     re = dao.selectBoardDetail(board_code)
-    review = dao.selectReview(board_code, 'b01')
+    review = review_view.review_pagenation(board_code,'b01')
+    # review = dao.selectReview(board_code, 'b01')
 
-    return render_template('board/board_result.html', result=re, title="게시판", page=page, review=review, config=config)
+    return render_template('board/board_result.html', result=re, title="게시판", page=page, config=config,reviewpage=review,idx=board_code, kind=".get")
 
 # 게시판 목록
 @bp.route('/board')

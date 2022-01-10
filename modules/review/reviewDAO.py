@@ -39,3 +39,22 @@ class ReviewDAO:
     def deleteReview(cls, rv_num) -> 'ReviewDAO':
         sql = "delete from review where rv_num = " + rv_num + ";"
         return dbc.execute(sql)
+
+    @classmethod
+    def selectreivewPage(cls, reviewpage, limit, board_code, kind) -> 'ReviewDAO':
+        sql = "select u.usr_name,r.* from  review r,users u "\
+              "where r.rv_board_num = " + board_code + " " \
+              "and r.rv_board_kind = '" + kind + "' " \
+              "and u.usr_id = r.rv_author "\
+              "order by r.rv_num desc LIMIT " + str((reviewpage - 1) * limit) + "," + str(limit) + ";"
+        return dbc.select(sql)
+
+    @classmethod
+    def selectReviewcount(cls, board_code, kind) -> 'ReviewDAO':
+        sql = "select count(*) " \
+              "from review r,users u " \
+              "where r.rv_board_num = " + board_code + " " \
+              "and r.rv_board_kind = '" + kind + "' " \
+              "and u.usr_id = r.rv_author;"
+        print(sql)
+        return dbc.select(sql)
