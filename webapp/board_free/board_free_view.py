@@ -46,7 +46,7 @@ def board_free():
     block_start = (block_size * block_num) + 1  # 현재 블럭의 맨 처음 페이지 넘버 (첫 번째 블럭이라면, block_start = 1, 두 번째 블럭이라면, block_start = 6)
     block_end = block_start + (block_size - 1)  # 현재 블럭의 맨 끝 페이지 넘버 (첫 번째 블럭이라면, block_end = 5)
 
-    title = "게시판 " + str(page) + "p"
+    title = "자유게시판 " + str(page) + "p"
 
     return render_template('board_free/board_free.html', result=re, title=title, search=search_keyword, opt=search_option,
         datas=re,

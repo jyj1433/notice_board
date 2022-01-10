@@ -7,6 +7,7 @@
     cursor: move;
     text-align: center;
     opacity: 0.9;
+    z-index:1;
 }
 
 .remote .h_area {

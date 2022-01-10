@@ -110,8 +110,9 @@ footer {
     margin-left: 8px;
 }
 
-.bottom_box ul > li:last-child { /* 마지막 li요소 (Naver Corp.) 굵게 */
+.bottom_box ul > li:last-child { /* 마지막 li요소 굵게 */
     font-weight: bold;
+    text-decoration:none;
 }
 
 /* 재사용 클래스 */

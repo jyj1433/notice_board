@@ -42,15 +42,15 @@ def login_post():
         id = request.form['usr_id']
         pw = request.form['usr_pw']
         login_check = dao.selectLogin(id, pw)
-        if id == '' :
-            error = '아이디는 필수 입력 사항입니다.'
+        if id == '':
+            error = '아이디를 입력해주세요.'
         elif not login_check:
-            error = '아이디 또는 비밀번호가 틀렸습니다.'
+            error = '아이디 또는 비밀번호가 일치하지 않습니다.'
         else:
             session['check'] = True
             session['id'] = id
             return redirect('/')
-    return render_template('member/login.html', title="로그인", error = error)
+    return render_template('member/login.html', title="로그인", error=error)
 
 #로그아웃
 @bp.route('/logout',methods=['GET','POST'])

@@ -1,8 +1,10 @@
+/* 네비게이션 바 선택 강조 */
 .navbar-nav .nav-item.active .nav-link{
     font-weight:bold;
     background-color:#eeeeee;
 }
 
+/* 드래그 설정 */
 body {
     -webkit-user-select:none;
     -moz-user-select:none;
@@ -25,16 +27,77 @@ body {
 .navbar-nav .nav-item .nav-link{
     font-size:14pt;
 }
-
 .navbar-nav .nav-item .nav-link.log{
     font-size:12pt;
 }
 
+/* 모든 게시판의 tbody에 커서 설정  */
 tbody {
     cursor:pointer;
 }
 
+/* 댓글 날짜 */
 .review-date{
     font-size:10pt;
     color:grey;
+}
+
+/* 로그인 화면 스타일 */
+.login-text{ /* id, pw 입력란 */
+    position:relative;
+    z-index:3;
+    border:none;
+    width:380px;
+    height:55px;
+    font-size:14pt;
+    outline:none;
+    background:transparent;
+}
+.login-text-background{ /* id, pw 입력란의 배경 설정. input태그에 스타일을 적용한 것 같지만 실제로는 div영역이 따로 깔려있음 */
+    position:relative;
+    z-index:2; /* 겹쳐있는 영역에 z축 우선순위를 줌 */
+    width:420px;
+    height:55px;
+    top:-235px; /* top을 맞춰서 직접 위치 조정 */
+    border-radius:35px; /* 모서리 둥글게 */
+    background-color:#f0f0f0;
+}
+.login-text-background.pw{ /* pw용 위치 조정 */
+    top:-220px;
+}
+.login-button{
+    border-radius:35px;
+    border:none;
+    width:420px;
+    height:55px;
+    background-color:#ff6022;
+    /*background:linear-gradient(to right, #ff6022, #ff6fbf); 그라데이션 주는 법 */
+    color:#ffffff;
+    font-weight:bold;
+    font-size:14pt;
+    letter-spacing:2px; /* 글자 사이에 공간 여유두는 법 (자간) */
+}
+.login-ul { /* ul의 하위요소(li) 수평정렬을 위해 기본마진, 패딩 제거 */
+    margin: 0;
+    padding: 0;
+}
+.login-ul li{
+    display: inline-block; /* li 수평정렬하는 방법 */
+    margin-left: 3px;
+}
+.login-ul li.sep{
+    color:#bbbbbb;
+}
+.login-logo{
+    font-weight:bold;
+    font-size:30pt;
+    color:#ff6022;
+    letter-spacing:2px;
+}
+.login-error{
+    position:relative;
+    top:-80px;
+    font-weight:bold;
+    font-size:13pt;
+    color:#ff6022;
 }
