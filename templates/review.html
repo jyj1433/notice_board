@@ -9,6 +9,10 @@
             <i class="fas fa-times float-right"
                style="color:red; cursor:pointer;"
                onclick="review_del({{r[1]}})"></i>
+            {% if 1440 >= r[4]|datetime >= 1439  or  r[4]|datetime < 10 %}
+            <c class="float-right" id="new" style="top:-50px; left:10px; position:relative; color:orange;">new!</c>
+            {% endif %}
+
             {% endif %}
         </div>
     </li>
@@ -19,7 +23,7 @@
 <div class="text-center">
         <ul class="pagination pagination-sm my" style="justify-content: center">
         {% if reviewpage[7] - 1 > 0 %}
-            <li class="page-item"><a class="page-link" href="{{url_for(kind,idx=idx ,page=1,reviewpage=reviewpage[7] - 1)}}">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="{{url_for(kind,idx=idx ,page=1,reviewpage=reviewpage[7] - 1)}}">< 뒤로</a></li>
         {% endif %}
 
         {% for i in range(reviewpage[7], reviewpage[8] + 1)%}
@@ -36,14 +40,14 @@
         {% endfor %}
 
         {% if reviewpage[8] < reviewpage[4] %}
-            <li class="page-item><a class="page-link" href="{{url_for(kind,idx=idx,page=page,reviewpage=reviewpage[8] + 1)}}">Next</a></li>
+            <li class="page-item"><a class="page-link" href="{{url_for(kind,idx=idx,page=page,reviewpage=reviewpage[8] + 1)}}">다음 ></a></li>
         {% endif %}
         </ul>
     <br>
     </div>
 
 
-<form method="post" action="/review_write?idx={{result[0][1]}}&page={{page}}">
+<form method="post" action="/review_write?idx={{result[0][1]}}&page={{page}}&reviewpage={{reviewpage[4]}}">
     <div style="padding:5px; width:100%; height:90px; background-color:#ffefef;">
         <textarea name="review_content" style="width:50%; margin-bottom:10px; resize:none; height:100%; vertical-align:middle;"></textarea>
         <button class="btn btn-primary" type="submit" style="width:80px; height:60%; margin-top:20px; margin-right:20px; vertical-align:middle; position:relative; top:-15px;">작성</button>
@@ -54,9 +58,12 @@
 
 </form>
 <script>
+
+
 function review_del(data){
     if(confirm("정말로 삭제하시겠습니까?")) {
         location.href='/review_delete?rv_num=' + data + '&cur_url={{request.url|safe}}'
     }
 }
+
 </script>
