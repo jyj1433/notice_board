@@ -38,3 +38,8 @@ class MemberDAO:
     def deleteMember(cls, id) -> 'MemberDAO':
         sql = 'delete from users where usr_id= "' + id + '";'
         dbc.execute(sql)
+
+    @classmethod
+    def selectUserForEmail(cls, email) -> 'MemberDAO':
+        sql = 'select * from users where usr_email = "' + email + '";'
+        return dbc.select(sql)

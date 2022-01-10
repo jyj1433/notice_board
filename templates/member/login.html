@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container my-3" style="text-align:center;">
+<div class="container my-3" style="text-align:center;" xmlns="http://www.w3.org/1999/html">
     <form action="/login" method="post">
         <label class="login-logo">LOGIN</label><br>
 
@@ -21,10 +21,8 @@
         <button type="submit" class="login-button">로그인</button>
     </form>
     <p/>
-    <ul class="login-ul">
-        <li>아이디 찾기</li>
-        <li class="sep">|</li>
-        <li>비밀번호 찾기</li>
+    <ul>
+        <li><a href="/find_id_pw">아이디나 비밀번호를 잊으셨나요?</a></li>
     </ul>
     <center>
         <div class="login-text-background"></div>

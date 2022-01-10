@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-3" style="text-align:center;" xmlns="http://www.w3.org/1999/html">
+    <form action="/find_id_pw" method="post">
+        <label class="login-logo find">ID/PW 찾기</label><br>
+
+        <div class="form-group">
+            <input class="login-text"
+                   type="text" id="usr_email" name="usr_email"
+                   value="{{request.form.usr_email}}"
+                   autocomplete="off"
+                   placeholder="가입시 사용한 이메일을 입력해주세요">
+            <button type="submit" class="login-button find">찾기</button>
+        </div>
+        <br><br>
+        <a href="/login">다시 로그인하러 가기</a>
+        <center>
+            <div class="login-text-background find"></div>
+        </center>
+    </form>
+    {% if error %}
+        <label class="find-error">{{ error }}</label>
+    {% endif %}
+    {% if find %}
+        <label class="find-success">회원님의 ID를 찾아왔어요! : {{ find }}</label>
+    {% endif %}
+
+</div>
+
+{% endblock %}

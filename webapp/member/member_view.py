@@ -52,14 +52,14 @@ def login_post():
             return redirect('/')
     return render_template('member/login.html', title="로그인", error=error)
 
-#로그아웃
+# 로그아웃
 @bp.route('/logout',methods=['GET','POST'])
 def logout():
     session.clear()
     flash("로그아웃 되었습니다.")
     return redirect('/')
 
-#마이페이지
+# 마이페이지
 @bp.route('/member_modify',methods=['GET','POST'])
 def member_modify():
     error = None
@@ -84,11 +84,34 @@ def member_modify():
 
     return render_template('member/member_modify.html', title="마이페이지", result=result, error=error)
 
-#회원탈퇴
-@bp.route('/member_delete',methods=['GET','POST'])
+# 회원탈퇴
+@bp.route('/member_delete',methods=['GET', 'POST'])
 def member_delete():
     id = '%s' % escape(session['id'])
     dao.deleteMember(id)
     session.clear()
     flash("회원탈퇴가 완료되었습니다.")
     return render_template('index.html', title="index")
+
+# 아이디 비밀번호 찾기
+@bp.route('/find_id_pw',methods=['GET', 'POST'])
+def find_id_pw():
+    error = None
+    if request.method == 'POST':
+        email = request.form.get('usr_email')
+
+        re = dao.selectUserForEmail(email)
+
+        if email == '':
+            error = "이메일을 입력하세요"
+        elif not re:
+            error = "가입되지 않은 이메일입니다."
+
+        if error == None :
+            find = re[0][0]
+            return render_template('member/find_id_pw.html', title="id/pw찾기", find=find)
+
+        return render_template('member/find_id_pw.html', title="id/pw찾기", error=error)
+
+    return render_template('member/find_id_pw.html', title="id/pw찾기")
+

@@ -8,6 +8,7 @@
 #
 ###################################
 from flask import Flask, render_template
+
 from datetime import datetime
 
 app = Flask(__name__)
@@ -29,13 +30,9 @@ app.register_blueprint(board_free_view.bp)
 app.register_blueprint(main_view.bp)
 app.register_blueprint(review_view.bp)
 
-def format_datetime(value, format='yyyy-MM-dd HH:mm:ss'):
+def format_datetime(value):
     date = datetime.now()
     resurt = date - value
-    if(resurt.seconds/60 < 10):
-        a = 'new!'
-    else:
-        a = ''
     return resurt.seconds/60
 
 app.jinja_env.filters['datetime'] = format_datetime
