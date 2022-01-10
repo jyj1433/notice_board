@@ -11,7 +11,7 @@
                onclick="review_del({{r[1]}})"></i>
 
             {% endif %}
-            {% if 1440 >= r[4]|datetime >= 1439  or  r[4]|datetime < 10 %}
+            {% if 1440 >= r[4]|datetime >= 1439  or  r[4]|datetime < 360 %}
             <c class="float-right" id="new" style="top:-50px; left:10px; position:relative; color:orange;">new!</c>
             {% endif %}
         </div>
@@ -46,7 +46,7 @@
     <br>
     </div>
 
-<form method="post" action="/review_write?idx={{result[0][1]}}&page={{page}}">
+<form method="post" action="/review_write?idx={{result[0][1]}}&page={{page}}&reviewpage={{reviewpage[4]}}">
     <div style="padding:5px; width:100%; height:90px; background-color:#ffefef;">
         <textarea name="review_content" style="width:50%; margin-bottom:10px; resize:none; height:100%; vertical-align:middle;"></textarea>
         <button class="btn btn-primary" type="submit" style="width:80px; height:60%; margin-top:20px; margin-right:20px; vertical-align:middle; position:relative; top:-15px;">작성</button>
