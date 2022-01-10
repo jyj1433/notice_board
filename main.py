@@ -32,7 +32,11 @@ app.register_blueprint(review_view.bp)
 
 def format_datetime(value):
     date = datetime.now()
+
     resurt = date - value
+    if(resurt.days != 0):
+        return 3600
+
     return resurt.seconds/60
 
 app.jinja_env.filters['datetime'] = format_datetime
