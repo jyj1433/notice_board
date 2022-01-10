@@ -114,13 +114,13 @@ tbody.custom {
     z-index:2; /* 겹쳐있는 영역에 z축 우선순위를 줌 */
     width:420px;
     height:55px;
-    top:-390px; /* top을 맞춰서 직접 위치 조정 */
+    top:-394px; /* top을 맞춰서 직접 위치 조정 */
     border-radius:35px; /* 모서리 둥글게 */
     background-color:#f0f0f0;
 }
-.join-text-background.pw{ top:-375px; }
-.join-text-background.pw_cf{ top:-360px; }
-.join-text-background.nickname{ top:-345px; }
+.join-text-background.pw{ top:-379px; }
+.join-text-background.pw_cf{ top:-362px; }
+.join-text-background.nickname{ top:-346px; }
 .join-text-background.email{ top:-330px; }
 .join-button{
     border-radius:35px;
@@ -183,4 +183,32 @@ tbody.custom {
     font-weight:bold;
     font-size:13pt;
     color:#2260ff;
+}
+
+/* 회원정보수정 화면 스타일 */
+.login-logo.join{ color:#2260ff; }
+.login-text.join{ left:+20px; }
+.mod-text-background{
+    position:relative;
+    z-index:2; /* 겹쳐있는 영역에 z축 우선순위를 줌 */
+    width:420px;
+    height:55px;
+    top:-390px; /* top을 맞춰서 직접 위치 조정 */
+    border-radius:35px; /* 모서리 둥글게 */
+    background-color:#f0f0f0;
+}
+.mod-text-background.pw{ top:-375px; }
+.mod-text-background.pw_new{ top:-360px; }
+.mod-text-background.nickname{ top:-345px; }
+.mod-text-background.email{ top:-330px; }
+.mod-button{
+    border-radius:35px;
+    border:none;
+    width:100px;
+    height:40px;
+    background:linear-gradient(to right, #2260ff, #ff6fbf);
+    color:#ffffff;
+    font-weight:bold;
+    font-size:12pt;
+    letter-spacing:2px; /* 글자 사이에 공간 여유두는 법 (자간) */
 }
