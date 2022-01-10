@@ -51,6 +51,10 @@ tbody {
     cursor:pointer;
 }
 
+tbody.custom {
+    background:white;
+}
+
 /* 댓글 날짜 */
 .review-date{
     font-size:10pt;
@@ -137,6 +141,43 @@ tbody {
     font-weight:bold;
     font-size:13pt;
     color:#ff6022;
+}
+
+.mypage-column{
+    float: left;
+    width: 45%;
+    margin:10px;
+}
+
+.mypage-group{
+    min-height: 330px;
+    border: 1px solid #dadada;
+    padding: 30px;
+    margin: 20px 10px 40px 10px;
+}
+
+.mypage-header{
+    margin-bottom : 20px;
+    font-weight: 800;
+}
+
+.mypage-content{
+    float: left;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.mypage-content img{
+     float: left;
+}
+
+.content-nick{
+    float: left;
+    padding: 20px 5px 0px 28px;
+}
+
+.content-name{
+    padding: 20px 0px 0px 50%;
 }
 .find-success{
     font-weight:bold;

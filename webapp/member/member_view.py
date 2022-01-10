@@ -59,7 +59,7 @@ def logout():
     flash("로그아웃 되었습니다.")
     return redirect('/')
 
-# 마이페이지
+# 회원수정
 @bp.route('/member_modify',methods=['GET','POST'])
 def member_modify():
     error = None
@@ -115,3 +115,10 @@ def find_id_pw():
 
     return render_template('member/find_id_pw.html', title="id/pw찾기")
 
+
+# 마이페이지(****미완성****)
+@bp.route('/mypage',methods=['GET','POST'])
+def mypage():
+    id = '%s' % escape(session['id'])
+    result = dao.selectMypagePost(id)
+    return render_template('member/mypage.html', title="mypage", result=result, id=id)

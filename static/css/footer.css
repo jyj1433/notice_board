@@ -22,7 +22,7 @@ html, body {
 ul { /* ul의 하위요소(li) 수평정렬을 위해 기본마진, 패딩 제거 */
     margin: 0;
     padding: 0;
-  }
+}
 
 footer {
     /*background-color: #434343;*/

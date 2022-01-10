@@ -39,6 +39,26 @@ class MemberDAO:
         sql = 'delete from users where usr_id= "' + id + '";'
         dbc.execute(sql)
 
+
+    # 마이페이지 내가 쓴 글 select - dev,free (****미완성****)
+    @classmethod
+    def selectMypagePost(cls, id) -> 'MemberDAO':
+        sql = '(select b.bd_num as num, b.bd_title as title, b.bd_datetime as dt, k.k_caption ' \
+              'from board_dev b, kind_boards k ' \
+              'where b.kind=k.k_code and b.bd_author = "' + id + '") ' \
+              'union ' \
+              '(select b.bf_num, b.bf_title, b.bf_datetime as dt, k.k_caption ' \
+              'from board_free b, kind_boards k ' \
+              'where b.kind=k.k_code and b.bf_author = "' + id + '") ' \
+              'order by dt desc limit 0, 5;'
+        return dbc.select(sql)
+
+    # 마이페이지 내가 쓴 댓글 select (****미완성****)
+    @classmethod
+    def selectMypageReviews(cls, id) -> 'MemberDAO':
+        sql = ''
+        return dbc.select(sql)
+
     @classmethod
     def selectUserForEmail(cls, email) -> 'MemberDAO':
         sql = 'select * from users where usr_email = "' + email + '";'
