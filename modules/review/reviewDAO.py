@@ -46,7 +46,7 @@ class ReviewDAO:
               "where r.rv_board_num = " + board_code + " " \
               "and r.rv_board_kind = '" + kind + "' " \
               "and u.usr_id = r.rv_author "\
-              "order by r.rv_num desc LIMIT " + str((reviewpage - 1) * limit) + "," + str(limit) + ";"
+              "order by r.rv_num asc LIMIT " + str((reviewpage - 1) * limit) + "," + str(limit) + ";"
         return dbc.select(sql)
 
     @classmethod
