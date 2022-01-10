@@ -8,6 +8,10 @@
 #
 ###################################
 from flask import Flask, render_template
+import babel
+from babel.dates import format_date, format_datetime, format_time
+
+from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = 'secretkey'
@@ -20,12 +24,27 @@ from webapp.board_free import board_free_view
 from webapp.main import main_view
 from modules.review import review_view
 
+
 app.register_blueprint(board_view.bp)
 app.register_blueprint(member_view.bp)
 app.register_blueprint(board_dev_view.bp)
 app.register_blueprint(board_free_view.bp)
 app.register_blueprint(main_view.bp)
 app.register_blueprint(review_view.bp)
+
+def format_datetime(value, format='yyyy-MM-dd HH:mm:ss'):
+    date = datetime.now()
+    resurt = date - value
+    if(resurt.seconds/60 < 10):
+        a = 'new!'
+    else:
+        a = ''
+    return resurt.seconds/60
+
+app.jinja_env.filters['datetime'] = format_datetime
+
+
+
 
 @app.route('/rockcut')
 def rockcut():
