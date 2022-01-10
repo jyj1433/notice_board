@@ -8,9 +8,6 @@
 #
 ###################################
 from flask import Flask, render_template
-import babel
-from babel.dates import format_date, format_datetime, format_time
-
 from datetime import datetime
 
 app = Flask(__name__)

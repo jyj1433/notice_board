@@ -9,10 +9,10 @@
             <i class="fas fa-times float-right"
                style="color:red; cursor:pointer;"
                onclick="review_del({{r[1]}})"></i>
+
+            {% endif %}
             {% if 1440 >= r[4]|datetime >= 1439  or  r[4]|datetime < 10 %}
             <c class="float-right" id="new" style="top:-50px; left:10px; position:relative; color:orange;">new!</c>
-            {% endif %}
-
             {% endif %}
         </div>
     </li>
