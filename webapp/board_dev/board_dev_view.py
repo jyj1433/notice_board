@@ -67,10 +67,10 @@ def board_dev_write():
         flash("로그인 해주세요")
         return redirect("/board_dev")
     if request.method == 'POST':
-        nickname = nickname_select.selectNickname(id)
         title = request.form['bd_title']
         content = request.form['bd_content']
         author = session.get('id')
+        nickname = nickname_select.selectNickname(author)
         if title == '':
             error = "제목을 입력해주세요"
 

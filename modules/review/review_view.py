@@ -2,6 +2,7 @@ import math
 
 from flask import Blueprint, render_template, request, redirect, flash, session
 import modules.review.reviewDAO as reviewDAO
+import modules.nickname_select as nickname_select
 
 bp = Blueprint("review", __name__, url_prefix='/')
 dao = reviewDAO.ReviewDAO
@@ -14,6 +15,11 @@ def review_write():
     page = request.args.get('page') # 현재 페이지
     id = session.get('id') # 로그인된 아이디
     review_page = request.args.get('reviewpage')
+
+    if review_page == '0':
+        review_page = '1'
+
+
 
     # post로 가져온 값들
     kind = request.form.get('kind')  # 게시판 종류
@@ -30,7 +36,8 @@ def review_write():
             return redirect('/board_dev_get?idx=' + board_code + '&page=' + page)
 
     # 로그인이 되어있을 경우 - 댓글 작성 성공
-    dao.insertReview(board_code, review_content, kind, id)
+    nickname = nickname_select.selectNickname(id)
+    dao.insertReview(nickname, board_code, review_content, kind, id)
     if kind == 'b01':
         return redirect('/get?idx=' + board_code + '&page=' + page + '&reviewpage=' + review_page)
     elif kind == 'b02':

@@ -70,6 +70,7 @@ def board_write():
         flash("로그인 해주세요")
         return redirect("/board")
 
+
     if request.method == 'POST':
         nickname = nickname_select.selectNickname(id)
         title = request.form['b_title']
