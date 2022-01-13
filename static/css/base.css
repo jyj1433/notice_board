@@ -170,14 +170,15 @@ tbody.custom {
      float: left;
 }
 
-.content-nick{
+.content-info{
     float: left;
-    padding: 20px 5px 0px 28px;
+    padding: 5px 5px 0px 28px;
 }
 
-.content-name{
-    padding: 20px 0px 0px 50%;
+.content-value{
+    padding: 5px 0px 0px 50%;
 }
+
 .find-success{
     font-weight:bold;
     font-size:13pt;
@@ -210,4 +211,22 @@ tbody.custom {
     font-weight:bold;
     font-size:12pt;
     letter-spacing:2px; /* 글자 사이에 공간 여유두는 법 (자간) */
+}
+
+/* 회원탈퇴 비밀번호 확인창 배경 */
+.mod-text-background.delete{
+    top: -70px;
+    left: 340px;
+}
+
+/* 회원탈퇴 비밀번호 확인 텍스트 */
+.confirm-text{
+    position:relative;
+    z-index:3; /* 겹쳐있는 영역에 z축 우선순위를 줌 */
+    border:none;
+    width:380px;
+    height:55px;
+    font-size:14pt;
+    outline:none;
+    background:transparent;
 }

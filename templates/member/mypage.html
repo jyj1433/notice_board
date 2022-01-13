@@ -6,18 +6,22 @@
             <div class="mypage-header">프로필</div>
             <div class="mypage-content">
                 <img src="{{ url_for('static', filename='image/user_icon.png') }}" width="120" height="120">
-                <dt class="content-nick">닉네임 </dt>
-                <dd class="content-name">{{id}}</dd>
+                <br>
+                <dt class="content-info">닉네임 </dt>
+                <dd class="content-value">{{info[0][3]}}</dd>
+                <dt class="content-info">이메일 </dt>
+                <dd class="content-value">{{info[0][2]}}</dd>
             </div>
 
             <div class="mypage-bottom">
-                <a href="/member_modify">회원수정</a>
+                <a href="/member_modify">회원수정</a> |
+                <a href="/member_delete">탈퇴</a>
             </div>
         </div>
         <div class="mypage-group">
-            <div class="mypage-header">내가 쓴 최신글</div><br>
+            <div class="mypage-header">내가 쓴 최신글</div>
             {% for r in result %}
-            <a href="/">-{{r[1]}}</a><p> | {{r[3]}} &nbsp {{r[2]}} </p>
+            <a href="{{url_for('.mypage_get', idx=r[0], caption=r[3])}}">-{{r[1]}}</a><p> | {{r[3]}} &nbsp {{r[2]}} </p>
             {% endfor %}
         </div>
     </div>
@@ -27,7 +31,7 @@
             <div class="mypage-header">뭔가 들어갈 뭔가</div>
         </div>
         <div class="mypage-group">
-            <div class="mypage-header">내가 쓴 댓글</div><br>
+            <div class="mypage-header">내가 쓴 댓글</div>
             <div>컨텐츠 컨트롤 문의 rento</div>
         </div>
     </div>

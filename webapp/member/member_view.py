@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, flash, session, escape
 import webapp.member.memberDAO as memberDAO
+import modules.review.review_view as review_view
 
 bp = Blueprint("member", __name__, url_prefix='/')
 dao = memberDAO.MemberDAO
@@ -87,11 +88,19 @@ def member_modify():
 # 회원탈퇴
 @bp.route('/member_delete',methods=['GET', 'POST'])
 def member_delete():
-    id = '%s' % escape(session['id'])
-    dao.deleteMember(id)
-    session.clear()
-    flash("회원탈퇴가 완료되었습니다.")
-    return render_template('index.html', title="index")
+    if request.method == 'POST':
+        id = '%s' % escape(session['id'])
+        pw = request.form['usr_pw']
+        info = dao.selectMypageInfo(id)
+        if pw == info[0][1]:
+            dao.deleteMember(id)
+            session.clear()
+            flash("탈퇴되었습니다.")
+            return render_template('member/login.html', title="index")
+        else:
+            flash("비밀번호가 틀렸습니다.")
+            return render_template('member/member_delete.html', title="member_delete")
+    return render_template('member/member_delete.html', title="member_delete")
 
 # 아이디 비밀번호 찾기
 @bp.route('/find_id_pw',methods=['GET', 'POST'])
@@ -116,9 +125,26 @@ def find_id_pw():
     return render_template('member/find_id_pw.html', title="id/pw찾기")
 
 
-# 마이페이지(****미완성****)
-@bp.route('/mypage',methods=['GET','POST'])
+# 마이페이지
+@bp.route('/mypage',methods=['GET', 'POST'])
 def mypage():
     id = '%s' % escape(session['id'])
     result = dao.selectMypagePost(id)
-    return render_template('member/mypage.html', title="mypage", result=result, id=id)
+    info = dao.selectMypageInfo(id)
+    return render_template('member/mypage.html', title="mypage", result=result, info=info)
+
+# 마이페이지 최신글 상세보기
+@bp.route("/mypage_get", methods=['GET'])
+def mypage_get():
+    board_code = request.args.get('idx')
+    caption = request.args.get('caption')
+
+    if caption == "자유게시판":
+        review = review_view.review_pagenation(board_code, 'b02')
+        re = dao.selectBoardDetailFree(board_code)
+        return render_template('board_free/board_free_result.html', result=re, title="게시판", page=1, reviewpage=review, idx=board_code, kind=".board_free_get")
+
+    elif caption == "개발일지":
+        review = review_view.review_pagenation(board_code, 'b03')
+        re = dao.selectBoardDetailDev(board_code)
+        return render_template('board_dev/board_dev_result.html', result=re, title="게시판", page=1,  reviewpage=review, idx=board_code, kind=".board_dev_get")
