@@ -32,7 +32,9 @@
         </div>
         <div class="mypage-group">
             <div class="mypage-header">내가 쓴 댓글</div>
-            <div>컨텐츠 컨트롤 문의 rento</div>
+            {% for re in reviews %}
+            <a href="{{url_for('.mypage_get', idx=re[6], caption=re[0])}}">-{{re[4]}}</a><p> | {{re[0]}} &nbsp {{re[5]}} </p>
+            {% endfor %}
         </div>
     </div>
 </div>

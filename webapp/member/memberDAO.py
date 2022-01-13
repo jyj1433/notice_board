@@ -57,10 +57,13 @@ class MemberDAO:
               'order by dt desc limit 0, 3;'
         return dbc.select(sql)
 
-    # 마이페이지 내가 쓴 댓글 select (****미완성****)
+    # 마이페이지 내가 쓴 댓글 조회
     @classmethod
     def selectMypageReviews(cls, id) -> 'MemberDAO':
-        sql = ''
+        sql = 'select k.k_caption, r.* ' \
+              'from review r, kind_boards k ' \
+              'where r.rv_author = "' + id + '" and k_code = r.rv_board_kind ' \
+              'order by r.rv_datetime desc limit 0, 3;'
         return dbc.select(sql)
 
     # 마이페이지 유저 정보 조회
@@ -71,7 +74,7 @@ class MemberDAO:
               'where usr_id = "' + id + '" ;'
         return dbc.select(sql)
 
-    # 상세보기
+    # 상세보기 개발일지
     @classmethod
     def selectBoardDetailDev(cls, board_code) -> 'MemberDAO':
         sql = 'select board_dev.* ' \
@@ -79,7 +82,7 @@ class MemberDAO:
               'where board_dev.bd_num = ' + board_code + ';'
         return dbc.select(sql)
 
-    # 상세보기
+    # 상세보기 자유게시판
     @classmethod
     def selectBoardDetailFree(cls, board_code) -> 'MemberDAO':
         sql = 'select board_free.* ' \
