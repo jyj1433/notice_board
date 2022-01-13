@@ -1,0 +1,83 @@
+DB Table DDL
+2022. 01. 08
+Flask Web Project
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE `board` (
+  `b_num` int NOT NULL AUTO_INCREMENT,
+  `b_title` varchar(50) NOT NULL,
+  `b_date` date NOT NULL,
+  `b_content` mediumtext,
+  `b_author` varchar(10) NOT NULL,
+  `b_file` varchar(200) DEFAULT NULL,
+  `b_datetime` datetime NOT NULL,
+  `kind` varchar(20) NOT NULL,
+  PRIMARY KEY (`b_num`),
+  KEY `user_idx` (`b_author`),
+  KEY `kind_idx` (`kind`),
+  CONSTRAINT `kind` FOREIGN KEY (`kind`) REFERENCES `kind_boards` (`k_code`),
+  CONSTRAINT `user` FOREIGN KEY (`b_author`) REFERENCES `users` (`usr_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='게시판'
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE `board_dev` (
+  `bd_num` int NOT NULL AUTO_INCREMENT,
+  `bd_title` varchar(50) NOT NULL,
+  `bd_date` date NOT NULL,
+  `bd_content` mediumtext,
+  `bd_author` varchar(10) NOT NULL,
+  `bd_file` varchar(200) DEFAULT NULL,
+  `bd_datetime` datetime NOT NULL,
+  `kind` varchar(20) NOT NULL,
+  PRIMARY KEY (`bd_num`),
+  KEY `fk_user_idx` (`bd_author`),
+  KEY `fk_kind_idx` (`kind`),
+  CONSTRAINT `fk_dev_kind` FOREIGN KEY (`kind`) REFERENCES `kind_boards` (`k_code`),
+  CONSTRAINT `fk_dev_user` FOREIGN KEY (`bd_author`) REFERENCES `users` (`usr_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='개발일지 게시판'
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE `board_free` (
+  `bf_num` int NOT NULL AUTO_INCREMENT,
+  `bf_title` varchar(50) NOT NULL,
+  `bf_date` date NOT NULL,
+  `bf_content` mediumtext,
+  `bf_author` varchar(10) NOT NULL,
+  `bf_file` varchar(20) DEFAULT NULL,
+  `bf_datetime` datetime NOT NULL,
+  `kind` varchar(20) NOT NULL,
+  PRIMARY KEY (`bf_num`),
+  KEY `fk_user_idx` (`bf_author`),
+  KEY `fk_free_kind_idx` (`kind`),
+  CONSTRAINT `fk_free_kind` FOREIGN KEY (`kind`) REFERENCES `kind_boards` (`k_code`),
+  CONSTRAINT `fk_free_user` FOREIGN KEY (`bf_author`) REFERENCES `users` (`usr_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='자유 게시판'
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE `kind_boards` (
+  `k_code` varchar(20) NOT NULL,
+  `k_caption` varchar(30) NOT NULL,
+  PRIMARY KEY (`k_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE `review` (
+  `rv_num` int NOT NULL AUTO_INCREMENT,
+  `rv_author` varchar(45) NOT NULL,
+  `rv_content` varchar(45) NOT NULL,
+  `rv_datetime` datetime NOT NULL,
+  `rv_board_num` int NOT NULL,
+  `rv_board_kind` varchar(20) NOT NULL,
+  PRIMARY KEY (`rv_num`),
+  KEY `usr_idx` (`rv_author`),
+  KEY `usr_num_idx` (`rv_author`)
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='댓글'
+------------------------------------------------------------------------------------------------------
+
+CREATE TABLE `users` (
+  `usr_id` varchar(45) NOT NULL,
+  `usr_pw` varchar(40) NOT NULL,
+  `usr_email` varchar(40) NOT NULL,
+  `usr_name` varchar(40) NOT NULL,
+  PRIMARY KEY (`usr_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='회원'

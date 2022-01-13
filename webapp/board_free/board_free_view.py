@@ -3,6 +3,7 @@ import math
 import config
 import webapp.board_free.board_freeDAO as board_freeDAO
 import modules.review.review_view as review_view
+import modules.nickname_select as nickname_select
 
 bp = Blueprint("board_free", __name__, url_prefix='/')
 dao = board_freeDAO.Board_freeDAO
@@ -66,6 +67,7 @@ def board_free_write():
         flash("로그인 해주세요")
         return redirect("/board_free")
     if request.method == 'POST':
+        nickname = nickname_select.selectNickname(id)
         title = request.form['bf_title']
         content = request.form['bf_content']
         author = session.get('id')
@@ -74,7 +76,7 @@ def board_free_write():
         elif content == '':
             error = "내용을 입력해주세요"
         else:
-            dao.insertBoard(title, content, author)
+            dao.insertBoard(nickname, title, content, author)
             flash("글이 작성되었습니다.")
             return redirect('/board_free')
         flash(error)

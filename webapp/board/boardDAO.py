@@ -17,28 +17,28 @@ class BoardDAO(reviewDAO.ReviewDAO):
 
     @classmethod
     def selectBoardPage(cls, page, limit) -> 'BoardDAO':
-        sql = 'select users.usr_name as nickname , board.* ' \
-              'from board, users ' \
-              'where board.b_author = users.usr_id order by b_num desc LIMIT ' + str((page - 1) * limit) + ',' + str(limit) + ';'
+        sql = 'select board.* ' \
+              'from board ' \
+              'order by b_num desc LIMIT ' + str((page - 1) * limit) + ',' + str(limit) + ';'
         return dbc.select(sql)
 
     @classmethod
     def selectBoardDetail(cls, board_code) -> 'BoardDAO':
-        sql = 'select users.usr_name as nickname, board.* ' \
-              'from board, users ' \
-              'where board.b_author = users.usr_id and board.b_num = ' + board_code + ';'
+        sql = 'select board.* ' \
+              'from board ' \
+              'where board.b_num = ' + board_code + ';'
         return dbc.select(sql)
 
     @classmethod
-    def insertBoard(cls, title, content, author) -> 'BoardDAO':
+    def insertBoard(cls, nickname, title, content, author) -> 'BoardDAO':
         sql = "insert into board " \
-              "values (NULL,'" + title + "', date_format(now(),'%Y-%m-%d') ,'" + content + "','" + author + "', NULL, now(), 'b01');"
+              "values ('" + nickname + "', NULL,'" + title + "', date_format(now(),'%Y-%m-%d') ,'" + content + "','" + author + "', NULL, now(), 'b01');"
         dbc.execute(sql)
 
     @classmethod
-    def insertBoardfile(cls, title, content, author, file_name) -> 'BoardDAO':
+    def insertBoardfile(cls, nickname, title, content, author, file_name) -> 'BoardDAO':
         sql = "insert into board " \
-              "values (NULL,'" + title + "', date_format(now(),'%Y-%m-%d') ,'" + content + "','" + author + "','" + file_name + "', now(), 'b01');"
+              "values ('" + nickname + "', NULL,'" + title + "', date_format(now(),'%Y-%m-%d') ,'" + content + "','" + author + "','" + file_name + "', now(), 'b01');"
         dbc.execute(sql)
 
     @classmethod
@@ -61,7 +61,7 @@ class BoardDAO(reviewDAO.ReviewDAO):
 
     @classmethod
     def selectBoardSearchPage(cls, page, limit, keyword, option) -> 'BoardDAO':
-        sql = "select users.usr_name as nickname, board.* " \
-              "from board, users " \
-              "where board.b_author = users.usr_id and " + option + " like '%" + keyword + "%' order by b_num desc LIMIT " + str((page - 1) * limit) + ',' + str(limit) + ';'
+        sql = "select board.* " \
+              "from board " \
+              "where " + option + " like '%" + keyword + "%' order by b_num desc LIMIT " + str((page - 1) * limit) + ',' + str(limit) + ';'
         return dbc.select(sql)

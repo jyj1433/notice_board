@@ -3,6 +3,7 @@ import math
 import config
 import webapp.board.boardDAO as boardDAO
 import modules.review.review_view as review_view
+import modules.nickname_select as nickname_select
 
 bp = Blueprint("board", __name__, url_prefix='/')
 dao = boardDAO.BoardDAO
@@ -70,6 +71,7 @@ def board_write():
         return redirect("/board")
 
     if request.method == 'POST':
+        nickname = nickname_select.selectNickname(id)
         title = request.form['b_title']
         content = request.form['b_content']
         author = request.form['id']
@@ -80,11 +82,11 @@ def board_write():
         elif request.files['b_file'].filename != '':
             file = request.files['b_file']
             file_name = 'upload/' + file.filename
-            dao.insertBoardfile(title, content, author, file_name)
+            dao.insertBoardfile(nickname, title, content, author, file_name)
             flash("글이 작성되었습니다.")
             return redirect('/board')
         else:
-            dao.insertBoard(title, content, author)
+            dao.insertBoard(nickname, title, content, author)
             flash("글이 작성되었습니다.")
             return redirect('/board')
         flash(error)

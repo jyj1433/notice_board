@@ -166,3 +166,16 @@ review 테이블에 kind 추가
 footer 반응형으로 수정 - height단위를 vh로 수정
 selectBoardDetail sql문 수정 - column 위치 변경 -> board 관련된 html 코드들의
 index 전부 한 칸 뒤로 수정
+
+
+#19
+2022년 1월 8일
+
+댓글 기능 구현. review.html작성해 각 게시판의 board_result에 추가
+review.view , reviewDAO 작성. 각 DAO는 reviewDAO를 상속함.
+review관련 파일은 modules 디렉터리에 있음
+mainDAO의 sql 닉네임 앞으로 옮김 - 최신글 게시판 오류 수정
+게시글 수정중엔 summernote에 삽입된 이미지가 안나오는 오류 수정
+파일 다운로드 복원 (merge 하다가 날아간 듯)
+* 현재까지의 DB테이블 DDL 첨부
+

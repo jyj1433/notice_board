@@ -31,7 +31,7 @@ class ReviewDAO:
         return dbc.select(sql)
 
     @classmethod
-    def deleteReviewCascade(cls, board_code,kind) -> 'ReviewDAO':
+    def deleteReviewCascade(cls, board_code, kind) -> 'ReviewDAO':
         sql = "delete from review where rv_board_num = " + board_code + " and rv_board_kind = '" + kind + "';"
         return dbc.execute(sql)
 

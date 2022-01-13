@@ -64,7 +64,7 @@ tbody.custom {
 /* 로그인 화면 스타일 */
 .login-text{ /* id, pw 입력란 */
     position:relative;
-    z-index:3;
+    z-index:3; /* 겹쳐있는 영역에 z축 우선순위를 줌 */
     border:none;
     width:380px;
     height:55px;
@@ -74,7 +74,6 @@ tbody.custom {
 }
 .login-text-background{ /* id, pw 입력란의 배경 설정. input태그에 스타일을 적용한 것 같지만 실제로는 div영역이 따로 깔려있음 */
     position:relative;
-    z-index:2; /* 겹쳐있는 영역에 z축 우선순위를 줌 */
     width:420px;
     height:55px;
     top:-235px; /* top을 맞춰서 직접 위치 조정 */
