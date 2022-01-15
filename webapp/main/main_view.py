@@ -114,8 +114,3 @@ def down_file():
         return send_file(path + request.form['file'],
                 attachment_filename = request.form['file'],
                 as_attachment=True)
-
-
-# @bp.route('/weather', methods=['GET', 'POST'])
-# def weather():
-#     return
