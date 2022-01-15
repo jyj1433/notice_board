@@ -7,9 +7,11 @@
 # 블루프린트 레지스터 관리
 #
 ###################################
-from flask import Flask, render_template
-
+from flask import Flask, render_template, request
+import requests
 from datetime import datetime
+
+from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 app.secret_key = 'secretkey'
@@ -39,10 +41,21 @@ def format_datetime(value):
 
     return resurt.seconds/60
 
+def nowdate():
+    return datetime.date().now()
+
+
 app.jinja_env.filters['datetime'] = format_datetime
+app.jinja_env.filters['nowdate'] = nowdate
 
 
-
+@app.route('/fortune',methods=['GET', 'POST'])
+def wwwww():
+    data = request.form
+    response = requests.post('https://m.unsin.co.kr/unse/free/today/result', data=data,verify=False)
+    soup = BeautifulSoup(response.text, 'html.parser')  # html.parser를 사용해서 soup에 넣겠다
+    seq = soup.select('p[class="word_txt"]')
+    return render_template('rockcut.html', title="index",seq = seq[0].string)
 
 @app.route('/rockcut')
 def rockcut():
