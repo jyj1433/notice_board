@@ -83,7 +83,7 @@ def member_modify():
             flash("회원정보가 수정되었습니다.")
             return redirect('/')
 
-    return render_template('member/member_modify.html', title="마이페이지", result=result, error=error)
+    return render_template('member/member_modify.html', title="회원수정", result=result, error=error)
 
 # 회원탈퇴
 @bp.route('/member_delete',methods=['GET', 'POST'])
@@ -99,8 +99,8 @@ def member_delete():
             return render_template('member/login.html', title="index")
         else:
             flash("비밀번호가 틀렸습니다.")
-            return render_template('member/member_delete.html', title="member_delete")
-    return render_template('member/member_delete.html', title="member_delete")
+            return render_template('member/member_delete.html', title="회원탈퇴")
+    return render_template('member/member_delete.html', title="회원탈퇴")
 
 # 아이디 비밀번호 찾기
 @bp.route('/find_id_pw',methods=['GET', 'POST'])
@@ -124,14 +124,15 @@ def find_id_pw():
 
     return render_template('member/find_id_pw.html', title="id/pw찾기")
 
-
 # 마이페이지
 @bp.route('/mypage',methods=['GET', 'POST'])
 def mypage():
     id = '%s' % escape(session['id'])
     result = dao.selectMypagePost(id)
+    reviews = dao.selectMypageReviews(id)
     info = dao.selectMypageInfo(id)
-    return render_template('member/mypage.html', title="mypage", result=result, info=info)
+
+    return render_template('member/mypage.html', title="마이페이지", result=result, info=info, reviews=reviews)
 
 # 마이페이지 최신글 상세보기
 @bp.route("/mypage_get", methods=['GET'])
