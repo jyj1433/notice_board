@@ -60,5 +60,25 @@
         <img src="{{ url_for('static', filename='image/로스트아크배너.PNG') }}" style="width:100%; height:296px;">
       </a>
     </div>
+
+    <!-- 미완성, 스타일 css로 옮기기, 사진첨부필요-->
+    <div style="width:500px; min-height:300px; float:left;">
+        <div style="float:left; margin-right:15px;">
+            {% for temp in temp %}
+            <a>{{temp[3]}}, {{temp[4]}}, 기온 : {{temp[5]}}°C</a><br>
+            {% endfor %}
+        </div>
+        <div style="float:left; margin-right:15px;">
+            {% for rain in rain %}
+            <a>강수량 : {{rain[5]}}</a><br>
+            {% endfor %}
+        </div>
+        <div style="float:left; margin-right:15px;">
+            {% for sky in sky %}
+            <a>하늘 : {{sky[5]}}</a><br>
+            {% endfor %}
+        </div>
+    </div>
+
 </div>
 {% endblock %}
