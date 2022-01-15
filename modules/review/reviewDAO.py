@@ -54,5 +54,4 @@ class ReviewDAO:
               "where r.rv_board_num = " + board_code + " " \
               "and r.rv_board_kind = '" + kind + "' " \
               "and u.usr_id = r.rv_author;"
-        print(sql)
         return dbc.select(sql)

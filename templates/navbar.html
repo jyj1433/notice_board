@@ -28,6 +28,11 @@
             <li class="nav-item {% if request.path == '/board_dev' %}active{% endif %}">
                 <a class="nav-link" href="/board_dev">개발일지</a>
             </li>
+            {% if session['id'] == "root" %}
+            <li class="nav-item {% if request.path == '/admin' %}active{% endif %}">
+                <a class="nav-link" href="/admin">관리자전용</a>
+            </li>
+            {% endif %}
         </ul>
     </div>
 

@@ -19,8 +19,6 @@ def review_write():
     if review_page == '0':
         review_page = '1'
 
-
-
     # post로 가져온 값들
     kind = request.form.get('kind')  # 게시판 종류
     review_content = request.form.get('review_content')  # 댓글 내용

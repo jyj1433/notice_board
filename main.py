@@ -23,6 +23,7 @@ from webapp.board_dev import board_dev_view
 from webapp.board_free import board_free_view
 from webapp.main import main_view
 from modules.review import review_view
+from webapp.admin import admin_view
 
 
 app.register_blueprint(board_view.bp)
@@ -31,6 +32,7 @@ app.register_blueprint(board_dev_view.bp)
 app.register_blueprint(board_free_view.bp)
 app.register_blueprint(main_view.bp)
 app.register_blueprint(review_view.bp)
+app.register_blueprint(admin_view.bp)
 
 def format_datetime(value):
     date = datetime.now()
@@ -52,10 +54,10 @@ app.jinja_env.filters['nowdate'] = nowdate
 @app.route('/fortune',methods=['GET', 'POST'])
 def wwwww():
     data = request.form
-    response = requests.post('https://m.unsin.co.kr/unse/free/today/result', data=data,verify=False)
+    response = requests.post('https://m.unsin.co.kr/unse/free/today/result', data=data, verify=False)
     soup = BeautifulSoup(response.text, 'html.parser')  # html.parser를 사용해서 soup에 넣겠다
     seq = soup.select('p[class="word_txt"]')
-    return render_template('rockcut.html', title="index",seq = seq[0].string)
+    return render_template('rockcut.html', title="index", seq=seq[0].string)
 
 @app.route('/rockcut')
 def rockcut():

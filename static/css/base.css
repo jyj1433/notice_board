@@ -142,30 +142,27 @@ tbody.custom {
     color:#ff6022;
 }
 
+/* myPage 스타일 */
 .mypage-column{
     float: left;
     width: 45%;
     margin:10px;
 }
-
 .mypage-group{
     min-height: 330px;
     border: 1px solid #dadada;
     padding: 30px;
     margin: 20px 10px 40px 10px;
 }
-
 .mypage-header{
     margin-bottom : 20px;
     font-weight: 800;
 }
-
 .mypage-content{
     float: left;
     width: 100%;
     margin-bottom: 20px;
 }
-
 .mypage-content img{
      float: left;
 }

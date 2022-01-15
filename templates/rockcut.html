@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <script src="{{ url_for('static', filename='js/rockcut.js') }}"></script>
-<div style="overflow:auto; width:1100px; height:500px; background-color:#000000;">
+<div style="overflow:auto; width:100%; height:500px; background-color:#000000;">
     <br>
     <br>
     <br>
@@ -92,71 +92,86 @@
 <br>
 <br>
 <br>
-<h4>오늘의 한마디 운세!!</h4>
-<br>
-<form id="frm" method="POST" action="/fortune" enctype = "multipart/form-data">
-<div class="gender">
-                <span class="man">
-                <input type="radio" name="sex" id="sex_m" value="남" checked="checked" class="on">
-                <label for="sex_m" class="rd on">남자</label>
-                </span>
-                <span class="woman">
-                <input type="radio" name="sex" id="sex_f" value="여" class="off">
-                <label for="sex_f" class="rd">여자</label>
-                </span>
+
+
+<label class="login-logo" style="font-size:30px; margin-left:10px;">오늘의 한마디 운세!!</label><br>
+<div style="margin-left:10px;">
+    <form id="frm" method="POST" action="/fortune" enctype = "multipart/form-data">
+        <div class="gender">
+            <span class="man">
+            <input type="radio" name="sex" id="sex_m" value="남" checked="checked" class="on">
+            <label for="sex_m" class="rd on">남자</label>
+            </span>
+            <span class="woman">
+            <input type="radio" name="sex" id="sex_f" value="여" class="off">
+            <label for="sex_f" class="rd">여자</label>
+            </span>
+        </div>
+
+        <div style="width:60%;">
+            <input type="text" name="user_name" id="user_name" class="int" placeholder="이름" onfocus="this.placeholder = ''">
+
+            <select name="birth_yyyy" id="birth_yyyy" class="sel" style="margin-left:10px;">
+                {% for i in range(1980,2020) %}
+                <option value="{{i}}" selected="selected">{{i}}년</option>
+                {% endfor %}
+            </select>
+            <select name="birth_mm" id="birth_mm" class="sel" style="margin-left:10px;">
+                {% for i in range(1,10) %}
+                <option value="0{{i}}">{{i}}월</option>
+                {% endfor %}
+                {% for i in range(10,13) %}
+                <option value="{{i}}">{{i}}월</option>
+                {% endfor %}
+            </select>
+            <select name="birth_dd" id="birth_dd" class="sel" style="margin-left:10px;">
+                {% for i in range(1,10) %}
+                <option value="0{{i}}">{{i}}일</option>
+                {% endfor %}
+                {% for i in range(10,32) %}
+                <option value="{{i}}">{{i}}일</option>
+                {% endfor %}
+            </select>
+            <select name="birth_hh" id="birth_hh" class="sel" style="margin-left:10px;">
+                            <option value="0" selected="selected">모름</option>
+                            <option value="01">子 (23:30 ~ 01:29)</option>
+                            <option value="02">丑 (01:30 ~ 03:29)</option>
+                            <option value="04">寅 (03:30 ~ 05:29)</option>
+                            <option value="06">卯 (05:30 ~ 07:29)</option>
+                            <option value="08">辰 (07:30 ~ 09:29)</option>
+                            <option value="10">巳 (09:30 ~ 11:29)</option>
+                            <option value="12">午 (11:30 ~ 13:29)</option>
+                            <option value="14">未 (13:30 ~ 15:29)</option>
+                            <option value="16">申 (15:30 ~ 17:29)</option>
+                            <option value="18">酉 (17:30 ~ 19:29)</option>
+                            <option value="20">戌 (19:30 ~ 21:29)</option>
+                            <option value="22">亥 (21:30 ~ 23:29)</option>
+            </select>
+            <select name="birth_solunar" id="birth_solunar" class="sel" style="margin-left:10px;">
+                            <option value="S_C" selected="selected">양력</option>
+                            <option value="L_C">음력(평달)</option>
+                            <option value="L_L">음력(윤달)</option>
+            </select>
+            <button type="submit" class="login-button float-right" onclick="result_solo();"
+                    style="width:140px; height:60px; position:relative; top:-15px;">결과보기</button>
+        </div>
+        <div>
+            <input type="hidden" name="target_yyyy" id="target_yyyy" value="2016">
+            <input type="hidden" name="yesdate" id="yesdate" value="2022-01-12">
+            <input type="hidden" name="setDate" id="setDate" value="{{nowdate}}">
+            <input type="hidden" name="tomdate" id="tomdate" value="2022-01-14">
+        </div>
+    </form>
 </div>
-<input type="text" name="user_name" id="user_name" class="int" placeholder="이름" onfocus="this.placeholder = ''">
-<select name="birth_yyyy" id="birth_yyyy" class="sel">
-    {% for i in range(1980,2020) %}
-    <option value="{{i}}" selected="selected">{{i}}년</option>
-    {% endfor %}
-</select>
-<select name="birth_mm" id="birth_mm" class="sel">
-    {% for i in range(1,10) %}
-    <option value="0{{i}}">{{i}}월</option>
-    {% endfor %}
-    {% for i in range(10,13) %}
-    <option value="{{i}}">{{i}}월</option>
-    {% endfor %}
-</select>
-<select name="birth_dd" id="birth_dd" class="sel">
-    {% for i in range(1,10) %}
-    <option value="0{{i}}">{{i}}일</option>
-    {% endfor %}
-    {% for i in range(10,32) %}
-    <option value="{{i}}">{{i}}일</option>
-    {% endfor %}
-</select>
-<select name="birth_hh" id="birth_hh" class="sel">
-                <option value="0" selected="selected">모름</option>
-                <option value="01">子 (23:30 ~ 01:29)</option>
-                <option value="02">丑 (01:30 ~ 03:29)</option>
-                <option value="04">寅 (03:30 ~ 05:29)</option>
-                <option value="06">卯 (05:30 ~ 07:29)</option>
-                <option value="08">辰 (07:30 ~ 09:29)</option>
-                <option value="10">巳 (09:30 ~ 11:29)</option>
-                <option value="12">午 (11:30 ~ 13:29)</option>
-                <option value="14">未 (13:30 ~ 15:29)</option>
-                <option value="16">申 (15:30 ~ 17:29)</option>
-                <option value="18">酉 (17:30 ~ 19:29)</option>
-                <option value="20">戌 (19:30 ~ 21:29)</option>
-                <option value="22">亥 (21:30 ~ 23:29)</option>
-</select>
-<select name="birth_solunar" id="birth_solunar" class="sel">
-                <option value="S_C" selected="selected">양력</option>
-                <option value="L_C">음력(평달)</option>
-                <option value="L_L">음력(윤달)</option>
-</select>
-    <input type="hidden" name="target_yyyy" id="target_yyyy" value="2016">
-    <input type="hidden" name="yesdate" id="yesdate" value="2022-01-12">
-    <input type="hidden" name="setDate" id="setDate" value="{{nowdate}}">
-    <input type="hidden" name="tomdate" id="tomdate" value="2022-01-14">
-<button type="submit" onclick="result_solo();">결과보기</button>
-</form>
-<br>
-<br>
-<br>
-<h4>[ {{seq}} ]</h4>
+
+<div style="margin-left:10px;">
+    <label class="login-error join" style="font-size:20px; top:30px;">[ {{seq}} ]</label>
+</div>
+
+
+
+
+
 
 
 {% endblock %}

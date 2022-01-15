@@ -3,6 +3,7 @@ import config
 import webapp.main.mainDAO as mainDAO
 import os
 import modules.review.review_view as review_view
+import math
 import requests, bs4
 from urllib.parse import urlencode, quote_plus, unquote
 from lxml import html
@@ -21,7 +22,7 @@ def index():
     time_now = str(datetime.datetime.now()).split(' ')
     time_now_date = ''.join(time_now[0].split('-'))  # 오늘 날짜
     time_now_time = time_now[1].split(':')
-    time_now_time = time_now_time[0] + '30'  # 매시간 30분에 데이터 올라옴
+    time_now_time = str(int(time_now_time[0])-1) + '30'  # 매시간 30분에 데이터 올라옴
 
     # 날씨 정보 xml (공공데이터포털 api, xml)
     xmlUrl = 'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst'  # Service URL
