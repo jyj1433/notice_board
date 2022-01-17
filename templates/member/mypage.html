@@ -8,7 +8,7 @@
                 {% if not info[0][4] %}
                     <img src="{{ url_for('static', filename='image/user_icon.png') }}" width="120" height="120">
                 {% else %}
-                    <img src="{{main_host}}/static/{{info[0][4]}}" width="120" height="120">
+                    <img src="http://{{1|admin}}:5000/static/{{info[0][4]}}" width="120" height="120">
                 {% endif %}
                 <br>
                 <dt class="content-info">닉네임 </dt>
@@ -16,7 +16,7 @@
                 <dt class="content-info">이메일 </dt>
                 <dd class="content-value">{{info[0][2]}}</dd>
             </div>
-            <form action="{{main_host}}/upload_prof_img" method="post" enctype="multipart/form-data">
+            <form action="http://{{1|admin}}:5000/upload_prof_img" method="post" enctype="multipart/form-data">
                 <button type="submit" class="btn btn-primary">프로필 이미지 적용</button>
                 <input type="file" name="prof_img"><br><br>
             </form>

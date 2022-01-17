@@ -46,15 +46,14 @@ def format_datetime(value):
 def nowdate():
     return datetime.date().now()
 
-
-def setConfig():
+def setConfig(r):
     return config.host
 
 # jinja 환경변수 - html 어디에서나 사용 가능
 app.jinja_env.filters['datetime'] = format_datetime
 app.jinja_env.filters['nowdate'] = nowdate
 app.jinja_env.filters['ref_rev'] = review_view.ref_review
-app.jinja_env.filters['main_host'] = setConfig()
+app.jinja_env.filters['admin'] = setConfig
 
 @app.route('/fortune',methods=['GET', 'POST'])
 def wwwww():
