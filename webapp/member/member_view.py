@@ -159,6 +159,7 @@ def upload_prof_img():
     if request.method == 'POST':
         if request.files['prof_img'].filename != '':    # 파일 첨부를 했을 경우
             id = request.form['id']
+            url = request.form['url']
             f = request.files['prof_img']
             file_path = 'image/upload/prof_img/' + f.filename  # 이미지가 저장될 경로
 
@@ -169,4 +170,4 @@ def upload_prof_img():
         else:
             flash("등록된 이미지가 없습니다.")
 
-        return redirect('/mypage')
+        return redirect(url)
