@@ -55,7 +55,7 @@ app.jinja_env.filters['nowdate'] = nowdate
 app.jinja_env.filters['ref_rev'] = review_view.ref_review
 app.jinja_env.filters['admin'] = setConfig
 
-@app.route('/fortune',methods=['GET', 'POST'])
+@app.route('/fortune', methods=['GET', 'POST'])
 def wwwww():
     data = request.form
     response = requests.post('https://m.unsin.co.kr/unse/free/today/result', data=data, verify=False)

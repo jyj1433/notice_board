@@ -18,7 +18,7 @@
             </div>
             <form action="http://{{1|admin}}:5000/upload_prof_img" method="post" enctype="multipart/form-data">
                 <button type="submit" class="btn btn-primary">프로필 이미지 적용</button>
-                <input type="file" name="prof_img"><br><br>
+                <input type="file" name="prof_img"><input type="hidden" name="id" value="{{info[0][0]}}"><br><br>
             </form>
 
             <div class="mypage-bottom">

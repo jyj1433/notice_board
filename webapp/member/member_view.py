@@ -158,11 +158,12 @@ def mypage_get():
 def upload_prof_img():
     if request.method == 'POST':
         if request.files['prof_img'].filename != '':    # 파일 첨부를 했을 경우
+            id = request.form['id']
             f = request.files['prof_img']
             file_path = 'image/upload/prof_img/' + f.filename  # 이미지가 저장될 경로
 
             f.save('static/' + file_path)  # 이미지를 서버 디렉터리에 저장
-            dao.updateProfImg(session['id'], file_path) # db의 유저정보에 프로필 이미지 경로 추가
+            dao.updateProfImg(id, file_path) # db의 유저정보에 프로필 이미지 경로 추가
             flash("이미지 등록이 완료되었습니다.")
 
         else:
