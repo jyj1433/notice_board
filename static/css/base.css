@@ -228,6 +228,22 @@ tbody.custom {
     background:transparent;
 }
 
+.weather-container{
+    width: 600px;
+    min-height: 300px;
+    float: left;
+}
+
+.weather-content{
+    width: 500px;
+    min-height: 50px;
+}
+
+.weather-group{
+    float: left;
+    margin-right: 15px;
+}
+
 .boardAll-logo{
     font-weight:bold;
     font-size:20pt;
