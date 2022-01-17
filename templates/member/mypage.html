@@ -5,13 +5,21 @@
         <div class="mypage-group">
             <div class="mypage-header">프로필</div>
             <div class="mypage-content">
-                <img src="{{ url_for('static', filename='image/user_icon.png') }}" width="120" height="120">
+                {% if not info[0][4] %}
+                    <img src="{{ url_for('static', filename='image/user_icon.png') }}" width="120" height="120">
+                {% else %}
+                    <img src="{{main_host}}/static/{{info[0][4]}}" width="120" height="120">
+                {% endif %}
                 <br>
                 <dt class="content-info">닉네임 </dt>
                 <dd class="content-value">{{info[0][3]}}</dd>
                 <dt class="content-info">이메일 </dt>
                 <dd class="content-value">{{info[0][2]}}</dd>
             </div>
+            <form action="{{main_host}}/upload_prof_img" method="post" enctype="multipart/form-data">
+                <button type="submit" class="btn btn-primary">프로필 이미지 적용</button>
+                <input type="file" name="prof_img"><br><br>
+            </form>
 
             <div class="mypage-bottom">
                 <a href="/member_modify">회원수정</a> |

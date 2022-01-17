@@ -29,7 +29,7 @@ def join_post():
                     error_id = "아이디가 중복되었습니다."
 
         if error == None and error_id == None:
-            memberlist = [id, pw, email, nickname]
+            memberlist = [id, pw, email, nickname, ""]
             dao.insertMember(memberlist)
             flash("회원가입 성공")
             return redirect('/')
@@ -132,6 +132,8 @@ def mypage():
     reviews = dao.selectMypageReviews(id)
     info = dao.selectMypageInfo(id)
 
+    print(info[0][4])
+
     return render_template('member/mypage.html', title="마이페이지", result=result, info=info, reviews=reviews)
 
 # 마이페이지 최신글 상세보기
@@ -149,3 +151,21 @@ def mypage_get():
         review = review_view.review_pagenation(board_code, 'b03')
         re = dao.selectBoardDetailDev(board_code)
         return render_template('board_dev/board_dev_result.html', result=re, title="게시판", page=1,  reviewpage=review, idx=board_code, kind=".board_dev_get")
+
+
+# 마이페이지 프로필 이미지 업로드
+@bp.route('/upload_prof_img', methods=['GET', 'POST'])
+def upload_prof_img():
+    if request.method == 'POST':
+        if request.files['prof_img'].filename != '':    # 파일 첨부를 했을 경우
+            f = request.files['prof_img']
+            file_path = 'image/upload/prof_img/' + f.filename  # 이미지가 저장될 경로
+
+            f.save('static/' + file_path)  # 이미지를 서버 디렉터리에 저장
+            dao.updateProfImg(session['id'], file_path) # db의 유저정보에 프로필 이미지 경로 추가
+            flash("이미지 등록이 완료되었습니다.")
+
+        else:
+            flash("등록된 이미지가 없습니다.")
+
+        return redirect('/mypage')

@@ -10,7 +10,7 @@
 from flask import Flask, render_template, request
 import requests
 from datetime import datetime
-
+import config
 from bs4 import BeautifulSoup
 
 app = Flask(__name__)
@@ -47,10 +47,14 @@ def nowdate():
     return datetime.date().now()
 
 
+def setConfig():
+    return config.host
+
+# jinja 환경변수 - html 어디에서나 사용 가능
 app.jinja_env.filters['datetime'] = format_datetime
 app.jinja_env.filters['nowdate'] = nowdate
 app.jinja_env.filters['ref_rev'] = review_view.ref_review
-
+app.jinja_env.filters['main_host'] = setConfig()
 
 @app.route('/fortune',methods=['GET', 'POST'])
 def wwwww():

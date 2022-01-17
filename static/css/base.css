@@ -228,6 +228,12 @@ tbody.custom {
     background:transparent;
 }
 
+.boardAll-logo{
+    font-weight:bold;
+    font-size:20pt;
+    color:#292929;
+}
+
 .ref_button{
     background-color:white;
     font-size:12px;

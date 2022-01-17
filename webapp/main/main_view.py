@@ -34,8 +34,8 @@ def index():
             quote_plus('pageNo'): '1',
             quote_plus('base_date'): time_now_date,
             quote_plus('base_time'): time_now_time,
-            quote_plus('nx'): '55',
-            quote_plus('ny'): '127',
+            quote_plus('nx'): '56',
+            quote_plus('ny'): '125',
         }
     )
 
@@ -98,20 +98,20 @@ def main_get():
 def filetest():
     if request.method == 'POST':
         f = request.files['file']
-        f.save('upload/'+ f.filename)
+        f.save('upload/' + f.filename)
         return render_template('index.html', title="index")
     return render_template('fileTest.html', title="파일테스트")
 
 @bp.route('/fileDown', methods = ['GET', 'POST'])
 def down_file():
     if request.method == 'POST':
-        sw=0
+        sw = 0
         files = os.listdir("./upload")
         for x in files:
             if(x==request.form['file']):
-                sw=1
+                sw = 1
 
         path = "./upload/"
         return send_file(path + request.form['file'],
-                attachment_filename = request.form['file'],
-                as_attachment=True)
+               attachment_filename=request.form['file'],
+               as_attachment=True)

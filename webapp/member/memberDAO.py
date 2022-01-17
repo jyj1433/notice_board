@@ -90,3 +90,10 @@ class MemberDAO:
               'where board_free.bf_num = ' + board_code + ';'
         return dbc.select(sql)
 
+    # 마이페이지 프로필 이미지 등록
+    @classmethod
+    def updateProfImg(cls, id, filePath) -> 'MemberDAO':
+        sql = "update users " \
+              "set usr_img = '" + filePath + "' " \
+              "where usr_id = '" + id + "' ;"
+        return dbc.execute(sql)
