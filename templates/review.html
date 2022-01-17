@@ -5,6 +5,7 @@
             <b>{{r[0]}}</b><br>
             <span>&nbsp&nbsp&nbsp{{r[3]}}</span><br>
             <span class="review-date">{{r[4]}}</span>
+            <br>
             {% if 1440 >= r[4]|datetime >= 1439  or  r[4]|datetime < 360 %}
             <c class="float-right" id="new" style="top:-53px; left:10px; position:relative; color:orange;"><img src="{{ url_for('static', filename='image/new_sample2.PNG') }}" style="max-width:10px; max-height:20px;position:relative; left:-10px"></c>
             {% endif %}
@@ -12,9 +13,40 @@
             <i class="fas fa-times float-right"
                style="color:red; cursor:pointer; position:relative; left:12px;"
                onclick="review_del({{r[1]}})"></i>
-
             {% endif %}
-
+            <ul>
+                <li class="menu">
+                    {% set ref = r[1]|ref_rev %}
+                    <review class="ref_button">답글&nbsp<string style="font-weight:bold;">{{ref[1]}}</string></review>
+                    <ul class="hide" style="margin-left:25px; width:95%;">
+                        <br>
+                        <li>
+                            {% for ref in ref[0] %}
+                            <div>
+                                <b>{{ref[0]}}</b><br>
+                                <span>&nbsp&nbsp&nbsp{{ref[3]}}</span><br>
+                                <span class="review-date">{{ref[4]}}</span>
+                                {% if session.get('id') == r[2] %}
+                                    <i class="fas fa-times float-right"
+                                    style="color:red; cursor:pointer; position:relative; left:12px;"
+                                    onclick="review_del({{ref[1]}})">
+                                    </i>
+                                {% endif %}
+                                <hr>
+                            </div>
+                            {% endfor %}
+                            <form method="post" action="/review_write?idx={{result[0][1]}}&page={{page}}&reviewpage={{reviewpage[4]}}">
+                                <div style="padding:5px; width:100%; height:90px; background-color:#ffefef;">
+                                    <textarea name="review_content" style="width:50%; margin-bottom:10px; resize:none; height:100%; vertical-align:middle;"></textarea>
+                                    <button class="btn btn-primary" type="submit" style="width:80px; height:60%; margin-top:20px; margin-right:20px; vertical-align:middle; position:relative; top:-15px;">작성</button>
+                                </div>
+                                <input name="kind" type="hidden" value="{{result[0][8]}}">
+                                <input name="ref_review" type="hidden" value="{{r[1]}}">
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </li>
     <hr>
@@ -53,12 +85,12 @@
         <button class="btn btn-primary" type="submit" style="width:80px; height:60%; margin-top:20px; margin-right:20px; vertical-align:middle; position:relative; top:-15px;">작성</button>
     </div>
     <input name="kind" type="hidden" value="{{result[0][8]}}">
+    <input name="ref_review" type="hidden" value="NULL">
 
 
 
 </form>
-<script>
-
+<script type="text/javascript">
 
 function review_del(data){
     if(confirm("정말로 삭제하시겠습니까?")) {
@@ -67,3 +99,27 @@ function review_del(data){
 }
 
 </script>
+
+<script>
+
+// html dom 이 다 로딩된 후 실행된다.
+$(document).ready(function(){
+    // menu 클래스 바로 하위에 있는 a 태그를 클릭했을때
+    $(".menu>review").click(function(){
+        var submenu = $(this).next("ul");
+
+        // submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
+        if( submenu.is(":visible") ){
+            submenu.slideUp();
+        }
+        else{
+            submenu.slideDown();
+        }
+    });
+});
+
+</script>
+
+<style>
+    .menu .hide{display:none;}
+</style>

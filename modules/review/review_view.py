@@ -19,9 +19,12 @@ def review_write():
     if review_page == '0':
         review_page = '1'
 
+
     # post로 가져온 값들
     kind = request.form.get('kind')  # 게시판 종류
     review_content = request.form.get('review_content')  # 댓글 내용
+    review_ref = request.form.get('ref_review') # 대댓글추가
+
 
     if session.get('check') != True:
         flash("로그인 해주세요")
@@ -35,7 +38,7 @@ def review_write():
 
     # 로그인이 되어있을 경우 - 댓글 작성 성공
     nickname = nickname_select.selectNickname(id)
-    dao.insertReview(nickname, board_code, review_content, kind, id)
+    dao.insertReview(nickname, board_code, review_content, kind, id, review_ref)
     if kind == 'b01':
         return redirect('/get?idx=' + board_code + '&page=' + page + '&reviewpage=' + review_page)
     elif kind == 'b02':
@@ -70,5 +73,11 @@ def review_pagenation(board_code,kind):
     block_end = block_start + (block_size - 1)  # 현재 블럭의 맨 끝 페이지 넘버 (첫 번째 블럭이라면, block_end = 5)
     review_page =[reviewpage,limit,re,tot_count,last_page_num,block_size,block_num,block_start,block_end]
     return review_page
+
+def ref_review(rev_num):
+    ref_rev = dao.selectRefReview(str(rev_num))
+    ref_len = len(ref_rev)
+    ref_list = [ref_rev,ref_len]
+    return ref_list
 
 

@@ -227,3 +227,12 @@ tbody.custom {
     outline:none;
     background:transparent;
 }
+
+.ref_button{
+    background-color:white;
+    font-size:12px;
+    border:1.5px solid #e0e0e0;
+    padding:0 8px;
+    color:black;
+    cursor:pointer;
+}

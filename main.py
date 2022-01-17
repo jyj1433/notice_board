@@ -49,6 +49,7 @@ def nowdate():
 
 app.jinja_env.filters['datetime'] = format_datetime
 app.jinja_env.filters['nowdate'] = nowdate
+app.jinja_env.filters['ref_rev'] = review_view.ref_review
 
 
 @app.route('/fortune',methods=['GET', 'POST'])

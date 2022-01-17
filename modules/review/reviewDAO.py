@@ -16,9 +16,9 @@ dbc = dbc.db_conn()
 class ReviewDAO:
 
     @classmethod
-    def insertReview(cls, nickname,board_code, content, kind, id) -> 'ReviewDAO':
+    def insertReview(cls, nickname,board_code, content, kind, id, ref) -> 'ReviewDAO':
         sql = "insert into review " \
-              "values ('" + nickname + "',NULL, '" + id + "', '" + content + "', now()," + board_code + ", '" + kind + "');"
+              "values ('" + nickname + "',NULL, '" + id + "', '" + content + "', now()," + board_code + ", '" + kind + "'," + ref + ");"
         return dbc.execute(sql)
 
     @classmethod
@@ -44,6 +44,7 @@ class ReviewDAO:
         sql = "select r.* from  review r "\
               "where r.rv_board_num = " + board_code + " " \
               "and r.rv_board_kind = '" + kind + "' " \
+              "and r.rv_ref is null "\
               "order by r.rv_num asc LIMIT " + str((reviewpage - 1) * limit) + "," + str(limit) + ";"
         return dbc.select(sql)
 
@@ -53,5 +54,13 @@ class ReviewDAO:
               "from review r,users u " \
               "where r.rv_board_num = " + board_code + " " \
               "and r.rv_board_kind = '" + kind + "' " \
+              "and r.rv_ref is null "\
               "and u.usr_id = r.rv_author;"
+        return dbc.select(sql)
+
+    @classmethod
+    def selectRefReview(cls, rev_num) -> 'ReviewDAO':
+        sql = "select r.* " \
+              "from review r " \
+              "where r.rv_ref =" + rev_num + ";"
         return dbc.select(sql)
