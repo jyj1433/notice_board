@@ -43,60 +43,64 @@ def index():
         }
     )
 
-    response = requests.get(xmlUrl + queryParams).text.encode('utf-8')
-    xmlobj = bs4.BeautifulSoup(response, 'lxml-xml')
-    weather_rows = xmlobj.findAll('item')
-
     hourList1 = []  # 현재 예보
     hourList2 = []  # 1시간 후 예보
     tomorrowList = []  # 내일 예보 (최저기온, 최고기온)
     todayList = []  # 오늘 예보 (최저기온, 최고기온)
     columnList = []  # 임시 저장 리스트
 
-    rowsLen = len(weather_rows)
-    for i in range(0, rowsLen):
-        columns = weather_rows[i].find_all()
-        columnsLen = len(columns)
+    try:
+        response = requests.get(xmlUrl + queryParams, timeout=5).text.encode('utf-8')
+        xmlobj = bs4.BeautifulSoup(response, 'lxml-xml')
+        weather_rows = xmlobj.findAll('item')
 
-        for j in range(0, columnsLen):
-            eachColumn = columns[j].text
-            columnList.append(eachColumn)
+        rowsLen = len(weather_rows)
+        for i in range(0, rowsLen):
+            columns = weather_rows[i].find_all()
+            columnsLen = len(columns)
 
-        if columnList[3] == time_now_date and columnList[4] == time_now_time:
+            for j in range(0, columnsLen):
+                eachColumn = columns[j].text
+                columnList.append(eachColumn)
 
-            # 하늘상태 코드 변환 ( 1-맑음, 2-구름많음, 3-흐림 )
-            if columnList[2] == "SKY":
-                if columnList[5] == "1":
-                    columnList[5] = "맑음"
-                if columnList[5] == "3":
-                    columnList[5] = "구름많음"
-                if columnList[5] == "4":
-                    columnList[5] = '흐림'
+            if columnList[3] == time_now_date and columnList[4] == time_now_time:
 
-            # 강수형태 코드 변환 ( 0-없음, 1-비, 2-비/눈, 3-눈, 4-소나기 )
-            if columnList[2] == "PTY":
-                if columnList[5] == "0":
-                    columnList[5] = "없음"
-                if columnList[5] == "1":
-                    columnList[5] = "비"
-                if columnList[5] == "2":
-                    columnList[5] = "비/눈"
-                if columnList[5] == "3":
-                    columnList[5] = "눈"
-                if columnList[5] == "4":
-                    columnList[5] = "소나기"
+                # 하늘상태 코드 변환 ( 1-맑음, 2-구름많음, 3-흐림 )
+                if columnList[2] == "SKY":
+                    if columnList[5] == "1":
+                        columnList[5] = "맑음"
+                    if columnList[5] == "3":
+                        columnList[5] = "구름많음"
+                    if columnList[5] == "4":
+                        columnList[5] = '흐림'
 
-            hourList1.append(columnList)
+                # 강수형태 코드 변환 ( 0-없음, 1-비, 2-비/눈, 3-눈, 4-소나기 )
+                if columnList[2] == "PTY":
+                    if columnList[5] == "0":
+                        columnList[5] = "없음"
+                    if columnList[5] == "1":
+                        columnList[5] = "비"
+                    if columnList[5] == "2":
+                        columnList[5] = "비/눈"
+                    if columnList[5] == "3":
+                        columnList[5] = "눈"
+                    if columnList[5] == "4":
+                        columnList[5] = "소나기"
 
-        # 오늘 최저, 최고 기온 (오늘 최저 기온의 경우 'TMN-최저기온'으로 안넘겨주기에 'TMP-현재기온'이 06시에 예보된 기온을 가져옴, 'TMN-최저기온' 예보시간이 06시임)
-        if (columnList[3] == today and columnList[2] == 'TMX') or (columnList[3] == today and columnList[2] == 'TMP' and columnList[4] == '0600'):
-            todayList.append(columnList)
+                hourList1.append(columnList)
 
-        # 내일 최저, 최고 기온
-        if (columnList[3] == tomorrow and columnList[2] == 'TMX') or (columnList[3] == tomorrow and columnList[2] == 'TMN'):
-            tomorrowList.append(columnList)
+            # 오늘 최저, 최고 기온 (오늘 최저 기온의 경우 'TMN-최저기온'으로 안넘겨주기에 'TMP-현재기온'이 06시에 예보된 기온을 가져옴, 'TMN-최저기온' 예보시간이 06시임)
+            if (columnList[3] == today and columnList[2] == 'TMX') or (columnList[3] == today and columnList[2] == 'TMP' and columnList[4] == '0600'):
+                todayList.append(columnList)
 
-        columnList = []  # 다음 row의 값을 넣기 위해 비워준다
+            # 내일 최저, 최고 기온
+            if (columnList[3] == tomorrow and columnList[2] == 'TMX') or (columnList[3] == tomorrow and columnList[2] == 'TMN'):
+                tomorrowList.append(columnList)
+
+            columnList = []  # 다음 row의 값을 넣기 위해 비워준다
+
+    except:
+        print("api 접속불가")
 
     return render_template('index.html', title="index", result=re, today=todayList, tomorrow=tomorrowList, hour1=hourList1)
 
