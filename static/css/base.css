@@ -183,8 +183,6 @@ tbody.custom {
 }
 
 /* 회원정보수정 화면 스타일 */
-.login-logo.join{ color:#2260ff; }
-.login-text.join{ left:+20px; }
 .mod-text-background{
     position:relative;
     z-index:2; /* 겹쳐있는 영역에 z축 우선순위를 줌 */
@@ -228,28 +226,53 @@ tbody.custom {
     background:transparent;
 }
 
+/* 날씨 content 스타일 */
 .weather-container{
-    width: 600px;
-    min-height: 300px;
+    width: 320px;
+    min-height: 220px;
     float: left;
+    background:linear-gradient(to right, #eeeeee, #c5f2ff);
 }
-
 .weather-content{
-    width: 500px;
-    min-height: 50px;
+    margin-left:20px;
+    width: 300px;
+    min-height: 30px;
 }
-
 .weather-group{
     float: left;
-    margin-right: 15px;
+    margin-right: 25px;
 }
-
+.weather-logo{
+    font-weight:bold;
+    font-size:20pt;
+    font-color:#dddddd;
+}
+.temperature-logo{
+    font-size:55pt;
+    font-weight:bold;
+}
+.weather-content.middle{
+    position:relative;
+    top:-20px;
+}
+.weather-group.middle{
+    position:relative;
+    top:25px;
+}
 .boardAll-logo{
     font-weight:bold;
     font-size:20pt;
     color:#292929;
+    margin-left:15px;
+}
+.weather-error{
+    font-weight:bold;
+    font-size:13pt;
+    color:#2260ff;
+    letter-spacing:1px;
 }
 
+/* 답글 버튼 스타일 */
 .ref_button{
     background-color:white;
     font-size:12px;

@@ -61,40 +61,76 @@
 
 <div class="weather-container">
     <div class="weather-content">
-    {% for r in hour1 %}
-        {% if r[2] == 'TMP' %}
-        <div class="weather-group">현재기온 : {{r[5]}}&nbsp&nbsp&nbsp</div>
-        {% endif %}
-        {% if r[2] == 'SKY' %}
-        <div class="weather-group">하늘 : {{r[5]}}&nbsp&nbsp&nbsp</div>
-        {% endif %}
-        {% if r[2] == 'PTY' and r[5] != '없음' %}
-        <div class="weather-group">강수형태 : {{r[5]}}&nbsp&nbsp&nbsp</div>
-        {% endif %}
-    {% endfor %}
+        <label class="weather-logo">WeatherCast</label>
     </div>
-    <div class="weather-content">
-        {% for r in today %}
+
+    {% if hour1[0] %}
+
+        <div class="weather-content middle" style="min-height:120px;">
+        {% for r in hour1 %}
             {% if r[2] == 'TMP' %}
-            <div class="weather-group">오늘최저기온 : {{r[5]}}&nbsp&nbsp&nbsp</div>
-            {% else %}
-                {% if r[2] == 'TMX' %}
-                <div class="weather-group">오늘최고기온 : {{r[5]}}</div>
+            <div class="weather-group"><span class="temperature-logo">{{r[5]}}°</span></div>
+            {% endif %}
+
+            {% if r[5] == '구름많음' %}
+                <div class="weather-group middle">
+                <img src="static/image/weather_icon_cloudsun.png" style="height:70px;" alt="날씨아이콘">
+                </div>
+            {% endif %}
+            {% if r[5] == '맑음' %}
+                <div class="weather-group middle">
+                <img src="static/image/weather_icon_sunny.png" style="height:50px;" alt="날씨아이콘">
+                </div>
+            {% endif %}
+            {% if r[5] == '흐림' %}
+                <div class="weather-group middle">
+                <img src="static/image/weather_icon_cloud.png" style="height:50px;" alt="날씨아이콘">
+                </div>
+            {% endif %}
+
+            {% if r[2] == 'PTY' %}
+            <div class="weather-group middle">
+                {% if r[5] == '비' %}
+                    <img src="static/image/weather_icon_rain.png" style="height:50px;" alt="날씨아이콘">
                 {% endif %}
+                {% if r[5] == '눈' %}
+                    <img src="static/image/weather_icon_snow.png" style="height:50px;" alt="날씨아이콘">
+                {% endif %}
+                {% if r[5] == '없음' %}
+
+                {% endif %}
+            </div>
             {% endif %}
         {% endfor %}
-    </div>
-    <div class="weather-content">
-        {% for r in tomorrow %}
-            {% if r[2] == 'TMN' %}
-            <div class="weather-group">내일최저기온 : {{r[5]}}&nbsp&nbsp&nbsp</div>
-            {% else %}
-                {% if r[2] == 'TMX' %}
-                <div class="weather-group">내일최고기온 : {{r[5]}}</div>
+        </div>
+
+        <div class="weather-content middle">
+            {% for r in today %}
+                {% if r[2] == 'TMP' %}
+                <div class="weather-group">오늘&nbsp&nbsp 최저 : {{r[5]}}°&nbsp&nbsp&nbsp</div>
+                {% else %}
+                    {% if r[2] == 'TMX' %}
+                    <div class="weather-group">최고 : {{r[5]}}°</div>
+                    {% endif %}
                 {% endif %}
-            {% endif %}
-        {% endfor %}
-    </div>
+            {% endfor %}
+        </div>
+
+        <div class="weather-content middle">
+            {% for r in tomorrow %}
+                {% if r[2] == 'TMN' %}
+                <div class="weather-group">내일&nbsp&nbsp 최저 : {{r[5]}}°&nbsp&nbsp&nbsp</div>
+                {% else %}
+                    {% if r[2] == 'TMX' %}
+                    <div class="weather-group">최고 : {{r[5]}}°</div>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </div>
+
+    {% else %}
+        <label class="weather-error">날씨 데이터를 불러오지 못했습니다.</label>
+    {% endif %}
 
 </div>
 {% endblock %}

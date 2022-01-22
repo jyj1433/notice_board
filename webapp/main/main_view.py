@@ -50,7 +50,7 @@ def index():
     columnList = []  # 임시 저장 리스트
 
     try:
-        response = requests.get(xmlUrl + queryParams, timeout=5).text.encode('utf-8')
+        response = requests.get(xmlUrl + queryParams, timeout=5).text.encode('utf-8') # API 호출 및 응답 - 5초 타임아웃 걸려있음
         xmlobj = bs4.BeautifulSoup(response, 'lxml-xml')
         weather_rows = xmlobj.findAll('item')
 
@@ -91,13 +91,18 @@ def index():
 
             # 오늘 최저, 최고 기온 (오늘 최저 기온의 경우 'TMN-최저기온'으로 안넘겨주기에 'TMP-현재기온'이 06시에 예보된 기온을 가져옴, 'TMN-최저기온' 예보시간이 06시임)
             if (columnList[3] == today and columnList[2] == 'TMX') or (columnList[3] == today and columnList[2] == 'TMP' and columnList[4] == '0600'):
+                splited = columnList[5].split('.')
+                columnList[5] = splited[0]
                 todayList.append(columnList)
 
             # 내일 최저, 최고 기온
             if (columnList[3] == tomorrow and columnList[2] == 'TMX') or (columnList[3] == tomorrow and columnList[2] == 'TMN'):
+                splited = columnList[5].split('.')
+                columnList[5] = splited[0]
                 tomorrowList.append(columnList)
 
             columnList = []  # 다음 row의 값을 넣기 위해 비워준다
+
 
     except:
         print("api 접속불가")

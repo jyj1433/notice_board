@@ -132,8 +132,6 @@ def mypage():
     reviews = dao.selectMypageReviews(id)
     info = dao.selectMypageInfo(id)
 
-    print(info[0][4])
-
     return render_template('member/mypage.html', title="마이페이지", result=result, info=info, reviews=reviews)
 
 # 마이페이지 최신글 상세보기
@@ -158,8 +156,8 @@ def mypage_get():
 def upload_prof_img():
     if request.method == 'POST':
         if request.files['prof_img'].filename != '':    # 파일 첨부를 했을 경우
-            id = request.form['id']
-            url = request.form['url']
+            id = request.form['id'] # hidden input으로 가져온 값 - 접속한 유저의 아이디 # session[id]로 가져오면 다른 ip에서 접속했을 때 이미지 못바꿈
+            url = request.form['url'] # hidden input으로 가져온 값 - 접속한 유저의 ip
             f = request.files['prof_img']
             file_path = 'image/upload/prof_img/' + f.filename  # 이미지가 저장될 경로
 
