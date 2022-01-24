@@ -16,7 +16,7 @@ config = config.host
 # 초기화면
 @bp.route('/')
 def index():
-    re = dao.selectBoardAll()
+    re = dao.selectBoardAll() # 게시판 최신글
 
     # 날짜, 시간
     today = datetime.date.today()  # 오늘 날짜 (년월일)
@@ -65,6 +65,9 @@ def index():
 
             if columnList[3] == time_now_date and columnList[4] == time_now_time:
 
+                if columnList[2] == "TMP":
+                    tmpList = columnList
+
                 # 하늘상태 코드 변환 ( 1-맑음, 2-구름많음, 3-흐림 )
                 if columnList[2] == "SKY":
                     if columnList[5] == "1":
@@ -74,10 +77,10 @@ def index():
                     if columnList[5] == "4":
                         columnList[5] = '흐림'
 
+                    skyList = columnList
+
                 # 강수형태 코드 변환 ( 0-없음, 1-비, 2-비/눈, 3-눈, 4-소나기 )
                 if columnList[2] == "PTY":
-                    if columnList[5] == "0":
-                        columnList[5] = "없음"
                     if columnList[5] == "1":
                         columnList[5] = "비"
                     if columnList[5] == "2":
@@ -87,7 +90,7 @@ def index():
                     if columnList[5] == "4":
                         columnList[5] = "소나기"
 
-                hourList1.append(columnList)
+                    ptyList = columnList
 
             # 오늘 최저, 최고 기온 (오늘 최저 기온의 경우 'TMN-최저기온'으로 안넘겨주기에 'TMP-현재기온'이 06시에 예보된 기온을 가져옴, 'TMN-최저기온' 예보시간이 06시임)
             if (columnList[3] == today and columnList[2] == 'TMX') or (columnList[3] == today and columnList[2] == 'TMP' and columnList[4] == '0600'):
@@ -103,11 +106,14 @@ def index():
 
             columnList = []  # 다음 row의 값을 넣기 위해 비워준다
 
+        if ptyList[5] != "0":   # 0은 없음을 의미
+            skyList = ptyList
 
     except:
         print("api 접속불가")
 
-    return render_template('index.html', title="index", result=re, today=todayList, tomorrow=tomorrowList, hour1=hourList1)
+    return render_template('index.html', title="index", result=re, today=todayList, tomorrow=tomorrowList, sky=skyList, tmp=tmpList)
+
 
 # 게시글 상세보기
 @bp.route("/main_get", methods=['GET'])

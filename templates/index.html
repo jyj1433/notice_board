@@ -64,44 +64,29 @@
         <label class="weather-logo">WeatherCast</label>
     </div>
 
-    {% if hour1[0] %}
+    {% if tmp[0] %}
 
         <div class="weather-content middle" style="min-height:120px;">
-        {% for r in hour1 %}
-            {% if r[2] == 'TMP' %}
-            <div class="weather-group"><span class="temperature-logo">{{r[5]}}°</span></div>
-            {% endif %}
 
-            {% if r[5] == '구름많음' %}
-                <div class="weather-group middle">
-                <img src="static/image/weather_icon_cloudsun.png" style="height:70px;" alt="날씨아이콘">
-                </div>
-            {% endif %}
-            {% if r[5] == '맑음' %}
-                <div class="weather-group middle">
-                <img src="static/image/weather_icon_sunny.png" style="height:50px;" alt="날씨아이콘">
-                </div>
-            {% endif %}
-            {% if r[5] == '흐림' %}
-                <div class="weather-group middle">
-                <img src="static/image/weather_icon_cloud.png" style="height:50px;" alt="날씨아이콘">
-                </div>
-            {% endif %}
+            <div class="weather-group"><span class="temperature-logo">{{tmp[5]}}°</span></div>
 
-            {% if r[2] == 'PTY' %}
             <div class="weather-group middle">
-                {% if r[5] == '비' %}
+                {% if sky[5] == '비' %}
                     <img src="static/image/weather_icon_rain.png" style="height:50px;" alt="날씨아이콘">
                 {% endif %}
-                {% if r[5] == '눈' %}
+                {% if sky[5] == '눈' %}
                     <img src="static/image/weather_icon_snow.png" style="height:50px;" alt="날씨아이콘">
                 {% endif %}
-                {% if r[5] == '없음' %}
-
+                {% if sky[5] == '구름많음' %}
+                    <img src="static/image/weather_icon_cloudsun.png" style="height:70px;" alt="날씨아이콘">
+                {% endif %}
+                {% if sky[5] == '맑음' %}
+                    <img src="static/image/weather_icon_sunny.png" style="height:50px;" alt="날씨아이콘">
+                {% endif %}
+                {% if sky[5] == '흐림' %}
+                    <img src="static/image/weather_icon_cloud.png" style="height:50px;" alt="날씨아이콘">
                 {% endif %}
             </div>
-            {% endif %}
-        {% endfor %}
         </div>
 
         <div class="weather-content middle">
