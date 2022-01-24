@@ -64,3 +64,19 @@ class ReviewDAO:
               "from review r " \
               "where r.rv_ref =" + rev_num + ";"
         return dbc.select(sql)
+
+
+    @classmethod
+    def selectRefPageReview(cls,ref_page,limit,rev_num) -> 'ReviewDAO':
+        sql = "select r.* " \
+              "from review r " \
+              "where r.rv_ref =" + rev_num + \
+              " LIMIT " + str((ref_page - 1) * limit) + "," + str(limit) + ";"
+        return dbc.select(sql)
+
+    @classmethod
+    def selectRefReviewCount(cls, rev_num) -> 'ReviewDAO':
+        sql = "select count(*) " \
+              "from review r " \
+              "where r.rv_ref =" + rev_num + ";"
+        return dbc.select(sql)

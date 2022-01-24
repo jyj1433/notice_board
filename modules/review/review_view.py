@@ -1,6 +1,6 @@
 import math
 
-from flask import Blueprint, render_template, request, redirect, flash, session
+from flask import Blueprint, render_template, request, redirect, flash, session, jsonify
 import modules.review.reviewDAO as reviewDAO
 import modules.nickname_select as nickname_select
 
@@ -75,9 +75,31 @@ def review_pagenation(board_code,kind):
     return review_page
 
 def ref_review(rev_num):
-    ref_rev = dao.selectRefReview(str(rev_num))
-    ref_len = len(ref_rev)
-    ref_list = [ref_rev,ref_len]
+    ref_list = ref_review_pagenation(str(rev_num),1)
     return ref_list
+
+@bp.route("/review_ajax", methods=['GET', 'POST'])
+def ref_review_ajax():
+    rev_num = request.form['ref']
+    rev_page = int(request.form['ref_page'])
+    ref_rev = ref_review_pagenation(rev_num,rev_page)
+    return jsonify(ref_rev=ref_rev)
+
+def ref_review_pagenation(review_code,ref_page):
+
+    limit = 1  # 보여지는 댓글 갯수
+
+    re = dao.selectRefPageReview(ref_page, limit,review_code)
+    full = dao.selectRefReviewCount(review_code)
+
+    tot_count = full[0][0]
+    last_page_num = math.ceil(tot_count / limit)  # 반드시 올림을 해줘야함
+
+    block_size = 5  # 페이지 블럭을 5개씩 표기
+    block_num = int((ref_page - 1) / block_size)  # 현재 블럭의 위치 (첫 번째 블럭이라면, block_num = 0)
+    block_start = (block_size * block_num) + 1  # 현재 블럭의 맨 처음 페이지 넘버 (첫 번째 블럭이라면, block_start = 1, 두 번째 블럭이라면, block_start = 6)
+    block_end = block_start + (block_size - 1)  # 현재 블럭의 맨 끝 페이지 넘버 (첫 번째 블럭이라면, block_end = 5)
+    review_page =[ref_page,limit,re,tot_count,last_page_num,block_size,block_num,block_start,block_end]
+    return review_page
 
 

@@ -17,24 +17,38 @@
             <ul>
                 <li class="menu">
                     {% set ref = r[1]|ref_rev %}
-                    <review class="ref_button">답글&nbsp<string style="font-weight:bold;">{{ref[1]}}</string></review>
+                    <review class="ref_button" id="{{r[1]}}">답글&nbsp<string style="font-weight:bold;">{{ref[3]}}</string></review>
                     <ul class="hide" style="margin-left:25px; width:95%;">
-                        <br>
-                        <li>
-                            {% for ref in ref[0] %}
-                            <div>
-                                <b>{{ref[0]}}</b><br>
-                                <span>&nbsp&nbsp&nbsp{{ref[3]}}</span><br>
-                                <span class="review-date">{{ref[4]}}</span>
-                                {% if session.get('id') == r[2] %}
-                                    <i class="fas fa-times float-right"
-                                    style="color:red; cursor:pointer; position:relative; left:12px;"
-                                    onclick="review_del({{ref[1]}})">
-                                    </i>
-                                {% endif %}
-                                <hr>
+                        <br class="br">
+                        <li class="ref_li">
+                            <div class="ref_div">
                             </div>
-                            {% endfor %}
+                            <div class="text-center">
+                                    <ul class="pagination pagination-sm my" style="justify-content: center">
+                                    {% if ref[7] - 1 > 0 %}
+                                        <li class="page-item" id="pageGo" data-page="{{ref[7]-1}}"><a class="page-link">< 뒤로</a></li>
+                                    {% endif %}
+
+                                    {% for i in range(ref[7], ref[8] + 1)%}
+                                    <!-- 데이터가 존재하지 않는 페이지는 화면에 나타내지 않기 위한 조건문 -->
+                                    {% if i > ref[4] %}
+
+                                    {% else %}
+                                        {% if i == ref[0] %}
+                                            <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
+                                        {% else %}
+                                            <li class="page-item" id="pageGo" data-page="{{i}}"><a class="page-link">{{ i }}</a></li>
+                                        {% endif %}
+                                    {% endif %}
+                                    {% endfor %}
+
+                                    {% if ref[8] < ref[4] %}
+                                        <li class="page-item" id="pageGo" data-page="{{ref[8]+1}}"><a class="page-link">다음 ></a></li>
+                                    {% endif %}
+                                </ul>
+                                <br>
+                            </div>
+
                             <form method="post" action="/review_write?idx={{result[0][1]}}&page={{page}}&reviewpage={{reviewpage[4]}}">
                                 <div style="padding:5px; width:100%; height:90px; background-color:#ffefef;">
                                     <textarea name="review_content" style="width:50%; margin-bottom:10px; resize:none; height:100%; vertical-align:middle;"></textarea>
@@ -102,11 +116,77 @@ function review_del(data){
 
 <script>
 
+function range(m,n){
+return Array.from(Array(n - m).keys()).map(v=>v+m).map(v=>v);
+}
+
+
+function dateFormat(date) {
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        let hour = date.getHours();
+        let minute = date.getMinutes();
+        let second = date.getSeconds();
+
+        month = month >= 10 ? month : '0' + month;
+        day = day >= 10 ? day : '0' + day;
+        hour = hour >= 10 ? hour : '0' + hour;
+        minute = minute >= 10 ? minute : '0' + minute;
+        second = second >= 10 ? second : '0' + second;
+
+        return date.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
+}
+
+
+function page_nation(review){
+
+var pageHtml = ''
+var rev = review[7] -1
+if(review[7] -1 > 0){
+pageHtml += '<li class="page-item" id="pageGo" data-page ="' + rev + '"><a class="page-link">< 뒤로</a></li>'
+}
+
+var range_for = range(review[7],review[8]+1)
+
+for( i in range(review[7],review[8]+1)){
+
+    if( range_for[i] > review[4] ){}
+    else
+    {
+     if( range_for[i] == review[0]){
+     pageHtml += '<li class="page-item active"><a class="page-link" href="#">'+ range_for[i] +'</a></li>'
+     }
+     else{
+     pageHtml += '<li class="page-item" id="pageGo" data-page="' + range_for[i] + '"><a class="page-link">' + range_for[i] + '</a></li>'
+     }
+    }
+}
+
+var next = review[8] + 1
+
+if(review[8]< review[4]){
+pageHtml += '<li class="page-item" id="pageGo" data-page="' + next + '" ><a class="page-link">다음 ></a></li>'
+}
+return pageHtml;
+}
+
+
 // html dom 이 다 로딩된 후 실행된다.
 $(document).ready(function(){
+
+    var page = 1;
+    var mid = "{{ session.get("id")}}"
+
+
+
+
     // menu 클래스 바로 하위에 있는 a 태그를 클릭했을때
     $(".menu>review").click(function(){
         var submenu = $(this).next("ul");
+        var div = submenu.children("li").children(".ref_div");
+        var ref_id = $(this).attr('id');
+        pageAjax(div,ref_id,mid,page);
+
 
         // submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
         if( submenu.is(":visible") ){
@@ -115,8 +195,61 @@ $(document).ready(function(){
         else{
             submenu.slideDown();
         }
+
+
     });
+
+        $(document).on("click","#pageGo",function(){
+	    page = $(this).attr("data-page");
+	    div=$(this).parent().parent().prev();
+	    ref_id = $(this).parent().parent().parent().parent().prev().attr('id');
+		var page_rev = pageAjax(div,ref_id,mid,page);
+		var pageHtml = page_nation(page_rev);
+		$(this).parent().html(pageHtml);
+        });
+
 });
+
+
+function pageAjax(div,review_id,mid,page){
+        var formData = new FormData();
+        formData.append('ref',review_id);
+        formData.append('ref_page',page);
+        var return_ajax;
+        $.ajax({
+            type: 'POST',
+            url:'/review_ajax',
+            data:formData,
+            contentType: false,
+            processData: false,
+            async: false,
+            success: function(data){
+            var innerHtml = '';
+            var i = 1;
+            return_ajax = data.ref_rev;
+            var ref = data.ref_rev[2];
+            for(value in data.ref_rev[2]){
+                innerHtml += '<b>'+ref[value][0]+'</b><br>'+
+                                '<span>&nbsp&nbsp&nbsp'+ref[value][3]+'</span><br>'+
+                                '<span class="review-date">'+ dateFormat(new Date(ref[value][4])) +'</span>';
+                if(mid == ref[value][2]){
+                innerHtml +=  '<i class="fas fa-times float-right" style="color:red; cursor:pointer; position:relative; left:12px;" onclick="review_del('+ref[value][1]+')">'
+                             +'</i>';
+                }
+                innerHtml += '<hr>';
+            }
+            div.html(innerHtml);
+            },
+            error:function(error){
+            alert('오류'+error);
+            }
+
+        });
+return return_ajax
+}
+</script>
+
+<script>
 
 </script>
 
