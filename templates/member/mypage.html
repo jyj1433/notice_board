@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container">
+<div class="mypage-container">
     <div class="mypage-column">
         <div class="mypage-group">
+            <form action="http://{{1|admin}}:5000/upload_prof_img" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="{{info[0][0]}}">
+                <input type="hidden" name="url" value="{{request.url|safe}}">
             <div class="mypage-header">프로필</div>
             <div class="mypage-content">
                 {% if not info[0][4] %}
@@ -10,24 +13,17 @@
                 {% else %}
                     <img src="http://{{1|admin}}:5000/static/{{info[0][4]}}" width="120" height="120">
                 {% endif %}
-                <br>
                 <dt class="content-info">닉네임 </dt>
                 <dd class="content-value">{{info[0][3]}}</dd>
                 <dt class="content-info">이메일 </dt>
                 <dd class="content-value">{{info[0][2]}}</dd>
+                <input type="file" onchange="form.submit()" class="prof_img_btn" name="prof_img">
             </div>
-            <form action="http://{{1|admin}}:5000/upload_prof_img" method="post" enctype="multipart/form-data">
-                <button type="submit" class="btn btn-primary">프로필 이미지 적용</button>
-                <input type="file" name="prof_img">
-                <input type="hidden" name="id" value="{{info[0][0]}}">
-                <input type="hidden" name="url" value="{{request.url|safe}}">
-                <br><br>
-            </form>
-
             <div class="mypage-bottom">
-                <a href="/member_modify">회원수정</a> |
+                <a href="/member_modify">회원수정</a>&nbsp|&nbsp
                 <a href="/member_delete">탈퇴</a>
             </div>
+            </form>
         </div>
         <div class="mypage-group">
             <div class="mypage-header">내가 쓴 최신글</div>

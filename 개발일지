@@ -207,9 +207,13 @@ base.css 내용 대량 추가 - 로그인 등에서 사용하는 input textbox �
 2022년 1월 24일
 
 날씨 데이터 가져오는 방식 List 대거 수정
-기존 방식:
-리스트 한개에 리스트들을 넣어서 for문으로 하나씩 불러와 TMP, SKY, PTY 검사
+* 기존 방식:
+ 리스트 한개에 리스트들을 넣어서 for문으로 하나씩 불러와 TMP, SKY, PTY 검사
+* 수정한 방식:
+ TMP와 SKY/PTY 리스트 분리, PTY가 존재하면 SKY 리스트에 덮어씌움
 
-수정한 방식:
-TMP와 SKY/PTY 리스트 분리, PTY가 존재하면 SKY 리스트에 덮어씌움
-
+slides.js 수정
+- 코드 축소, 함수 이름/구조 변경
+- currentSlides 함수에 기능 집중, 다른 함수가 currentSlides를 호출하는 방식
+- element변수 전역변수로 교체
+- 좌우 indicator 눌렀을 때 dot 강조가 비정상적으로 적용되는 버그 수정됨

@@ -166,6 +166,7 @@ def upload_prof_img():
             flash("이미지 등록이 완료되었습니다.")
 
         else:
+            url = request.form['url']  # hidden input으로 가져온 값 - 접속한 유저의 ip
             flash("등록된 이미지가 없습니다.")
 
         return redirect(url)

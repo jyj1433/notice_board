@@ -2,7 +2,7 @@
 {% block content %}
 <div class="container my-3">
 
-    <div style="float:left; width:50%;">
+    <div style="float:left; width:700px;">
     <form action="/join" method="post">
 
         <label class="login-logo join">SIGN UP</label><br>
@@ -11,14 +11,14 @@
             <input class="login-text join" type="text" id="usr_id" name="usr_id"
                    value="{{request.form.usr_id}}" placeholder="아이디" autocomplete="off">
             {% if error_id %}
-            &nbsp {{ error_id }}
+            <label style="float:right">{{ error_id }}</label>
             {% endif %}
         </div>
         <div class="form-group">
             <input class="login-text join" type="password" id="usr_pw" name="usr_pw"
                    placeholder="비밀번호">
             {% if error %}
-            &nbsp {{ error }}
+            <label style="float:right">{{ error }}</label>
             {% endif %}
         </div>
         <div class="form-group">
@@ -41,10 +41,6 @@
         <div class="join-text-background pw_cf"></div>
         <div class="join-text-background nickname"></div>
         <div class="join-text-background email"></div>
-    </div>
-
-    <div style="float:right; width:50%;">
-        <img src="static/image/notarobot.jpg">
     </div>
 
 

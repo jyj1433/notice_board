@@ -43,11 +43,11 @@ def index():
         }
     )
 
-    hourList1 = []  # 현재 예보
-    hourList2 = []  # 1시간 후 예보
     tomorrowList = []  # 내일 예보 (최저기온, 최고기온)
     todayList = []  # 오늘 예보 (최저기온, 최고기온)
     columnList = []  # 임시 저장 리스트
+    skyList = []
+    tmpList = []
 
     try:
         response = requests.get(xmlUrl + queryParams, timeout=5).text.encode('utf-8') # API 호출 및 응답 - 5초 타임아웃 걸려있음
