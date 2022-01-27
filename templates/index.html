@@ -74,22 +74,22 @@
 
         <div class="weather-content middle" style="min-height:120px;">
 
-            <div class="weather-group"><span class="temperature-logo">{{tmp[5]}}°</span></div>
+            <div class="weather-group"><span class="temperature-logo">{{tmp[6]}}°</span></div>
 
             <div class="weather-group middle">
-                {% if sky[5] == '비' %}
+                {% if sky[6] == '비' %}
                     <img src="static/image/rain_icon.png" alt="날씨아이콘">
                 {% endif %}
-                {% if sky[5] == '눈' %}
+                {% if sky[6] == '눈' %}
                     <img src="static/image/snowfall_icon.png" alt="날씨아이콘">
                 {% endif %}
-                {% if sky[5] == '구름많음' %}
+                {% if sky[6] == '구름많음' %}
                     <img src="static/image/cloud-sun_icon.png" alt="날씨아이콘">
                 {% endif %}
-                {% if sky[5] == '맑음' %}
+                {% if sky[6] == '맑음' %}
                     <img src="static/image/sunny_icon.png" alt="날씨아이콘">
                 {% endif %}
-                {% if sky[5] == '흐림' %}
+                {% if sky[6] == '흐림' %}
                     <img src="static/image/cloud_icon.png" alt="날씨아이콘">
                 {% endif %}
             </div>
@@ -97,11 +97,11 @@
 
         <div class="weather-content middle">
             {% for r in today %}
-                {% if r[2] == 'TMP' %}
-                <div class="weather-group">오늘&nbsp&nbsp 최저 : {{r[5]}}°&nbsp&nbsp&nbsp</div>
+                {% if r[3] == 'TMP' %}
+                <div class="weather-group">오늘&nbsp&nbsp 최저 : {{r[6]}}°&nbsp&nbsp&nbsp</div>
                 {% else %}
-                    {% if r[2] == 'TMX' %}
-                    <div class="weather-group">최고 : {{r[5]}}°</div>
+                    {% if r[3] == 'TMX1' %}
+                    <div class="weather-group">최고 : {{r[6]}}°</div>
                     {% endif %}
                 {% endif %}
             {% endfor %}
@@ -109,11 +109,11 @@
 
         <div class="weather-content middle">
             {% for r in tomorrow %}
-                {% if r[2] == 'TMN' %}
-                <div class="weather-group">내일&nbsp&nbsp 최저 : {{r[5]}}°&nbsp&nbsp&nbsp</div>
+                {% if r[3] == 'TMN2' %}
+                <div class="weather-group">내일&nbsp&nbsp 최저 : {{r[6]}}°&nbsp&nbsp&nbsp</div>
                 {% else %}
-                    {% if r[2] == 'TMX' %}
-                    <div class="weather-group">최고 : {{r[5]}}°</div>
+                    {% if r[3] == 'TMX2' %}
+                    <div class="weather-group">최고 : {{r[6]}}°</div>
                     {% endif %}
                 {% endif %}
             {% endfor %}
