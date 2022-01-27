@@ -70,28 +70,32 @@ def board_write():
         flash("로그인 해주세요")
         return redirect("/board")
 
+    try:
 
-    if request.method == 'POST':
-        nickname = nickname_select.selectNickname(id)
-        title = request.form['b_title']
-        content = request.form['b_content']
-        author = request.form['id']
-        if title == '':
-            error = "제목을 입력해주세요"
-        elif content == '':
-            error = "내용을 입력해주세요"
-        elif request.files['b_file'].filename != '':
-            file = request.files['b_file']
-            file_name = 'upload/' + file.filename
-            dao.insertBoardfile(nickname, title, content, author, file_name)
-            flash("글이 작성되었습니다.")
-            return redirect('/board')
-        else:
-            dao.insertBoard(nickname, title, content, author)
-            flash("글이 작성되었습니다.")
-            return redirect('/board')
-        flash(error)
-    return render_template('board/board_write.html', title="글쓰기", config=config, id=id)
+        if request.method == 'POST':
+            nickname = nickname_select.selectNickname(id)
+            title = request.form['b_title']
+            content = request.form['b_content']
+            author = request.form['id']
+            if title == '':
+                error = "제목을 입력해주세요"
+            elif content == '':
+                error = "내용을 입력해주세요"
+            elif request.files['b_file'].filename != '':
+                file = request.files['b_file']
+                file_name = 'upload/' + file.filename
+                dao.insertBoardfile(nickname, title, content, author, file_name)
+                flash("글이 작성되었습니다.")
+                return redirect('/board')
+            else:
+                dao.insertBoard(nickname, title, content, author)
+                flash("글이 작성되었습니다.")
+                return redirect('/board')
+            flash(error)
+        return render_template('board/board_write.html', title="글쓰기", config=config, id=id)
+
+    except:
+        flash("글자 수 제한을 넘었습니다")
 
 # 게시글 삭제하기
 @bp.route("/delete", methods=['GET'])

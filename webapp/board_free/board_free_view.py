@@ -66,21 +66,28 @@ def board_free_write():
     if session.get('check') != True:
         flash("로그인 해주세요")
         return redirect("/board_free")
-    if request.method == 'POST':
-        title = request.form['bf_title']
-        content = request.form['bf_content']
-        author = session.get('id')
-        nickname = nickname_select.selectNickname(author)
-        if title == '':
-            error = "제목을 입력해주세요"
-        elif content == '':
-            error = "내용을 입력해주세요"
-        else:
-            dao.insertBoard(nickname, title, content, author)
-            flash("글이 작성되었습니다.")
-            return redirect('/board_free')
-        flash(error)
-    return render_template('board_free/board_free_write.html', title="글쓰기" , config = config.host)
+
+    try:
+
+        if request.method == 'POST':
+            title = request.form['bf_title']
+            content = request.form['bf_content']
+            author = session.get('id')
+            nickname = nickname_select.selectNickname(author)
+            if title == '':
+                error = "제목을 입력해주세요"
+            elif content == '':
+                error = "내용을 입력해주세요"
+            else:
+                dao.insertBoard(nickname, title, content, author)
+                flash("글이 작성되었습니다.")
+                return redirect('/board_free')
+            flash(error)
+        return render_template('board_free/board_free_write.html', title="글쓰기" , config = config.host)
+
+    except:
+        flash("글자 수 제한을 넘었습니다")
+
 
 # 게시글 삭제하기
 @bp.route("/board_free_delete", methods=['GET'])

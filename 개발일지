@@ -217,3 +217,11 @@ slides.js 수정
 - currentSlides 함수에 기능 집중, 다른 함수가 currentSlides를 호출하는 방식
 - element변수 전역변수로 교체
 - 좌우 indicator 눌렀을 때 dot 강조가 비정상적으로 적용되는 버그 수정됨
+
+
+#25
+2022년 1월 27일
+
+flask 웹 프로젝트 마무리 작업
+- 게시판 작성시 제목 / 회원가입시 닉네임 글자수 제한 적용
+
