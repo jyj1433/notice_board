@@ -68,6 +68,7 @@
 <div class="weather-container">
     <div class="weather-content">
         <label class="weather-logo">WeatherCast</label>
+        <div class="weather-date">{{1|nowdate}}</div>
     </div>
 
     {% if tmp[0] %}
@@ -118,7 +119,6 @@
                 {% endif %}
             {% endfor %}
         </div>
-
     {% else %}
         <label class="weather-error">날씨 데이터를 불러오지 못했습니다.</label>
     {% endif %}

@@ -45,8 +45,8 @@ def format_datetime(value):
 
     return resurt.seconds/60
 
-def nowdate():
-    return datetime.date().now()
+def nowdate(r):
+    return datetime.date(datetime.now())
 
 def setConfig(r):
     return config.host

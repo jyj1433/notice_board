@@ -292,6 +292,11 @@ tbody.custom {
     letter-spacing:1px;
 }
 
+.weather-date{
+    padding: 10px 10px 0px 0px;
+    float: right;
+}
+
 /* 답글 버튼 스타일 */
 .ref_button{
     background-color:white;

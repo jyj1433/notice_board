@@ -154,6 +154,7 @@ def index():
             dao.updateWeatherUp(today)  # 업데이트 여부 업데이트
 
             weather_total = dao.selectWeather()
+            # 날씨 정보 조회(DB)
             rowsLen = len(weather_total)
             for i in range(0, rowsLen):
                 columnsLen = len(weather_total[0])  # 주의! - DB에 num컬럼이 추가로 들어가있음 (api 8컬럼, DB 9컬럼)
