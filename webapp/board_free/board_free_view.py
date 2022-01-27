@@ -33,9 +33,9 @@ def board_free():
         if search_option == "opt_title":
             option = "bf_title"
         elif search_option == "opt_author":
-            option = "bf_author"
+            option = "bf_nickname"
         else:
-            option = "concat(bf_title, bf_author)"
+            option = "concat(bf_title, bf_nickname)"
 
         re = dao.selectBoardSearchPage(page, limit, search_keyword, option)
         full = dao.selectBoardSearchCount(search_keyword, option)  # 게시물의 총 개수 세기, 마지막 페이지의 수 구하기
@@ -95,9 +95,14 @@ def board_free_delete():
     board_code = request.args.get('idx')
     re = dao.selectBoardDetail(board_code)
     page = request.args.get('page')
-    if session.get('id') != re[0][5]:
+
+    if session.get('id') != re[0][5] and session.get('id') != "root":
         flash("글 작성자 만이 삭제가능합니다.")
         return redirect('/board_free_get?idx='+board_code +'&page=' + page)
+    elif re[0][5] == None and session.get('id') != "root":
+        flash("글 작성자 만이 삭제가능합니다.")
+        return redirect('/board_free_get?idx='+board_code +'&page=' + page)
+
     dao.deleteBoard(board_code)
     dao.deleteReviewCascade(board_code, 'b02')
     flash("글이 삭제되었습니다")
@@ -110,9 +115,10 @@ def board_free_modify():
     re = dao.selectBoardDetail(board_code)
     page = request.args.get('page')
 
-    if session.get('id') != re[0][5]:
+    if session.get('id') != re[0][5] or re[0][5] == None:
         flash("글 작성자 만이 수정가능합니다.")
-        return redirect('/board_free_get?idx='+board_code+'&page=' + page)
+        return redirect('/board_free_get?idx='+board_code +'&page=' + page)
+
     if request.method == 'POST':
         title = request.form['bf_title']
         content = request.form['bf_content']

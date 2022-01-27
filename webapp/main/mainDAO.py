@@ -67,5 +67,4 @@ class MainDAO(reviewDAO.ReviewDAO):
               'set w_precast = "' + date + \
               '", w_cast = "' + date + \
               '" where w_cate = "' + str('UP') + '";'
-        print(sql)
         dbc.execute(sql)

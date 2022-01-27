@@ -59,7 +59,7 @@ footer {
 }
 
 .area_user {
-    flex: 4;
+    flex: 2;
     line-height: 2em; /* 줄간격 */
 }
 
@@ -82,7 +82,7 @@ footer {
 
 .area_user_row ul > li {
     display: inline-block; /* li 수평정렬하는 방법 */
-    margin-left: 8px;
+    margin-left: 20px;
 }
 
 .area_col {

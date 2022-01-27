@@ -10,30 +10,45 @@ dao = memberDAO.MemberDAO
 def join_post():
     error = None
     error_id = None
+    error_email = None
+    error_nickname = None
+    error_pw_com = None
+
     if request.method == 'POST':
         id = request.form['usr_id']
         pw = request.form['usr_pw']
         pw_com = request.form['usr_pw_com']
         email = request.form['usr_email']
         nickname = request.form['usr_nick']
-        if pw == '':
-            error = "비밀번호를 입력하세요"
-        elif pw != pw_com:
-            error = "비밀번호가 다릅니다."
         if id == '':
             error_id = "아이디를 입력하세요"
+        elif pw == '':
+            error = "비밀번호를 입력하세요"
+        elif pw_com == '':
+            error_pw_com = "비밀번호 확인을 입력하세요"
+        elif pw != pw_com:
+            error = "입력한 비밀번호와 확인이 다릅니다"
+        elif email == '':
+            error_email = "이메일을 입력하세요"
+        elif nickname == '':
+            error_nickname = "닉네임을 입력하세요"
         else:
-            usr_id = dao.selectUserId()
+            usr_id = dao.selectUserIdEmail()
             for idx in usr_id:
                 if idx[0] == id:
                     error_id = "아이디가 중복되었습니다."
+                elif idx[1] == email:
+                    error_email = "이메일이 중복되었습니다."
 
-        if error == None and error_id == None:
+        if error == None and error_id == None and error_email == None and error_pw_com == None and error_nickname == None:
             memberlist = [id, pw, email, nickname, ""]
             dao.insertMember(memberlist)
             flash("회원가입 성공")
             return redirect('/')
-    return render_template('member/join.html', title="회원가입", error=error, error_id=error_id)
+    return render_template('member/join.html', title="회원가입",
+                           error=error, error_id=error_id,
+                           error_email=error_email, error_nickname=error_nickname,
+                           error_pw_com=error_pw_com)
 
 # 로그인
 @bp.route('/login',methods=['GET','POST'])

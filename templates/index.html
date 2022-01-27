@@ -41,7 +41,7 @@
     <div style="width: 40%; float: left; padding: 5px; height:400px; padding-top:5px;">
       <label class="boardAll-logo">게시판 최신글</label>
       <table class="table table-hover" style="line-height:normal;">
-        <tbody class="custom">
+        <tbody class="boardAll-custom">
         {% for r in result %}
         <tr>
             <td onClick="location.href='{{url_for('.main_get', idx=r[0], caption=r[3])}}'" style="width:20%;">{{r[3]}}</td>

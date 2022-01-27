@@ -130,14 +130,14 @@ $(document).ready(function(){
 
 
     });
-
+        // 답글 페이지네이션
         $(document).on("click","#pageGo",function(){
 	    page = $(this).attr("data-page");
 	    div=$(this).parent().parent().prev();
 	    ref_id = $(this).parent().parent().parent().parent().prev().attr('id');
-		var page_rev = pageAjax(div,ref_id,mid,page);
-		var pageHtml = page_nation(page_rev);
-		$(this).parent().html(pageHtml);
+		var page_rev = pageAjax(div,ref_id,mid,page); // Ajax 불러오는 코드
+		var pageHtml = page_nation(page_rev); // 페이지네이션 불러오는 코드
+		$(this).parent().html(pageHtml); // html에 추가해주는 코드
         });
 
 });
