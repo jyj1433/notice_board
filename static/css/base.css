@@ -301,3 +301,15 @@ tbody.custom {
     color:black;
     cursor:pointer;
 }
+
+.board_num{
+    width:8%
+}
+
+.board_title{
+    width:60%
+}
+
+.board_data{
+    width:15%
+}
