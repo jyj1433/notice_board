@@ -66,29 +66,35 @@ def board_dev_write():
     if session.get('check') != True:
         flash("로그인 해주세요")
         return redirect("/board_dev")
-    if request.method == 'POST':
-        title = request.form['bd_title']
-        content = request.form['bd_content']
-        author = session.get('id')
-        nickname = nickname_select.selectNickname(author)
-        if title == '':
-            error = "제목을 입력해주세요"
 
-        elif content == '':
-            error = "내용을 입력해주세요"
+    try:
 
-        elif request.files['bd_file'].filename != '':
-            file = request.files['bd_file']
-            file_name = 'upload/' + file.filename
-            dao.insertBoardfile(nickname, title, content, author, file_name)
-            flash("글이 작성되었습니다.")
-            return redirect('/board_dev')
-        else:
-            dao.insertBoard(nickname, title, content, author)
-            flash("글이 작성되었습니다.")
-            return redirect('/board_dev')
-        flash(error)
-    return render_template('board_dev/board_dev_write.html', title="글쓰기", config=config.host)
+        if request.method == 'POST':
+            title = request.form['bd_title']
+            content = request.form['bd_content']
+            author = session.get('id')
+            nickname = nickname_select.selectNickname(author)
+            if title == '':
+                error = "제목을 입력해주세요"
+
+            elif content == '':
+                error = "내용을 입력해주세요"
+
+            elif request.files['bd_file'].filename != '':
+                file = request.files['bd_file']
+                file_name = 'upload/' + file.filename
+                dao.insertBoardfile(nickname, title, content, author, file_name)
+                flash("글이 작성되었습니다.")
+                return redirect('/board_dev')
+            else:
+                dao.insertBoard(nickname, title, content, author)
+                flash("글이 작성되었습니다.")
+                return redirect('/board_dev')
+            flash(error)
+        return render_template('board_dev/board_dev_write.html', title="글쓰기", config=config.host)
+
+    except:
+        flash("글자 수 제한을 넘었습니다")
 
 # 게시글 삭제하기
 @bp.route("/board_dev_delete", methods=['GET'])

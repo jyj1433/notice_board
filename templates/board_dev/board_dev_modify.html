@@ -4,7 +4,7 @@
 <div class="container my-3">
     <form method="POST" action="/board_dev_modify?idx={{result[0][1]}}&page={{page}}">
         제목<br>
-        <input type="text" value="{{result[0][2]}}" name="bd_title"><br>
+        <input type="text" value="{{result[0][2]}}" name="bd_title" style="width:40%;" maxlength="30" placeholder="제목 30글자 이내"><br>
         작성자<br>
         <input type="text" value="{{result[0][5]}}" name="bd_author" readonly><br>
         내용<br>

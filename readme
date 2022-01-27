@@ -1,0 +1,5 @@
+notice_board (프로젝트 폴더)
+
+notice_board/upload = 게시판 글에 첨부된 파일
+
+notice_board/static/image/upload = 게시판 글쓰기를 통해 summernote 내부에 업로드된 이미지
