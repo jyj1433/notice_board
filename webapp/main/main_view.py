@@ -53,7 +53,7 @@ def index():
     rainList = []  # 강수 상태 리스트(임시리스트)
 
     update_com = dao.selectWeatherUp()  # 업데이트 row 조회
-    if update_com[0][1] == today:
+    if update_com[0][1] == today or (update_com[0][1] != today and int(time_now_time) <= 400):
         weather_total = dao.selectWeather()
         rowsLen = len(weather_total)
         for i in range(0, rowsLen):
@@ -141,11 +141,47 @@ def index():
             for i in range(0, rowsLen):
                 if rainList[i][5] != '없음':
                     skyList[i][5] = rainList[i][5]
-                if skyList[3] == today or (skyList[3] == tomorrow and int(skyList[4]) < 600):
+                    columnsLen = len(skyList[0])
+
+                for j in range(0, columnsLen):
+                    eachColumn = skyList[i][j]
+                    columnList.append(eachColumn)
+
+                if columnList[3] == today or (columnList[3] == tomorrow and int(columnList[4]) < 600):
                     dao.updateWeather(columnList)
 
+                columnList = []  # 다음 row의 값을 넣기 위해 비워준다
             dao.updateWeatherUp(today)  # 업데이트 여부 업데이트
-            return redirect('/')
+
+            weather_total = dao.selectWeather()
+            rowsLen = len(weather_total)
+            for i in range(0, rowsLen):
+                columnsLen = len(weather_total[0])  # 주의! - DB에 num컬럼이 추가로 들어가있음 (api 8컬럼, DB 9컬럼)
+                for j in range(0, columnsLen):
+                    eachColumn = weather_total[i][j]
+                    columnList.append(eachColumn)
+
+                if columnList[4] == time_now_date and columnList[5] == time_now_time:
+                    if columnList[3] == "TMP":
+                        tmpList = columnList
+                    if columnList[3] == "SKY":
+                        skyList = columnList
+
+                # 오늘 최저, 최고 기온 (오늘 최저 기온의 경우 'TMN-최저기온'으로 안넘겨주기에 'TMP-현재기온'이 06시에 예보된 기온을 가져옴, 'TMN-최저기온' 예보시간이 06시임)
+                if (columnList[4] == today and columnList[3] == 'TMX1') or (
+                        columnList[4] == today and columnList[3] == 'TMP' and columnList[5] == '0600'):
+                    splited = columnList[6].split('.')
+                    columnList[6] = splited[0]
+                    todayList.append(columnList)
+
+                # 내일 최저, 최고 기온
+                if (columnList[4] == tomorrow and columnList[3] == 'TMX2') or (
+                        columnList[4] == tomorrow and columnList[3] == 'TMN2'):
+                    splited = columnList[6].split('.')
+                    columnList[6] = splited[0]
+                    tomorrowList.append(columnList)
+
+                columnList = []  # 다음 row의 값을 넣기 위해 비워준다
         except:
             print("업데이트에 실패하였습니다.")
 
