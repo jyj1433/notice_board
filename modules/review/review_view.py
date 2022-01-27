@@ -57,6 +57,7 @@ def review_delete():
     dao.deleteReview(rv_num)
     return redirect(current_url)
 
+# 댓글 페이지네이션
 def review_pagenation(board_code,kind):
     reviewpage = request.args.get('reviewpage', type=int, default=1)  # 페이지
     limit = 5  # 보여지는 댓글 갯수
@@ -74,10 +75,13 @@ def review_pagenation(board_code,kind):
     review_page =[reviewpage,limit,re,tot_count,last_page_num,block_size,block_num,block_start,block_end]
     return review_page
 
+# 대댓글 읽기
 def ref_review(rev_num):
     ref_list = ref_review_pagenation(str(rev_num),1)
     return ref_list
 
+
+# 대댓글 뿌려주기
 @bp.route("/review_ajax", methods=['GET', 'POST'])
 def ref_review_ajax():
     rev_num = request.form['ref']
@@ -85,9 +89,11 @@ def ref_review_ajax():
     ref_rev = ref_review_pagenation(rev_num,rev_page)
     return jsonify(ref_rev=ref_rev)
 
+
+# 대댓글 페이지네이션
 def ref_review_pagenation(review_code,ref_page):
 
-    limit = 1  # 보여지는 댓글 갯수
+    limit = 5  # 보여지는 댓글 갯수
 
     re = dao.selectRefPageReview(ref_page, limit,review_code)
     full = dao.selectRefReviewCount(review_code)
