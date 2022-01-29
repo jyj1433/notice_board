@@ -45,15 +45,15 @@
                                 {% if i == page %}
                                     <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
                                 {% elif search != "" %}
-                                    <li class="page-item"><a class="page-link" href="{{url_for('.admin', page=i, search=search, search_select=opt)}}">{{ i }}</a></li>
+                                    <li class="page-item"><a class="page-link" href="{{url_for('.admin', page=i, dumped_board_page=dumped_board_list[0], search=search, search_select=opt)}}">{{ i }}</a></li>
                                 {% else %}
-                                    <li class="page-item"><a class="page-link" href="{{url_for('.admin', page=i)}}">{{ i }}</a></li>
+                                    <li class="page-item"><a class="page-link" href="{{url_for('.admin', page=i, dumped_board_page=dumped_board_list[0])}}">{{ i }}</a></li>
                                 {% endif %}
                             {% endif %}
                         {% endfor %}
 
                         {% if block_end < last_page_num %}
-                            <li class="page-item"><a class="page-link" href="{{url_for('.admin', page=block_end + 1)}}">Next</a></li>
+                            <li class="page-item"><a class="page-link" href="{{url_for('.admin', page=block_end + 1, dumped_board_page=dumped_board_list[0])}}">Next</a></li>
                         {% endif %}
                         </ul>
                     </div>
@@ -68,15 +68,65 @@
     </div>
 
     <div class="mypage-column">
-        <div class="mypage-group">
-            <div class="mypage-header">monga mongaim</div>
+
+        <div class="mypage-group" style="height:700px;">
+            <div class="mypage-header">탈퇴한 회원의 글 관리</div>
+            <div class="mypage-content">
+                <div style="height:35px;"></div>
+                <form action="/del_dumped_board" method="post">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="thead-dark">
+                                <th>제목</th><th>닉네임</th><th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for d in dumped_board_list[2] %}
+                            <tr>
+                                <td>{{d[1]}}</td>
+                                <td>{{d[2]}}</td>
+                                <td><input type="checkbox" name="check" value="{{d[0]}},{{d[5]}}"></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+
+                    </table>
+
+                    <!-- 페이지네이션을 위한 코드 시작 -->
+                    <!-- dumped_board_list = [page, limit, dumped_board, full, tot_count, last_page_num, block_size, block_num, block_start, block_end] -->
+                    <div class="text-center">
+                        <ul class="pagination" style="justify-content: center">
+                        {% if dumped_board_list[8] - 1 > 0 %}
+                            <li class="page-item"><a class="page-link" href="{{url_for('.admin', page=page, dumped_board_page=dumped_board_list[8] - 1)}}">Previous</a></li>
+                        {% endif %}
+
+                        {% for i in range(dumped_board_list[8], dumped_board_list[9] + 1)%}
+                        <!-- 데이터가 존재하지 않는 페이지는 화면에 나타내지 않기 위한 조건문 -->
+                            {% if i > dumped_board_list[5] %}
+
+                            {% else %}
+                                {% if i == dumped_board_list[0] %}
+                                    <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
+                                {% else %}
+                                    <li class="page-item"><a class="page-link" href="{{url_for('.admin', page=page, dumped_board_page=i)}}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if dumped_board_list[9] < dumped_board_list[5] %}
+                            <li class="page-item"><a class="page-link" href="{{url_for('.admin', page=page, dumped_board_page=dumped_board_list[9] + 1)}}">Next</a></li>
+                        {% endif %}
+                        </ul>
+                    </div>
+                    <!-- 페이지네이션을 위한 코드 끝 -->
+
+                    <button class="btn btn-danger" type="submit" style="width:80px; font-weight:bold; float:right;">누르지마시오</button>
+                </form>
+            </div>
 
         </div>
 
-        <div class="mypage-group">
-            <div class="mypage-header">몬가 몬가임</div>
 
-        </div>
     </div>
 
 

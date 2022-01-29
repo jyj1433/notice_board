@@ -239,4 +239,8 @@ flask 웹 프로젝트 마무리 작업
 #26
 2022년 1월 29일
 
-modules에 있는 nickname_select
+공용 뷰 함수와 DAO를 작성할 common 디렉터리 생성
+common_view, commonDAO 추가
+modules에 있던 nickname_select를 commonDAO에 포함.
+main_view에 있던 file업로드, summernote 이미지 삽입 관련된
+뷰 함수들을 common_view로 이동

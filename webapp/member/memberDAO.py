@@ -5,8 +5,8 @@ dbc = dbc.db_conn()
 class MemberDAO:
 
     @classmethod
-    def selectUserIdEmail(cls) -> 'MemberDAO':
-        sql = 'select usr_id, usr_email from users;'
+    def selectUserIdEmailNcikname(cls) -> 'MemberDAO':
+        sql = 'select usr_id, usr_email, usr_name from users;'
         return dbc.select(sql)
 
     @classmethod

@@ -33,12 +33,14 @@ def join_post():
         elif nickname == '':
             error_nickname = "닉네임을 입력하세요"
         else:
-            usr_id = dao.selectUserIdEmail()
+            usr_id = dao.selectUserIdEmailNcikname()
             for idx in usr_id:
                 if idx[0] == id:
                     error_id = "아이디가 중복되었습니다."
                 elif idx[1] == email:
                     error_email = "이메일이 중복되었습니다."
+                elif idx[2] == nickname:
+                    error_nickname = "닉네임이 중복되었습니다."
 
         if error == None and error_id == None and error_email == None and error_pw_com == None and error_nickname == None:
             memberlist = [id, pw, email, nickname, ""]
