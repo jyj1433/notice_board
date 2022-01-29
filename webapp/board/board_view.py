@@ -74,7 +74,7 @@ def board_write():
             nickname = commonDAO.selectNickname(id)
             title = request.form['b_title']
             content = request.form['b_content']
-            content = content.replace(config ,"{{config}}")
+            content = content.replace(config,"{{config}}")
             author = request.form['id']
             if title == '':
                 error = "제목을 입력해주세요"
@@ -129,6 +129,7 @@ def modify():
     if request.method == 'POST':
         title = request.form['b_title']
         content = request.form['b_content']
+        content = content.replace(config, "{{config}}")
         author = request.form['b_author']
         if title == '':
             error = "제목을 입력해주세요"

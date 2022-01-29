@@ -131,6 +131,7 @@ def board_dev_modify():
     if request.method == 'POST':
         title = request.form['bd_title']
         content = request.form['bd_content']
+        content = content.replace(config, "{{config}}")
         author = request.form['bd_author']
         if title == '':
             error = "제목을 입력해주세요"
