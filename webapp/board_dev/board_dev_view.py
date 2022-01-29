@@ -4,6 +4,7 @@ import config
 import webapp.board_dev.board_devDAO as board_devDAO
 import modules.review.review_view as review_view
 import webapp.common.commonDAO as commonDAO
+from modules import replace_image
 
 bp = Blueprint("board_dev", __name__, url_prefix='/')
 dao = board_devDAO.Board_devDAO
@@ -15,6 +16,7 @@ def board_dev_get():
     board_code = request.args.get('idx')
     page = request.args.get('page')
     re = dao.selectBoardDetail(board_code)
+    re = replace_image.replace(re)
     review = review_view.review_pagenation(board_code,'b03')
     return render_template('board_dev/board_dev_result.html', result=re, title="게시판", page=page, config=config.host,reviewpage=review,idx=board_code, kind=".board_dev_get")
 
@@ -119,6 +121,7 @@ def board_dev_delete():
 def board_dev_modify():
     board_code = request.args.get('idx')
     re = dao.selectBoardDetail(board_code)
+    re = replace_image.replace(re)
     page = request.args.get('page')
 
     if session.get('id') != re[0][5] or re[0][5] == None:

@@ -40,7 +40,7 @@
         <tr>
             <td onClick="location.href='{{url_for('.get', idx=r[1], page=page)}}'">{{1+tot_count - (loop.index + (page-1) * limit)}}</td>
             <td onClick="location.href='{{url_for('.get', idx=r[1], page=page)}}'">{{r[2]}}
-            {% if 1440 >= r[7]|datetime >= 1439  or  r[7]|datetime < 360 %}
+            {% if r[7]|datetime < 360 %}
                 <i><img src="{{ url_for('static', filename='image/new_sample1.PNG') }}" style="max-width:10px; max-height:10px;position:relative; top:-2px;"></i>
             {% endif %}
             </td>

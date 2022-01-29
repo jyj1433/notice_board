@@ -8,6 +8,8 @@ from urllib.parse import urlencode, quote_plus, unquote
 from lxml import html
 import datetime
 
+from modules import replace_image
+
 bp = Blueprint("main", __name__, url_prefix='/')
 dao = mainDAO.MainDAO
 config = config.host
@@ -184,7 +186,7 @@ def index():
                 columnList = []  # 다음 row의 값을 넣기 위해 비워준다
         except:
             print("업데이트에 실패하였습니다.")
-    return render_template('index.html', title="index", result=re, today=todayList, tomorrow=tomorrowList, sky=skyList, tmp=tmpList)
+    return render_template('index.html', title="index", result=re, today=todayList, tomorrow=tomorrowList, sky=skyList, tmp=tmpList, test="{{1|admin}}")
 
 # 게시글 상세보기
 @bp.route("/main_get", methods=['GET'])
@@ -195,11 +197,13 @@ def main_get():
     if caption == "자유게시판":
         review = review_view.review_pagenation(board_code, 'b02')
         re = dao.selectBoardDetailFree(board_code)
+        re = replace_image.replace(re)
         return render_template('board_free/board_free_result.html', result=re, title="게시판", page=1, reviewpage=review,
                                idx=board_code, kind=".board_free_get")
 
     elif caption == "개발일지":
         review = review_view.review_pagenation(board_code, 'b03')
         re = dao.selectBoardDetailDev(board_code)
+        re = replace_image.replace(re)
         return render_template('board_dev/board_dev_result.html', result=re, title="게시판", page=1, reviewpage=review,
                                idx=board_code, kind=".board_dev_get")

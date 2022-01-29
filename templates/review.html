@@ -6,7 +6,7 @@
             <span>&nbsp&nbsp&nbsp{{r[3]}}</span><br>
             <span class="review-date">{{r[4]}}</span>
             <br>
-            {% if 1440 >= r[4]|datetime >= 1439  or  r[4]|datetime < 360 %}
+            {% if r[4]|datetime < 360 %}
             <c class="float-right" id="new" style="top:-53px; left:10px; position:relative; color:orange;"><img src="{{ url_for('static', filename='image/new_sample2.PNG') }}" style="max-width:10px; max-height:20px;position:relative; left:-10px"></c>
             {% if session.get('id') == r[2] %}
             <i class="fas fa-times float-right"

@@ -42,9 +42,10 @@ def format_datetime(value):
     date = datetime.now()
 
     resurt = date - value
-    if(resurt.days != 0):
-        return 3600
-
+    if(resurt.days != 0 and resurt.days != -1 ):
+        return resurt.days
+    elif(resurt.days == -1):
+        return 1
     return resurt.seconds/60
 
 def nowdate(r):
