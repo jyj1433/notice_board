@@ -1,12 +1,13 @@
-from flask import Blueprint, render_template, request, redirect, flash, session, jsonify
+from flask import Blueprint, render_template, request, redirect, flash, session
 import math
 import config
 import webapp.board.boardDAO as boardDAO
 import modules.review.review_view as review_view
-import modules.nickname_select as nickname_select
+import webapp.common.commonDAO as commonDAO
 
 bp = Blueprint("board", __name__, url_prefix='/')
 dao = boardDAO.BoardDAO
+commonDAO = commonDAO.CommonDAO
 config = config.host
 
 # 게시글 상세보기
@@ -73,7 +74,7 @@ def board_write():
     try:
 
         if request.method == 'POST':
-            nickname = nickname_select.selectNickname(id)
+            nickname = commonDAO.selectNickname(id)
             title = request.form['b_title']
             content = request.form['b_content']
             author = request.form['id']
@@ -143,20 +144,3 @@ def modify():
             return redirect('/get?idx='+board_code+'&page='+page)
         return error
     return render_template('board/board_modify.html', title="글쓰기", result=re, page=page,config=config)
-
-
-@bp.route("/addImgSummer", methods=["POST"])
-def addImgSummer():
-    #Grabbing file:
-    img = request.files["file"]    #<------ THIS LINE RIGHT HERE! Is #literally all I needed lol.
-    # Below is me replacing the img "src" with my S3 bucket link attached, with the said filename that was added.
-    imgURL = 'http://' + config +':5000/static/image/upload/' + img.filename
-    return jsonify(url=imgURL)
-
-@bp.route("/imageDown", methods=["POST"])
-def imageDown():
-    img = request.files["file"]
-    img.save('static/image/upload/'+img.filename)
-    imgURL = 'http://' + config + ':5000/static/image/upload/' + img.filename
-    return jsonify(url=imgURL)
-

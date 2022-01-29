@@ -25,6 +25,7 @@ from webapp.main import main_view
 from modules.review import review_view
 from webapp.admin import admin_view
 from webapp.playground import playground_view
+from webapp.common import  common_view
 
 
 app.register_blueprint(board_view.bp)
@@ -35,6 +36,7 @@ app.register_blueprint(main_view.bp)
 app.register_blueprint(review_view.bp)
 app.register_blueprint(admin_view.bp)
 app.register_blueprint(playground_view.bp)
+app.register_blueprint(common_view.bp)
 
 def format_datetime(value):
     date = datetime.now()

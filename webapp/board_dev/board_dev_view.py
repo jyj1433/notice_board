@@ -3,10 +3,11 @@ import math
 import config
 import webapp.board_dev.board_devDAO as board_devDAO
 import modules.review.review_view as review_view
-import modules.nickname_select as nickname_select
+import webapp.common.commonDAO as commonDAO
 
 bp = Blueprint("board_dev", __name__, url_prefix='/')
 dao = board_devDAO.Board_devDAO
+commonDAO = commonDAO.CommonDAO
 
 # 게시글 상세보기
 @bp.route("/board_dev_get", methods=['GET'])
@@ -73,7 +74,7 @@ def board_dev_write():
             title = request.form['bd_title']
             content = request.form['bd_content']
             author = session.get('id')
-            nickname = nickname_select.selectNickname(author)
+            nickname = commonDAO.selectNickname(author)
             if title == '':
                 error = "제목을 입력해주세요"
 

@@ -3,10 +3,11 @@ import math
 import config
 import webapp.board_free.board_freeDAO as board_freeDAO
 import modules.review.review_view as review_view
-import modules.nickname_select as nickname_select
+import webapp.common.commonDAO as commonDAO
 
 bp = Blueprint("board_free", __name__, url_prefix='/')
 dao = board_freeDAO.Board_freeDAO
+commonDAO = commonDAO.CommonDAO
 
 # 게시글 상세보기
 @bp.route("/board_free_get", methods=['GET'])
@@ -73,7 +74,7 @@ def board_free_write():
             title = request.form['bf_title']
             content = request.form['bf_content']
             author = session.get('id')
-            nickname = nickname_select.selectNickname(author)
+            nickname = commonDAO.selectNickname(author)
             if title == '':
                 error = "제목을 입력해주세요"
             elif content == '':

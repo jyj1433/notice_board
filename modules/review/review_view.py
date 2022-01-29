@@ -1,11 +1,13 @@
 import math
 
-from flask import Blueprint, render_template, request, redirect, flash, session, jsonify
+from flask import Blueprint, request, redirect, flash, session, jsonify
 import modules.review.reviewDAO as reviewDAO
-import modules.nickname_select as nickname_select
+import webapp.common.commonDAO as commonDAO
+
 
 bp = Blueprint("review", __name__, url_prefix='/')
 dao = reviewDAO.ReviewDAO
+commonDAO = commonDAO.CommonDAO
 
 # 댓글 쓰기
 @bp.route("/review_write", methods=['GET', 'POST'])
@@ -37,7 +39,7 @@ def review_write():
             return redirect('/board_dev_get?idx=' + board_code + '&page=' + page)
 
     # 로그인이 되어있을 경우 - 댓글 작성 성공
-    nickname = nickname_select.selectNickname(id)
+    nickname = commonDAO.selectNickname(id)
     dao.insertReview(nickname, board_code, review_content, kind, id, review_ref)
     if kind == 'b01':
         return redirect('/get?idx=' + board_code + '&page=' + page + '&reviewpage=' + review_page)
