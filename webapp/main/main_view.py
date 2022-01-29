@@ -1,7 +1,6 @@
-from flask import Blueprint, render_template, request, send_file, redirect
+from flask import Blueprint, render_template, request
 import config
 import webapp.main.mainDAO as mainDAO
-import os
 import modules.review.review_view as review_view
 import requests, bs4
 from urllib.parse import urlencode, quote_plus, unquote

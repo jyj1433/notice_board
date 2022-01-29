@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, send_file, redirect, jsonify
+from flask import Blueprint, render_template, request, send_file, jsonify
 import config
 import webapp.common.commonDAO as commonDAO
 import os
