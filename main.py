@@ -41,7 +41,7 @@ def format_datetime(value):
 
     resurt = date - value
     if(resurt.days != 0 and resurt.days != -1 ):
-        return resurt.days
+        return 3600
     elif(resurt.days == -1):
         return 1
     return resurt.seconds/60
