@@ -83,7 +83,7 @@ def board_free_write():
                 flash("글이 작성되었습니다.")
                 return redirect('/board_free')
             flash(error)
-        return render_template('board_free/board_free_write.html', title="글쓰기" , config = config.host)
+        return render_template('board_free/board_free_write.html', title="글쓰기", config=config.host)
     except:
         flash("글자 수 제한을 넘었습니다")
 
@@ -130,10 +130,10 @@ def board_free_modify():
         elif content == '':
             error = "내용을 입력해주세요"
         else:
-            dao.updateBoard(board_code,title, content)
+            dao.updateBoard(board_code, title, content)
             flash("글이 수정되었습니다.")
             return redirect('/board_free_get?idx='+board_code+'&page='+page)
         return error
-    return render_template('board_free/board_free_modify.html', title="글쓰기", result=re,page=page,config=config.host)
+    return render_template('board_free/board_free_modify.html', title="글쓰기", result=re, page=page, config=config.host)
 
 
