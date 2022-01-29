@@ -7,11 +7,9 @@
 # 블루프린트 레지스터 관리
 #
 ###################################
-from flask import Flask, render_template, request
-import requests
+from flask import Flask
 from datetime import datetime
 import config
-from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 app.secret_key = 'secretkey'

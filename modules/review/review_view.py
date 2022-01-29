@@ -1,5 +1,4 @@
 import math
-
 from flask import Blueprint, request, redirect, flash, session, jsonify
 import modules.review.reviewDAO as reviewDAO
 import webapp.common.commonDAO as commonDAO
