@@ -16,7 +16,6 @@ def board_free_get():
     page = request.args.get('page')
     re = dao.selectBoardDetail(board_code)
     review = review_view.review_pagenation(board_code,'b02')
-
     return render_template('board_free/board_free_result.html', result=re, title="게시판", page=page, reviewpage=review, idx=board_code, kind=".board_free_get")
 
 # 게시판 목록
@@ -48,7 +47,6 @@ def board_free():
     block_num = int((page - 1) / block_size)    # 현재 블럭의 위치 (첫 번째 블럭이라면, block_num = 0)
     block_start = (block_size * block_num) + 1  # 현재 블럭의 맨 처음 페이지 넘버 (첫 번째 블럭이라면, block_start = 1, 두 번째 블럭이라면, block_start = 6)
     block_end = block_start + (block_size - 1)  # 현재 블럭의 맨 끝 페이지 넘버 (첫 번째 블럭이라면, block_end = 5)
-
     title = "자유게시판 " + str(page) + "p"
 
     return render_template('board_free/board_free.html', result=re, title=title, search=search_keyword, opt=search_option,
@@ -69,7 +67,6 @@ def board_free_write():
         return redirect("/board_free")
 
     try:
-
         if request.method == 'POST':
             title = request.form['bf_title']
             content = request.form['bf_content']
@@ -85,10 +82,8 @@ def board_free_write():
                 return redirect('/board_free')
             flash(error)
         return render_template('board_free/board_free_write.html', title="글쓰기" , config = config.host)
-
     except:
         flash("글자 수 제한을 넘었습니다")
-
 
 # 게시글 삭제하기
 @bp.route("/board_free_delete", methods=['GET'])

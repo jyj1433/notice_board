@@ -17,7 +17,6 @@ config = config.host
 def index():
     re = dao.selectBoardAll()  # 게시판 최신글
 
-    # 날짜, 시간
     today = datetime.date.today()  # 오늘 날짜 (년월일)
     tomorrow = str(today + datetime.timedelta(days=1))  # 내일 날짜 (년월일)
     tomorrow = ''.join(tomorrow.split('-'))  # '-' 하이푼 제거 후 병합
@@ -185,7 +184,6 @@ def index():
                 columnList = []  # 다음 row의 값을 넣기 위해 비워준다
         except:
             print("업데이트에 실패하였습니다.")
-
     return render_template('index.html', title="index", result=re, today=todayList, tomorrow=tomorrowList, sky=skyList, tmp=tmpList)
 
 # 게시글 상세보기

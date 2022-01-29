@@ -16,7 +16,6 @@ def board_dev_get():
     page = request.args.get('page')
     re = dao.selectBoardDetail(board_code)
     review = review_view.review_pagenation(board_code,'b03')
-
     return render_template('board_dev/board_dev_result.html', result=re, title="게시판", page=page, config=config.host,reviewpage=review,idx=board_code, kind=".board_dev_get")
 
 # 게시판 목록
@@ -69,7 +68,6 @@ def board_dev_write():
         return redirect("/board_dev")
 
     try:
-
         if request.method == 'POST':
             title = request.form['bd_title']
             content = request.form['bd_content']

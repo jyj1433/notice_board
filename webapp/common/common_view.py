@@ -15,7 +15,6 @@ def filetest():
         return render_template('index.html', title="index")
     return render_template('fileTest.html', title="파일테스트")
 
-
 @bp.route('/fileDown', methods=['GET', 'POST'])
 def down_file():
     if request.method == 'POST':
@@ -30,7 +29,6 @@ def down_file():
                          attachment_filename=request.form['file'],
                          as_attachment=True)
 
-
 @bp.route("/addImgSummer", methods=["POST"])
 def addImgSummer():
     #Grabbing file:
@@ -38,7 +36,6 @@ def addImgSummer():
     # Below is me replacing the img "src" with my S3 bucket link attached, with the said filename that was added.
     imgURL = 'http://' + config +':5000/static/image/upload/' + img.filename
     return jsonify(url=imgURL)
-
 
 @bp.route("/imageDown", methods=["POST"])
 def imageDown():

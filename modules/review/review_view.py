@@ -21,12 +21,10 @@ def review_write():
     if review_page == '0':
         review_page = '1'
 
-
     # post로 가져온 값들
     kind = request.form.get('kind')  # 게시판 종류
     review_content = request.form.get('review_content')  # 댓글 내용
     review_ref = request.form.get('ref_review') # 대댓글추가
-
 
     if session.get('check') != True:
         flash("로그인 해주세요")
@@ -74,14 +72,13 @@ def review_pagenation(board_code,kind):
     block_num = int((reviewpage - 1) / block_size)  # 현재 블럭의 위치 (첫 번째 블럭이라면, block_num = 0)
     block_start = (block_size * block_num) + 1  # 현재 블럭의 맨 처음 페이지 넘버 (첫 번째 블럭이라면, block_start = 1, 두 번째 블럭이라면, block_start = 6)
     block_end = block_start + (block_size - 1)  # 현재 블럭의 맨 끝 페이지 넘버 (첫 번째 블럭이라면, block_end = 5)
-    review_page =[reviewpage,limit,re,tot_count,last_page_num,block_size,block_num,block_start,block_end]
+    review_page = [reviewpage, limit, re, tot_count, last_page_num, block_size, block_num, block_start, block_end]
     return review_page
 
 # 대댓글 읽기
 def ref_review(rev_num):
     ref_list = ref_review_pagenation(str(rev_num),1)
     return ref_list
-
 
 # 대댓글 뿌려주기
 @bp.route("/review_ajax", methods=['GET', 'POST'])
@@ -91,10 +88,8 @@ def ref_review_ajax():
     ref_rev = ref_review_pagenation(rev_num,rev_page)
     return jsonify(ref_rev=ref_rev)
 
-
 # 대댓글 페이지네이션
 def ref_review_pagenation(review_code,ref_page):
-
     limit = 5  # 보여지는 댓글 갯수
 
     re = dao.selectRefPageReview(ref_page, limit,review_code)
@@ -107,7 +102,7 @@ def ref_review_pagenation(review_code,ref_page):
     block_num = int((ref_page - 1) / block_size)  # 현재 블럭의 위치 (첫 번째 블럭이라면, block_num = 0)
     block_start = (block_size * block_num) + 1  # 현재 블럭의 맨 처음 페이지 넘버 (첫 번째 블럭이라면, block_start = 1, 두 번째 블럭이라면, block_start = 6)
     block_end = block_start + (block_size - 1)  # 현재 블럭의 맨 끝 페이지 넘버 (첫 번째 블럭이라면, block_end = 5)
-    review_page =[ref_page,limit,re,tot_count,last_page_num,block_size,block_num,block_start,block_end]
+    review_page = [ref_page, limit, re, tot_count, last_page_num, block_size, block_num, block_start, block_end]
     return review_page
 
 
