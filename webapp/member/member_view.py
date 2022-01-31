@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, flash, session, escape
 import webapp.member.memberDAO as memberDAO
 import modules.review.review_view as review_view
+from modules import replace_image
 
 bp = Blueprint("member", __name__, url_prefix='/')
 dao = memberDAO.MemberDAO
@@ -154,11 +155,18 @@ def mypage_get():
     if caption == "자유게시판":
         review = review_view.review_pagenation(board_code, 'b02')
         re = dao.selectBoardDetailFree(board_code)
+        re = replace_image.replace(re)
         return render_template('board_free/board_free_result.html', result=re, title="게시판", page=1, reviewpage=review, idx=board_code, kind=".board_free_get")
     elif caption == "개발일지":
         review = review_view.review_pagenation(board_code, 'b03')
         re = dao.selectBoardDetailDev(board_code)
+        re = replace_image.replace(re)
         return render_template('board_dev/board_dev_result.html', result=re, title="게시판", page=1,  reviewpage=review, idx=board_code, kind=".board_dev_get")
+    elif caption == "게시판":
+        review = review_view.review_pagenation(board_code, 'b01')
+        re = dao.selectBoardDetail(board_code)
+        re = replace_image.replace(re)
+        return render_template('board/board_result.html', result=re, title="게시판", page=1,  reviewpage=review, idx=board_code, kind=".board_get")
 
 # 마이페이지 프로필 이미지 업로드
 @bp.route('/upload_prof_img', methods=['GET', 'POST'])

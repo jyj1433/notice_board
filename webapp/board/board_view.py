@@ -16,6 +16,17 @@ config = config.host
 def get():
     board_code = request.args.get('idx')
     page = request.args.get('page')
+    list_value = []
+    list_test= [["list|kind"],["list2|kind"],["List|app"]]
+    list_kind_value = []
+    list_app_value = []
+    for x in list_test:
+        list_value.append(x[0].split("|"))
+    for x in list_value:
+        if(x[1] == "kind"):
+            list_kind_value.append(x[0])
+        else:
+            list_app_value.append(x[0])
     re = dao.selectBoardDetail(board_code)
     re = replace_image.replace(re)
     review = review_view.review_pagenation(board_code, 'b01')
