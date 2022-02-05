@@ -34,7 +34,7 @@ def addImgSummer():
     #Grabbing file:
     img = request.files["file"]    #<------ THIS LINE RIGHT HERE! Is #literally all I needed lol.
     # Below is me replacing the img "src" with my S3 bucket link attached, with the said filename that was added.
-    imgURL = 'http://{{1|admin}}:5000/static/image/upload/' + img.filename
+    imgURL = 'http://' + config + ':5000/static/image/upload/' + img.filename
     return jsonify(url=imgURL)
 
 @bp.route("/imageDown", methods=["POST"])

@@ -244,3 +244,11 @@ common_view, commonDAO 추가
 modules에 있던 nickname_select를 commonDAO에 포함.
 main_view에 있던 file업로드, summernote 이미지 삽입 관련된
 뷰 함수들을 common_view로 이동
+
+관리자 페이지에서 탈퇴한 회원의 글 관리하는 기능 추가
+admin 뷰와 html 수정됨.
+mypage에서 내가 쓴 글/댓글 눌렀을 때 board게시판에 링크가
+걸려있지 않은 부분 수정
+최신 글에 new 아이콘이 뜨지않는 버그 수정
+
+flask 웹 프로젝트 1차 마무리 - 시즌1 종료

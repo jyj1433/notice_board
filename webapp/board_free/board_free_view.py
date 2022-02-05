@@ -121,7 +121,7 @@ def board_free_modify():
     if request.method == 'POST':
         title = request.form['bf_title']
         content = request.form['bf_content']
-        content = content.replace(config, "{{config}}")
+        content = content.replace(config.host, "{{config}}")
         author = request.form['bf_author']
         if title == '':
             error = "제목을 입력해주세요"
